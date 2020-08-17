@@ -6,10 +6,11 @@ Author: Edward M Fagan
 """
 
 import os
-from numpy import loadtxt, ceil
+from numpy import loadtxt, ceil, array
 import copy
 from .MapParametersIn import readInputs
 from .MapParametersOut import writeOutputs, sumMats, sumTotals
+from .PartDecomposition import ScalingVariables, AssemblyScaling
 
 
 class component:
@@ -239,20 +240,19 @@ class ProductionStep:
         self.consumables = None
 
 
-class CompManuCost:
+class Manufacture:
     
-    def __init__(self, directory, csvFileRange, inputFile=''):
+    def __init__(self, directory, inputFile=''):
         """ 
         Import the material, production and construction parameters
         """
         self.directory = directory
-        self.CSVloc = "\\CSV Files\\"
-        self.extraCSV = "Input Range\\"+csvFileRange+"\\"
-        dirInputDatabases = "\\Input Databases\\"
-        dirOutputDatabases = "\\Output Databases\\"
+        self.CSVloc = "CSV Files\\"
+        self.dirInputDatabases = "\\Input Databases\\"
+        self.dirOutputDatabases = "\\Output Databases\\"
         
         try:
-            os.mkdir(directory+dirOutputDatabases+csvFileRange)
+            os.mkdir(self.directory+self.dirOutputDatabases)
         except FileExistsError:
             pass
         
@@ -261,12 +261,12 @@ class CompManuCost:
             # Default manufacturing inputs database name
             inputFile = "AP4inputVars"
         
-        AP4inputVars = dirInputDatabases + inputFile + ".xml"
-        consVariables = dirInputDatabases + "constructionVariablesDatabase.xml"
-        productionVariables = dirInputDatabases + "productionVariablesDatabase.xml"
-        productionMethods = dirInputDatabases + "productionMethodsDatabase.xml"
-        materialVariables = dirInputDatabases + "materialsDatabase.xml"
-        equipmentVariables = dirInputDatabases + "equipmentVariablesDatabase.xml"
+        AP4inputVars = self.dirInputDatabases + inputFile + ".xml"
+        consVariables = self.dirInputDatabases + "constructionVariablesDatabase.xml"
+        productionVariables = self.dirInputDatabases + "productionVariablesDatabase.xml"
+        productionMethods = self.dirInputDatabases + "productionMethodsDatabase.xml"
+        materialVariables = self.dirInputDatabases + "materialsDatabase.xml"
+        equipmentVariables = self.dirInputDatabases + "equipmentVariablesDatabase.xml"
 
         AP4inputVars = self.directory + AP4inputVars
         consVariables = self.directory + consVariables
@@ -391,13 +391,13 @@ class CompManuCost:
     
 
     def scale(self):
-        direct = self.directory + self.CSVloc + self.extraCSV
+        directory = self.directory + self.dirInputDatabases + self.CSVloc
         
         for compList in [self.spars, self.webs, self.skins]:
             for comp in compList:
-                newScalingVariables(comp, direct, self.consInputVars, self.materialVars)
+                ScalingVariables(comp, directory, self.consInputVars, self.materialVars)
     
-        assemblyScaling(self.skins, self.webs, self.wing[0])
+        AssemblyScaling(self.skins, self.webs, self.wing[0])
     
     
     """ 
@@ -435,7 +435,7 @@ class CompManuCost:
 #        equipName = "Balancing equipment and scales"
 #        partName = 'spar1'
         
-        equipVariables = comp1.equipmentVars['capital_equipment'][equipName]
+        equipVariables = self.equipmentVars['capital_equipment'][equipName]
         
         if(equipVariables['floorspace'] == "N/A"):
             floorArea = 0.0
@@ -447,13 +447,13 @@ class CompManuCost:
             
         elif(equipVariables['floorspace'] == "Surface Area"):
             if('wing' in partName):
-                floorArea = comp1.scalingVars[partName][partName]['Surface Area']
+                floorArea = self.scalingVars[partName][partName]['Surface Area']
             else:
                 partType = partName[:-1]
-                floorArea = comp1.scalingVars[partType][partName]['Surface Area']
+                floorArea = self.scalingVars[partType][partName]['Surface Area']
             
         elif(equipVariables['floorspace'] == "wingLen"):
-            length = comp1.consInputVars['external_geometry']['wingLen']
+            length = self.consInputVars['external_geometry']['wingLen']
             width = 2.5
             floorArea = length*width
             
@@ -794,7 +794,7 @@ class CompManuCost:
             typeVal = 'float, float, float'
             columns = [0,1,2]
             
-            cureCycleVals = array([loadtxt(self.directory+self.CSVloc+self.extraCSV+cureFile, dtype=typeVal, delimiter=',', skiprows=1, usecols=columns, unpack=True)])
+            cureCycleVals = array([loadtxt(self.directory+self.dirInputDatabases+self.CSVloc+cureFile, dtype=typeVal, delimiter=',', skiprows=1, usecols=columns, unpack=True)])
             
             processHours = sum(cureCycleVals[0,1])
             
