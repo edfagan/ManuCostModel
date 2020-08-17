@@ -403,7 +403,7 @@ class Manufacture:
     """ 
     Calculates the annual portion of depreciation for a piece of equipment
     """
-    def Depr(self, equipName):
+    def depr(self, equipName):
         equipVariables = self.equipmentVars['capital_equipment'][equipName]
         
         purchaseVal = equipVariables['purchase cost']
@@ -920,7 +920,7 @@ class Manufacture:
             else:
                 
                 # Calculate the annual depreciation of each piece of equipment
-                annualDepr = self.Depr(equipVal)
+                annualDepr = self.depr(equipVal)
                 
                 # Determine the portion of annual equipment cost incldued in each part
                 if equipVal not in list(self.commonEquipment.keys()):
