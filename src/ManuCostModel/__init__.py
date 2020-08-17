@@ -1,1 +1,1 @@
-from . import DataVis, LaminateSizing, ManuCostModel, MapParametersIn, MapParametersOut, PartDecomposition
+from . import DataVis, LaminateSizing, CostModel, MapParametersIn, MapParametersOut, PartDecomposition

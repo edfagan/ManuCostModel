@@ -8,8 +8,8 @@ Author: Edward M Fagan
 import os
 from numpy import loadtxt, ceil
 import copy
-from MapParametersIn import readInputs
-from MapParametersOut import writeOutputs, sumMats, sumTotals
+from .MapParametersIn import readInputs
+from .MapParametersOut import writeOutputs, sumMats, sumTotals
 
 
 class component:
