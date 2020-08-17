@@ -462,34 +462,26 @@ def writeOutputs1(outFileName, model):
             mat2 = ET.SubElement(matSummaryMass, "parameter")
             mat2.set('name', materialVal)
             mat2.text = form(sum(model.consumableMassBreakdown.values()))
-                
-
-#    
-#    materialsList = checkSet
-#    
-#
-#    
-#    # Output the labour results of the cost model
-#    labOut = ET.SubElement(outFile, 'Labour')
-#    
-#    # Include a summary of labour hours and costs
-#    labSummary = ET.SubElement(labOut, 'summary')
-#    labCostSummary = ET.SubElement(labSummary, 'costs')
-#    labCostSummary.set('units', 'euro')
-#    labHoursSummary = ET.SubElement(labSummary, 'hours')
-#    labHoursSummary.set('units', 'hours')
-#    
-#    for labourVal in labourHoursBreakdown:
-#        sumHoursValue = sum(labourHoursBreakdown[labourVal].values())
-#        sumCostValue = sum(labourCostBreakdown[labourVal].values())
-#    
-#        lab1 = ET.SubElement(labHoursSummary, "parameter")
-#        lab1.set('name', labourVal)
-#        lab1.text = form(sumHoursValue)
-#        
-#        lab2 = ET.SubElement(labCostSummary, "parameter")
-#        lab2.set('name', labourVal)
-#        lab2.text = form(sumCostValue)
+    
+    # Output the labour results of the cost model
+    labOut = ET.SubElement(outFile, 'Labour')
+    
+    # Include a summary of labour hours and costs
+    labSummary = ET.SubElement(labOut, 'summary')
+    labCostSummary = ET.SubElement(labSummary, 'costs')
+    labCostSummary.set('units', 'euro')
+    labHoursSummary = ET.SubElement(labSummary, 'hours')
+    labHoursSummary.set('units', 'hours')
+    
+    for labourVal in model.labourHoursBreakdown.keys():
+    
+        lab1 = ET.SubElement(labHoursSummary, "parameter")
+        lab1.set('name', labourVal)
+        lab1.text = form(model.labourHoursBreakdown[labourVal])
+        
+        lab2 = ET.SubElement(labCostSummary, "parameter")
+        lab2.set('name', labourVal)
+        lab2.text = form(model.labourCostBreakdown[labourVal])
 #    
 #    # Breakdown of the individual component labour hours and costs
 #    for labType in labourHoursBreakdown.keys():
@@ -517,7 +509,30 @@ def writeOutputs1(outFileName, model):
 #                labVal2.set('units', 'euro')
 #                labVal2.text = form(labourCostBreakdown[labType][labResult])
     
-
+    # Output the equipment results of the cost model
+    equipOut = ET.SubElement(outFile, 'Equipment')
+    
+    # Include a summary of equipment costs
+    equipSummary = ET.SubElement(equipOut, 'summary')
+    equipCostSummary = ET.SubElement(equipSummary, 'costs')
+    equipCostSummary.set('units', 'euro')
+    
+    for equipVal in model.equipmentCostBreakdown.keys():
+        
+        equip1 = ET.SubElement(equipCostSummary, "parameter")
+        equip1.set('name', equipVal)
+        equip1.text = form( model.equipmentCostBreakdown[equipVal])
+    
+    # Build the element tree
+    tree = ET.ElementTree(outFile)
+    root = tree.getroot()
+    
+    # Convert to a formatted string
+    xmlstr = md.parseString(ET.tostring(root)).toprettyxml(indent="   ")
+    
+    # Write to the output file
+    with open(outFileName,'w') as outf:
+        outf.write(xmlstr)
 
 
 if(__name__ == "__main__"):
