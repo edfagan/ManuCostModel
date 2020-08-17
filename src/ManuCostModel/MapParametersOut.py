@@ -372,13 +372,159 @@ def writeOutputs(outFileName, ap4Params, materialsCostBreakdown, materialsMassBr
         outf.write(xmlstr)
 
 
+# Write resutls of the analyses to an xml output database
+def writeOutputs1(outFileName, model):
+ 
+    outFile = ET.Element('outputs')
+    outFile.set('model', 'wing cost model results')
+    
+    # Include the high-level summary of the cost model results
+    sumOut = ET.SubElement(outFile, 'Summary')
+    
+    # Total cost of the wing
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'total wing cost')
+    sumVals.set('units', 'euro')
+    sumVals.text = form(model.manufacturingCosts)
+    
+    # Total cost of the materials
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'total material costs')
+    sumVals.set('units', 'euro')
+    sumVals.text = form(model.materialCosts)
+    
+    # Total cost of the labour
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'total labour costs')
+    sumVals.set('units', 'euro')
+    sumVals.text = form(model.labourCosts)
+    
+    # Total cost of the equipment
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'total equipment costs')
+    sumVals.set('units', 'euro')
+    sumVals.text = form(model.equipmentCosts)
+    
+    # Total structural mass of the wing
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'total wing mass')
+    sumVals.set('units', 'kg')
+    sumVals.text = form(model.structureMass)
+    
+    # Unit production cost of the wing
+    sumVals = ET.SubElement(sumOut, "parameter")
+    sumVals.set('name', 'unit production cost')
+    sumVals.set('units', 'euro/kg')
+    sumVals.text = form(model.manufacturingCosts/model.structureMass)
+    
+    # Output the detailed materials results of the cost model
+    matOut = ET.SubElement(outFile, 'Materials')
+    
+    # Create material summary elements
+    matSummary = ET.SubElement(matOut, 'summary')
+    matSummaryMass = ET.SubElement(matSummary, 'mass')
+    matSummaryMass.set('units', 'kg')
+    matSummaryCost = ET.SubElement(matSummary, 'cost')
+    matSummaryCost.set('units', 'euro')
+    
+    # Create a list of all materials present in the wing from the input parameters
+    materialsSet = []
+    checkSet = ['fabric', 'resin', 'hardener', 'prepreg', 'core', 'adhesive', 'coating', 'consumables']
+    for partKey in model.ap4Params.keys():
+        for matKey in model.ap4Params[partKey]:
+            if(matKey in checkSet):
+                materialsSet.append(model.ap4Params[partKey][matKey])
+    
+    materialsSet.append('consumables')
+    
+    materialsSet = set(materialsSet)
+    materialsSet.remove('N/A')
+    
+    # Update summary with totals for each material
+    for materialVal in materialsSet:
+        # Check for consumables before totalling the mass and cost values
+        if(materialVal != 'consumables'):
+            
+            mat1 = ET.SubElement(matSummaryCost, "parameter")
+            mat1.set('name', materialVal)
+            mat1.text = form(model.materialCostBreakdown[materialVal])
+            
+            mat2 = ET.SubElement(matSummaryMass, "parameter")
+            mat2.set('name', materialVal)
+            mat2.text = form(model.materialMassBreakdown[materialVal])
+            
+        elif(materialVal == 'consumables'):
+            
+            mat1 = ET.SubElement(matSummaryCost, "parameter")
+            mat1.set('name', materialVal)
+            mat1.text = form(sum(model.consumableCostBreakdown.values()))
+            
+            mat2 = ET.SubElement(matSummaryMass, "parameter")
+            mat2.set('name', materialVal)
+            mat2.text = form(sum(model.consumableMassBreakdown.values()))
+                
+
+#    
+#    materialsList = checkSet
+#    
+#
+#    
+#    # Output the labour results of the cost model
+#    labOut = ET.SubElement(outFile, 'Labour')
+#    
+#    # Include a summary of labour hours and costs
+#    labSummary = ET.SubElement(labOut, 'summary')
+#    labCostSummary = ET.SubElement(labSummary, 'costs')
+#    labCostSummary.set('units', 'euro')
+#    labHoursSummary = ET.SubElement(labSummary, 'hours')
+#    labHoursSummary.set('units', 'hours')
+#    
+#    for labourVal in labourHoursBreakdown:
+#        sumHoursValue = sum(labourHoursBreakdown[labourVal].values())
+#        sumCostValue = sum(labourCostBreakdown[labourVal].values())
+#    
+#        lab1 = ET.SubElement(labHoursSummary, "parameter")
+#        lab1.set('name', labourVal)
+#        lab1.text = form(sumHoursValue)
+#        
+#        lab2 = ET.SubElement(labCostSummary, "parameter")
+#        lab2.set('name', labourVal)
+#        lab2.text = form(sumCostValue)
+#    
+#    # Breakdown of the individual component labour hours and costs
+#    for labType in labourHoursBreakdown.keys():
+#        # Create a sub-element for the labour category
+#        labElem = ET.SubElement(labOut, "parameter")
+#        labElem.set("name", labType)
+#        # Create a sub-element for the applications
+#        labApp = ET.SubElement(labElem, "application")
+#        
+#        for labResult in labourHoursBreakdown[labType].keys():
+#            
+#            if(labourHoursBreakdown[labType][labResult] > 0.0):
+#                # Create a sub-element for each individual part
+#                labIdvApp = ET.SubElement(labApp, labResult)
+#                
+#                # Add the labour hours
+#                labVal = ET.SubElement(labIdvApp, "property")
+#                labVal.set('name', 'labour hours')
+#                labVal.set('units', 'hr')
+#                labVal.text = form(labourHoursBreakdown[labType][labResult])
+#                
+#                # Add the labour costs
+#                labVal2 = ET.SubElement(labIdvApp, "property")
+#                labVal2.set('name', 'labour costs')
+#                labVal2.set('units', 'euro')
+#                labVal2.text = form(labourCostBreakdown[labType][labResult])
+    
+
 
 
 if(__name__ == "__main__"):
     
     source = 'costOutput.xml'
-    
-    totalCost = costResultxml(source)
-    
-    mapMCMoutputs(totalCost)
+#    
+#    totalCost = costResultxml(source)
+#    
+#    mapMCMoutputs(totalCost)
 
