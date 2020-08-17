@@ -163,7 +163,7 @@ class component:
         
     "Internal class for labour cost related functions and variables"
     class Labour:
-        def __init__(self, numSteps=None):
+        def __init__(self, numSteps=None, activities=None):
             # Make these into dictionaries to capture the values for each step
             if numSteps is None:
                 self.processHours = []
@@ -174,9 +174,20 @@ class component:
                 self.labourHours = self.fillEmpty(numSteps)
                 self.labourCosts = self.fillEmpty(numSteps)
             
+            self.activityCosts = {}
+            self.activityHours = {}
+            
+            if activities is not None:
+                self.activityDict(activities, self.activityCosts)
+                self.activityDict(activities, self.activityHours)
+            
         # Method to populate the dictionaries
         def fillEmpty(self, numSteps):
             return [0.0 for i in range(numSteps)]
+        
+        def activityDict(self, activityLevels, labourDict):
+            for act in activityLevels:
+                labourDict[act] = 0.0
             
         # Method for summing up the results
         def totals(self):
@@ -496,6 +507,7 @@ class Manufacture:
         
         if runLab is True:
             self.labourRun(comp, materialVars, productionVars)
+            self.labourActivity(comp)
         
         if runEquip is True:
             # All the labour calculations have to be done before the number of manufacturing
@@ -533,7 +545,7 @@ class Manufacture:
         
         productSteps = comp.productionSteps
         
-        comp.labour = comp.Labour(len(productSteps))
+        comp.labour = comp.Labour(len(productSteps), activities=self.activityLevels)
         
         # Run through steps in production
         for i, step in enumerate(productSteps):
@@ -808,8 +820,15 @@ class Manufacture:
         comp.labour.processHours[stepNum] = processHours
         comp.labour.labourCosts[stepNum] = cost
         
+    
+    def labourActivity(self, comp):
         
-        
+        for i, stepName in enumerate(comp.productionSteps):
+            activityName = stepName.activity
+            comp.labour.activityCosts[activityName] += comp.labour.labourCosts[i]   
+            comp.labour.activityHours[activityName] += comp.labour.labourHours[i] 
+            
+                
 #        if('ATL' in labourVars[1] or 'AFP' in labourVars[1]):
 #            productRate = self.productionVars[productionMethod][labourVars[1]][0] * (self.scalingVars[compType][compName][labourVars[0]])**(self.productionVars[productionMethod][labourVars[1]][1])
 #            processHours = productRate * (compDict['Materials']['Mass']['prepreg'] + compDict['Materials']['Mass Scrap']['prepreg'])
