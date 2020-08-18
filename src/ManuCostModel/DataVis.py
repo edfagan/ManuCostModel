@@ -11,18 +11,20 @@ import matplotlib.pyplot as plt
 
 """ Data visualisation """
 # Convert rgd values to hexadecimal values for the colour code
-def rgb_to_hex(rgb):
-    return '#%02x%02x%02x' % rgb
+def rgb2hex(rgb):
+    newVal = '#%02x%02x%02x' % rgb
+    return newVal
 
 
-def make_patch_spines_invisible(ax):
+def invisiblePatchSpines(ax):
     ax.set_frame_on(True)
     ax.patch.set_visible(False)
-    for sp in ax.spines.values():
-        sp.set_visible(False)
+    
+    for val in ax.spines.values():
+        val.set_visible(False)
 
 # Create a list of colour codes in shades of red, green or blue
-def random_color(colourInp, num_bars, shadedBars):
+def randomColor(colourInp, num_bars, shadedBars):
     
     if(shadedBars is True):
         base = colourInp
@@ -37,11 +39,11 @@ def random_color(colourInp, num_bars, shadedBars):
             chng = 2
         
         segment = int(255/num_bars)
-        colour_list = [rgb_to_hex(tuple(rgbl))]
+        colour_list = [rgb2hex(tuple(rgbl))]
         
         for vals in range(num_bars-1):
             rgbl[chng] = rgbl[chng] - segment
-            colour_list.append(rgb_to_hex(tuple(rgbl)))
+            colour_list.append(rgb2hex(tuple(rgbl)))
             
     else:
         colour_list = []
@@ -54,7 +56,7 @@ def random_color(colourInp, num_bars, shadedBars):
             elif(base=='blue'):
                 rgbl=[0,0,255]
             
-            colour_list.append(rgb_to_hex(tuple(rgbl)))
+            colour_list.append(rgb2hex(tuple(rgbl)))
     
     return colour_list
 
@@ -91,7 +93,7 @@ def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay
                 shadedBars = True
                 colourInp = colourSet[label][x][0]
             
-            colour_list = random_color(colourInp, len(data[label][x]), shadedBars)
+            colour_list = randomColor(colourInp, len(data[label][x]), shadedBars)
             
             patch_handles[label].append([])
             bottom = (0.0) # Bottom alignment of data
@@ -163,7 +165,7 @@ def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay
         ax2 = ax.twiny()
         
         ax2.spines["bottom"].set_position(("axes", -0.15))
-        #make_patch_spines_invisible(ax2)
+        #invisiblePatchSpines(ax2)
         ax2.spines["bottom"].set_visible(True)
         
         ax2.xaxis.set_label_position('bottom')
@@ -245,7 +247,7 @@ if(__name__ == '__main__'):
     pieChart(plotInfo, data, dataLabels)
     
 
-if(__name__ == '__man__'):
+if(__name__ == '__main__'):
     
     # Example plot for visualising the full breakdown of materials, labour and equipment costs for one production method
     plotInfo = [['Material Cost (€)'],
