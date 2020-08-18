@@ -1,0 +1,115 @@
+<inputs model="construction variables database">
+	<general>
+         <parameter name="segments">
+            <property name="name">seg</property>
+			<property name="value" type="double">20.0</property>
+            <property name="description">Number of discrete spanwise segments in the wing</property>
+			<property name="units">-</property>
+			<property name="reference" type="char">Self Defined</property>
+		 </parameter>
+	</general>
+	<external_geometry>
+         <parameter name="wing length">
+            <property name="name">wingLen</property>
+			<property name="value">30.0</property>
+            <property name="description">Wingspan</property>
+			<property name="units">m</property>
+			<property name="reference">AP-4 Parameters List</property>
+		 </parameter>
+		 <parameter name="chord distribution">
+            <property name="name">chordDist</property>
+			<property name="value">Chord.csv</property>
+            <property name="description">Spanwise distribution of the chord length</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="sweep distribution">
+            <property name="name">sweepDist</property>
+			<property name="value">Sweep.csv</property>
+            <property name="description">Spanwise distribution of wing sweep</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="twist distribution">
+			<property name="name">twistDist</property>
+            <property name="value">Twist.csv</property>
+            <property name="description">Spanwise distribution of the twist angle</property>
+			<property name="units">°</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="airfoil distribution">
+			<property name="name">airfoils</property>
+            <property name="value">Airfoils Distribution.csv</property>
+            <property name="description">Spanwise distribution of the airfoil profiles</property>
+			<property name="units">m/c</property>
+			<property name="reference">Input Data.xlsx</property>
+		 </parameter>
+	</external_geometry>
+	<internal_structure>
+         <parameter name="spar width distribution">
+			<property name="name">sparWidth</property>
+            <property name="value">SparLocation.csv</property>
+            <property name="description">Spanwise distribution of the width of the spar caps</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="spar chordwise location">
+            <property name="name">sparLocDist</property>
+			<property name="value">SparLocation.csv</property>
+            <property name="description">Spanwise distribution of the location of each spar</property>
+			<property name="units">m/c</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="web chordwise distribution">
+			<property name="name">webLocDist</property>
+            <property name="value">WebLocation.csv</property>
+            <property name="description">Spanwise distribution of the location of each web</property>
+			<property name="units">m/c</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="spar thickness distribution">
+			<property name="name">sparThick</property>
+            <property name="value">SparThickness.csv</property>
+            <property name="description">Spanwise distribution of the spar cap (UD) laminate thickness</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="web thickness distribution">
+			<property name="name">webThick</property>
+            <property name="value">WebThickness.csv</property>
+            <property name="description">Spanwise distribution of the shear web laminate and core thickness values</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="skin thickness distribution">
+			<property name="name">skinThick</property>
+            <property name="value">SkinThickness.csv</property>
+            <property name="description">Spanwise distribution of the skin laminate and core thickness values</property>
+			<property name="units">mm</property>
+			<property name="reference">AKKA WP1.1.5 Output</property>
+		 </parameter>
+		 <parameter name="coating thickness">
+			<property name="name">coatThick</property>
+            <property name="value">1.5</property>
+            <property name="description">Thickness of the wing surface coating(s) (assumed constant)</property>
+			<property name="units">mm</property>
+			<property name="reference">Self Defined</property>
+		 </parameter>
+		 <parameter name="skin panel core fraction">
+			<property name="name">skinPanelFraction</property>
+            <property name="value">PanelWithoutCore.csv</property>
+            <property name="description">Fraction of the panel length that is not a sandwich construction</property>
+			<property name="units">-</property>
+			<property name="reference">Input Data.xlsx</property>
+		 </parameter>
+		 <parameter name="web panel core fraction">
+			<property name="name">webPanelFraction</property>
+            <property name="value">N/A</property>
+            <property name="description">Fraction of the panel length that is not a sandwich construction</property>
+			<property name="units">-</property>
+			<property name="reference">Input Data.xlsx</property>
+		 </parameter>
+	</internal_structure>
+</inputs>
+ 
+

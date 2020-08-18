@@ -1,0 +1,266 @@
+<inputs model="material variables database">
+	<fabric>
+		 <parameter name="Saertex Zoltek PX35">
+            <property name="material" type="char">carbon</property>
+            <property name="description" type="char">Roll of dry UD carbon fibre</property>
+			<property name="manufacturer" type="char">Saertex</property>
+			<property name="product code" type="char">___</property>
+			<property name="width" type="double" units="mm">500.0</property>
+			<property name="length" type="double" units="mm">50000</property>
+			<property name="thickness (cured)" type="double" units="mm">0.58</property>
+			<property name="tex" type="double">___</property>
+			<property name="areal weight" type="double" units="gsm">529.0</property>
+			<property name="cost" type="double" units="€/kg">50.0</property>
+			<property name="density of fibres" type="double" units="kg/m^3">___</property>
+			<property name="weave" type="double">NCRIMP</property>
+			<property name="fibre orientations" type="double" units="°">[0]</property>
+			<property name="fibre volume fraction" type="double">0.503</property>
+			<property name="fibre content" type="double" units="weight %">0.618</property>
+			<property name="reference" type="char">https://www.researchgate.net/profile/Evanthia_Pappa/publication/328578411_CHARACTERISATION_OF_CARBON_FIBRE_REINFORCED_POWDER_EPOXY_COMPOSITES_FOR_WIND_ENERGY_BLADES/links/5bd6f0bb92851c6b27968a39/CHARACTERISATION-OF-CARBON-FIBRE-REINFORCED-POWDER-EPOXY-COMPOSITES-FOR-WIND-ENERGY-BLADES.pdf</property>
+			<property name="UTS" type="double" units="MPa">1534.0</property>
+			<property name="UCS" type="double" units="MPa">757.0</property>
+			<property name="production methods" type="char">VI,RTM,LRTM,Hand_Layup</property>
+		 </parameter>
+		 <parameter name="Optimat MD3 BIAX Fabric">
+            <property name="material" type="char">glass</property>
+            <property name="description" type="char">Roll of dry biaxial glass fibre</property>
+			<property name="manufacturer" type="char">___</property>
+			<property name="product code" type="char">___</property>
+			<property name="width" type="double" units="mm">1000.0</property>
+			<property name="length" type="double" units="mm">50000</property>
+			<property name="thickness (cured)" type="double" units="mm">3.82</property>
+			<property name="tex" type="double">___</property>
+			<property name="areal weight" type="double" units="gsm">1050.0</property>
+			<property name="cost" type="double" units="€/kg">1.65</property>
+			<property name="density of fibres" type="double" units="kg/m^3">___</property>
+			<property name="weave" type="double">Woven</property>
+			<property name="fibre orientations" type="double" units="°">[45/-45]</property>
+			<property name="fibre volume fraction" type="double">0.525</property>
+			<property name="fibre content" type="double" units="weight %">0.72</property>
+			<property name="reference" type="char">https://www.900gpa.com/en/product/fiber/GF_00AF137241?u=metric</property>
+			<property name="USS" type="double" units="MPa">56.0</property>
+			<property name="production methods" type="char">VI,RTM,LRTM,Hand_Layup</property>
+		 </parameter>
+	</fabric>
+	<resin>
+		 <parameter name="Araldite LY1564">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Low viscosity thermoset epoxy resin</property>
+			<property name="manufacturer" type="char">Huntsman</property>
+			<property name="hardener name" type="char">Araldite XP3416</property>
+			<property name="product code" type="char">Araldite LY1564</property>
+			<property name="density" type="double" units="kg/m^3">1144.0</property>
+			<property name="resin-hardener ratio" type="char">2.333</property>
+			<property name="cost" type="char" units="€/kg">3.35</property>
+			<property name="cure cycle" type="char">LY1564_cureCycle.csv</property>
+			<property name="reference" type="char">http://info.lindberg-lund.no/produktblad/Norge/4-6%20TD/LY1564_XB3403_TDS.pdf</property>
+		 </parameter>
+		 <parameter name="MTM44-1">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Thermoset epoxy resin</property>
+			<property name="manufacturer" type="char">ACG</property>
+			<property name="hardener name" type="char">None</property>
+			<property name="product code" type="char">None</property>
+			<property name="density" type="double" units="kg/m^3">1180.0</property>
+			<property name="resin-hardener ratio" type="char">None</property>
+			<property name="cost" type="char" units="€/kg">42.00</property>
+			<property name="cure cycle" type="char" alt="oven">MTM44-1 Oven_cureCycle.csv</property>
+			<property name="cure cycle" type="char" alt="autoclave">MTM44-1 Autoclave_cureCycle.csv</property>
+			<property name="post cure cycle" type="char">MTM44-1 Postcure_cureCycle.csv</property>
+			<property name="reference" type="char">Resin cost from Witik paper. Other properties https://www.solvay.com/en/product/mtm44-1</property>
+			<property name="production methods" type="char">VBO,Autoclave_Cure</property>
+		 </parameter>
+		 <parameter name="Prime 20">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Thermoset epoxy resin</property>
+			<property name="manufacturer" type="char">Gurit</property>
+			<property name="hardener name" type="char">None</property>
+			<property name="product code" type="char">None</property>
+			<property name="density" type="double" units="kg/m^3">___</property>
+			<property name="resin-hardener ratio" type="char">None</property>
+			<property name="cost" type="char" units="€/kg">___</property>
+			<property name="cure cycle" type="char">Prime 20_cureCycle.csv</property>
+			<property name="post cure cycle" type="char">Prime 20 Postcure_cureCycle.csv</property>
+			<property name="reference" type="char">Optimat material database</property>
+			<property name="production methods" type="char">VI,LRTM,RTM,One_Shot_Assembly</property>
+		 </parameter>
+		 <parameter name="M21">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Thermoset epoxy resin</property>
+			<property name="manufacturer" type="char">Hexcel</property>
+			<property name="hardener name" type="char">None</property>
+			<property name="product code" type="char">None</property>
+			<property name="density" type="double" units="kg/m^3">1240.0</property>
+			<property name="resin-hardener ratio" type="char">None</property>
+			<property name="cost" type="char" units="€/kg">42.00</property>
+			<property name="cure cycle" type="char">M21_cureCycle.csv</property>
+			<property name="reference" type="char">https://research-information.bris.ac.uk/ws/portalfiles/portal/34506506/541610.pdf | https://hexcel.com/user_area/content_media/raw/HexPly_M21_global_DataSheet.pdf</property>
+			<property name="production methods" type="char">ATL,AFP</property>
+		 </parameter>
+	</resin>
+	<hardener>
+		 <parameter name="Araldite XP3416">
+            <property name="material" type="char">epoxy hardener</property>
+            <property name="description" type="char">Epoxy hardener</property>
+			<property name="manufacturer" type="char">Huntsman</property>
+			<property name="resin name" type="char">Araldite LY1564</property>
+			<property name="product code" type="char">Araldite XP3416</property>
+			<property name="density" type="double" units="kg/m^3">959.0</property>
+			<property name="resin-hardener ratio" type="char">2.333</property>
+			<property name="cost" type="char" units="€/kg">3.35</property>
+			<property name="reference" type="char">Murray RE, Jenne S, Snowberg D, Berry D, Cousins D. Techno-economic analysis of a megawatt-scale thermoplastic resin wind turbine blade. Renew Energy 2019;131:111–9. https://doi.org/10.1016/J.RENENE.2018.07.032.</property>
+		 </parameter>
+	</hardener>
+	<prepreg>
+		 <parameter name="SANDIA Baseline CFRP Plate">
+            <property name="material" type="char">carbon/epoxy</property>
+			<property name="manufacturer" type="char">___</property>
+			<property name="fabric name" type="char">___</property>
+			<property name="resin name" type="char">DER 383</property>
+            <property name="description" type="char">Pultruded CFRP plate</property>
+			<property name="product code" type="char">___</property>
+			<property name="width" type="double" units="mm">2880.0</property>
+			<property name="length" type="double" units="mm">100000.0</property>
+			<property name="thickness (cured)" type="double" units="mm">4.0</property>
+			<property name="tex" type="double">___</property>
+			<property name="areal weight" type="double" units="gsm">___</property>
+			<property name="cost" type="double" units="€/kg">14.63</property>
+			<property name="density of fibres" type="double" units="kg/m^3">___</property>
+			<property name="density of resin" type="double" units="kg/m^3">___</property>
+			<property name="weave" type="double">N/A</property>
+			<property name="fibre orientations" type="double" units="°">[0]</property>
+			<property name="fibre volume fraction" type="double">0.68</property>
+			<property name="fibre content" type="double" units="weight %">___</property>
+			<property name="reference" type="char">Appendix B of SAND2019-14173 report</property>
+			<property name="UTS" type="double" units="MPa">2236.0</property>
+			<property name="UCS" type="double" units="MPa">1528.0</property>
+			<property name="cure cycle" type="char">DER383_cureCycle.csv</property>
+			<property name="production methods" type="char">VBO,Hand_Layup</property>
+		 </parameter>
+	</prepreg>
+	<core>
+		 <parameter name="Rohacell 51 RIST">
+            <property name="material" type="char">Polymethacrylimide (PMI) Foam</property>
+			<property name="structure" type="char">monolithic</property>
+            <property name="description" type="char">PMI foam blocks/panels</property>
+			<property name="manufacturer" type="char">Rohacell</property>
+			<property name="product code" type="char">Sku: ROH-RIST51-0375-24-D</property>
+			<property name="width" type="double" units="mm">609.6</property>
+			<property name="length" type="double" units="mm">1219.2</property>
+			<property name="thickness" type="double" units="mm">9.5</property>
+			<property name="density" type="double" units="kg/m^3">51.0</property>
+			<property name="areal weight" type="double" units="gsm">486.0</property>
+			<property name="cost" type="double" units="€/m^2">5.57</property>
+			<property name="cost (thickness)" type="double" units="€/mm">0.0</property>
+			<property name="reference" type="char">https://www.rockwestcomposites.com/media/wysiwyg/ROHACELL-RIST-mechanical-properties-EN.pdf</property>
+		 </parameter>
+	</core>
+	<coating>
+		<parameter name="gel coat">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Epoxy based gel coat providing high-quality finish to the part</property>
+			<property name="manufacturer" type="char">???</property>
+			<property name="product code" type="char">???</property>
+			<property name="thickness (cured)" type="double" units="mm">0.5</property>
+			<property name="density" type="char" units="kg/m^3">1130.0</property>
+			<property name="cost" type="char" units="€/kg">3.63</property>
+			<property name="reference" type="char">Murray paper?</property>
+		 </parameter>
+	</coating>
+	<adhesive>
+		<parameter name="DP460">
+            <property name="material" type="char">epoxy</property>
+            <property name="description" type="char">Epoxy based two-part adhesive</property>
+			<property name="manufacturer" type="char">3M</property>
+			<property name="product code" type="char">3M ID 62369385307</property>
+			<property name="cost" type="char" units="€/kg">50.00</property>
+			<property name="lineal weight" type="double" units="gsm">77.2</property>
+			<property name="cure cycle" type="char">DP460_cureCycle.csv</property>
+			<property name="reference" type="char">"See Input Data"</property>
+		 </parameter>
+	</adhesive>
+	<consumables>
+         <parameter name="Mould release">
+            <property name="description">Rexco - Formula Five Mould Release Wax</property>
+			<property name="cost" type="double" units="€/kg">31.35</property>
+			<property name="areal weight" type="double" units="gsm">1.0</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.0</property>
+			<property name="reference" type="char">https://compositeenvisions.com/rexco-formula-five-mold-release-wax-12oz-1318.html | https://compositeenvisions.com/content/tds/mold_releases/Model-1318-rexco-formula-five-mold-release-wax-tds.pdf</property>
+		 </parameter>
+		 <parameter name="Vacuum film">
+            <property name="description">Vacuum membrane</property>
+			<property name="cost" type="double" units="€/kg">2.80</property>
+			<property name="areal weight" type="double" units="gsm">143.75</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Peel ply">
+            <property name="description">Peel ply</property>
+			<property name="cost" type="double" units="€/kg">39.00</property>
+			<property name="areal weight" type="double" units="gsm">181.25</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Breather fabric">
+            <property name="description">Breather fabric</property>
+			<property name="cost" type="double" units="€/kg">6.00</property>
+			<property name="areal weight" type="double" units="gsm">1331.25</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Flow media">
+            <property name="description">Flow media</property>
+			<property name="cost" type="double" units="€/kg">17.00</property>
+			<property name="areal weight" type="double" units="gsm">390.63</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Release film">
+            <property name="description">Release film</property>
+			<property name="cost" type="double" units="€/kg">120.00</property>
+			<property name="areal weight" type="double" units="gsm">46.88</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Sealant tape">
+            <property name="description">Sealant tape</property>
+			<property name="cost" type="double" units="€/kg">10.00</property>
+			<property name="areal weight" type="double" units="g/m">375.0</property>
+			<property name="scaling variable" type="char">Part Length</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="VAP membrane">
+            <property name="description">VAP membrane</property>
+			<property name="cost" type="double" units="€/kg">175.00</property>
+			<property name="areal weight" type="double" units="gsm">62.5</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Resin tube">
+            <property name="description">Resin tube</property>
+			<property name="cost" type="double" units="€/kg">45.00</property>
+			<property name="areal weight" type="double" units="g/m">655.0</property>
+			<property name="scaling variable" type="char">Part Length</property>
+			<property name="scrap_rate" type="double">0.05</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="Paint">
+            <property name="description">Paint for the surface of the wing, providing environmental and physical protection</property>
+			<property name="cost" type="double" units="€/kg">0.00</property>
+			<property name="areal weight" type="double" units="gsm">0.0</property>
+			<property name="scaling variable" type="char">Surface Area</property>
+			<property name="scrap_rate" type="double">0.2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+	</consumables>
+</inputs>
+
+

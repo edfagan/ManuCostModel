@@ -1,0 +1,136 @@
+<inputs model="production variables database">
+	<VI>
+		 <parameter name="fabricCutRate">
+            <property name="name" type="char">Fabric cut rate</property>
+            <property name="description" type="char">Cutting rate for fabric materials</property>
+			<property name="value" type="double">0.000555556,1.0</property>
+			<property name="units" type="char">hr/m</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="coreCutRate">
+            <property name="name" type="char">Core cut rate</property>
+            <property name="description" type="char">Cutting rate for core materials</property>
+			<property name="value" type="double">0.000555556,1.0</property>
+			<property name="units" type="char">hr/m</property>
+			<property name="reference" type="char">Witik RA, Gaille F, Teuscher R, Ringwald H, Michaud V, Månson J-AEAE. Economic and environmental assessment of alternative production methods for composite aircraft components. J Clean Prod 2012;29–30:91–102. https://doi.org/10.1016/j.jclepro.2012.02.028.</property>
+		 </parameter>
+		 <parameter name="mouldPrep">
+            <property name="name" type="char">Mould preparation rate</property>
+            <property name="description" type="char">Rate of mould surface preparation</property>
+			<property name="value" type="double">0.023250047,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="gelCoatRate">
+            <property name="name" type="char">Gel coat application rate</property>
+            <property name="description" type="char">Rate of apply gel coat to the surface of the mould</property>
+			<property name="value" type="double">0.085250171,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="fabricLayup">
+            <property name="name" type="char">Fabric layup rate</property>
+            <property name="description" type="char">Layup rate for dry fabric materials</property>
+			<property name="value" type="double">0.030628891,0.77006</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="coreLayup">
+            <property name="name" type="char">Core layup rate</property>
+            <property name="description" type="char">Layup rate for dry core materials</property>
+			<property name="value" type="double">0.007440719,0.381</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="consLayup">
+            <property name="name" type="char">Consumables layup rate</property>
+            <property name="description" type="char">Rate of application of consumables on part</property>
+			<property name="value" type="double">0.06975014,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+	</VI>
+	<Glued_Assembly>
+		 <parameter name="bondPrep">
+            <property name="name" type="char">Bond line  prep rate</property>
+            <property name="description" type="char">Rate of preparing the bond line for gluing</property>
+			<property name="value" type="double">0.019685039,1.0</property>
+			<property name="units" type="char">hr/m</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="glueRate">
+            <property name="name" type="char">Bond line gluing rate</property>
+            <property name="description" type="char">Rate of gluing the bond line</property>
+			<property name="value" type="double">0.1666666667,1.0</property>
+			<property name="units" type="char">hr/m</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="bondTrimRate">
+            <property name="name" type="char">Bond line trimming rate</property>
+            <property name="description" type="char">Trimming rate of bond line flash</property>
+			<property name="value" type="double">0.142857143,1.0</property>
+			<property name="units" type="char">hr/m</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="surfPrepRate">
+            <property name="name" type="char">Surface preparation rate</property>
+            <property name="description" type="char">Rate of preparation of surface for painting</property>
+			<property name="value" type="double">0.05,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="paintRate">
+            <property name="name" type="char">Painting rate</property>
+            <property name="description" type="char">Rate of painting a part (painted surface area/total hours to paint)</property>
+			<property name="value" type="double">0.013888889,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="visualInspec">
+            <property name="name" type="char">Visual inspection rate</property>
+            <property name="description" type="char">Rate of performing visual inspections on a part</property>
+			<property name="value" type="double">0.002702703,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="finishRate">
+            <property name="name" type="char">Finishing rate</property>
+            <property name="description" type="char">Rate of finishing a painted part</property>
+			<property name="value" type="double">0.014925373,1.0</property>
+			<property name="units" type="char">hr/m^2</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+	</Glued_Assembly>
+	<General>
+		 <parameter name="salary">
+            <property name="name" type="char">Hourly salary rate</property>
+            <property name="description" type="char">Average hourly rate of salary for employees</property>
+			<property name="value" type="double">35.0</property>
+			<property name="units" type="char">€/hr</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="productHours">
+            <property name="name" type="char">Daily production hours</property>
+            <property name="description" type="char">Number of hours of available production time per day</property>
+			<property name="value" type="double">24.0</property>
+			<property name="units" type="char">hr/day</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="productDays">
+            <property name="name" type="char">Number of annual production days</property>
+            <property name="description" type="char">Number of days available for production time per year</property>
+			<property name="value" type="double">250.0</property>
+			<property name="units" type="char">days/year</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+		 <parameter name="ppa">
+            <property name="name" type="char">Wings per annum</property>
+            <property name="description" type="char">Number of completed wings produced per annum</property>
+			<property name="value" type="double">100.0</property>
+			<property name="units" type="char">parts per annum</property>
+			<property name="reference" type="char">None</property>
+		 </parameter>
+	</General>
+</inputs> 
+
+

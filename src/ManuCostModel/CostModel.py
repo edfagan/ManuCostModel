@@ -270,7 +270,7 @@ class Manufacture:
         # Import the various input databases
         if len(inputFile) == 0:
             # Default manufacturing inputs database name
-            inputFile = "AP4inputVars"
+            inputFile = "manufacturingDatabase"
         
         AP4inputVars = self.dirInputDatabases + inputFile + ".xml"
         consVariables = self.dirInputDatabases + "constructionVariablesDatabase.xml"
