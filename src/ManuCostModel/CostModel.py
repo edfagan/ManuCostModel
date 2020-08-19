@@ -253,7 +253,7 @@ class ProductionStep:
 
 class Manufacture:
     
-    def __init__(self, directory, inputFile=''):
+    def __init__(self, directory, inputFile='', prodName='Default'):
         """ 
         Import the material, production and construction parameters
         """
@@ -261,6 +261,7 @@ class Manufacture:
         self.CSVloc = "CSV Files\\"
         self.dirInputDatabases = "\\Input Databases\\"
         self.dirOutputDatabases = "\\Output Databases\\"
+        self.prodName = prodName
         
         try:
             os.mkdir(self.directory+self.dirOutputDatabases)
@@ -975,6 +976,7 @@ class Manufacture:
         self.labourCostBreakdown = {}
         
         self.equipmentCostBreakdown = {}
+        self.equipmentItemCosts = {}
         
         for mat in self.materialVars['consumables'].keys():
             self.consumableMassBreakdown[mat] = 0.0
@@ -1006,6 +1008,46 @@ class Manufacture:
             self.equipmentCostBreakdown[val.name] = val.equipment.cost
         
         self.equipmentCostBreakdown['factory'] = sum(self.commonEquipmentCost.values())
+        
+        for val in flatList:
+            for equip in val.equipment.equipmentCosts.keys():
+                try:
+                    self.equipmentItemCosts[equip] += val.equipment.equipmentCosts[equip]
+                except:
+                    self.equipmentItemCosts[equip] = val.equipment.equipmentCosts[equip]
+    
+        for equip in self.commonEquipmentCost.keys():
+            try:
+                self.equipmentItemCosts[equip] += self.commonEquipmentCost[equip]
+            except:
+                self.equipmentItemCosts[equip] = self.commonEquipmentCost[equip]
+                
+        # Get list of material categories
+        materialList = []
+        self.materialCategoryCosts = {}
+        
+        for material in self.materialVars.items():
+            for matKey in material[1]:
+                
+                if matKey in self.materialCostBreakdown.keys():
+                    
+                    materialList.append(material[0])
+                    
+        materialList = list(set(materialList))
+        
+        if sum(self.consumableCostBreakdown.values()) > 0.0:
+            materialList.append('consumables')
+        
+        for mat in materialList:
+            self.materialCategoryCosts[mat] = 0.0
+        
+        for matName in materialList:
+            for partSet in self.partsList:
+                for part in partSet:
+                    try:
+                        self.materialCategoryCosts[matName] += part.materials.matCost[matName] + part.materials.matCostScrap[matName]
+                    except:
+                        pass
         
         # Total cost of the wing
         totalMaterialsCosts = sum([costVal.materials.cost for costVal in flatList])

@@ -61,7 +61,9 @@ def randomColor(colourInp, num_bars, shadedBars):
     return colour_list
 
 # Create a bar plot
-def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=False, secondAxis=False, secondAxisVars=None):
+def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=False, secondAxisVars=None):
+    
+    plotInfo, data, dataLabels, colourSet, legendDisplay = plotData
     
     sources = tuple([val[0] for val in plotInfo])
     ylabel = ('Cost (€)')
@@ -270,7 +272,9 @@ if(__name__ == '__main__'):
                      [[1,1,1,1,1]],
                      [[1,1,1]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=True, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=True, barLabelDisplay=True)
     
     
     # Example plot for comparing major cost centres for multiple production methods
@@ -294,7 +298,9 @@ if(__name__ == '__main__'):
                      [[],[]],
                      [[],[]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
     # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods
@@ -318,7 +324,9 @@ if(__name__ == '__main__'):
                      [[]],
                      [[]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
     # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods and for another variable, e.g. PPA
@@ -348,4 +356,6 @@ if(__name__ == '__main__'):
     
     secondVars = ['200 PPA', '500 PPA']
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=True, barLabelDisplay=False, secondAxis=True, secondAxisVars=secondVars)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=True, barLabelDisplay=False, secondAxis=True, secondAxisVars=secondVars)

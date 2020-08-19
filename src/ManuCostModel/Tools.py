@@ -15,44 +15,72 @@ def bom(manuf):
     pass
 
 
-def costCentres(manuf):
-    
-    # Get list of material categories
-    materialList = []
-    materialCosts = []
-    
-    for material in manuf.materialVars.items():
-        for matKey in material[1]:
-            
-            if matKey in manuf.materialCostBreakdown.keys():
-                
-                materialList.append(material[0])
-                
-    materialList = list(set(materialList))
-    
-    if sum(manuf.consumableCostBreakdown.values()) > 0.0:
-        materiallist.append('consumables')
-        
+def costCentres(manuf, totals=False, stacked=False):
     
     # Example plot for visualising the full breakdown of materials, labour and equipment costs for one production method
-    plotInfo = [['Material Cost (€)'],
-                ['Equipment Cost (€)'],
-                ['Labour Cost (€)']]
     
-    data = [[[5000.0, 3155.0, 29.0, 5481.0, 3085.0]],
-            [[2500.0, 315.0, 290.0, 548.0, 300.0]],
-            [[2500.0, 315.0, 290.0]]]
     
-    dataLabels = [[materialList],
-                  [["Lifting", "Vacuum", "Mould", "Frame", "Plumbing"]],
-                  [["Fabrication", "Finishing", "In-mould"]]]
+    if totals is False:
+        plotInfo = [['Material Cost (€)'],
+                    ['Equipment Cost (€)'],
+                    ['Labour Cost (€)']]
+        
+        data = [[[val for val in manuf.materialCategoryCosts.values()]],
+                [[val for val in manuf.equipmentItemCosts.values()]],
+                [[val for val in manuf.labourCostBreakdown.values()]]]
+        
+        dataLabels = [[[val for val in manuf.materialCategoryCosts.keys()]],
+                      [[val for val in manuf.equipmentItemCosts.keys()]],
+                      [[val for val in manuf.labourCostBreakdown.keys()]]]
+        
+        colourSet = [[['red']],
+                     [['green']],
+                     [['blue']]]
+        
+        legendDisplay = [[[1,1,1,1,1]],
+                         [[1,1,1,1,1]],
+                         [[1,1,1]]]
+        
+    else:
+        if stacked is False:
+            plotInfo = [['Material Cost (€)'],
+                        ['Equipment Cost (€)'],
+                        ['Labour Cost (€)']]
+            
+            data = [[[sum(manuf.materialCategoryCosts.values())]],
+                    [[sum(manuf.equipmentItemCosts.values())]],
+                    [[sum(manuf.labourCostBreakdown.values())]]]
+            
+            dataLabels = [[[manuf.prodName + " Materials"]],
+                          [[manuf.prodName + " Equipment"]],
+                          [[manuf.prodName + " Labour"]]]
+            
+            colourSet = [[['red']],
+                         [['green']],
+                         [['blue']]]
+            
+            legendDisplay = [[[1]],
+                             [[1]],
+                             [[1]]]
+        else:
+            plotInfo = [[manuf.prodName]]
+            
+            data = [[[sum(manuf.materialCategoryCosts.values()), sum(manuf.equipmentItemCosts.values()), sum(manuf.labourCostBreakdown.values())]]]
+            
+            dataLabels = [[["Materials", "Equipment", "Labour"]]]
+            
+            colourSet = [[['red']]]
+            
+            legendDisplay = [[[1, 1, 1]]]
+        
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
     
-    colourSet = [[['red']],
-                 [['green']],
-                 [['blue']]]
+    return plotData
     
-    legendDisplay = [[[1,1,1,1,1]],
-                     [[1,1,1,1,1]],
-                     [[1,1,1]]]
+if __name__ == '__main__':
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=True, barLabelDisplay=True)
+    manuf.prodName = 'VI'
+    
+    plotData = costCentres(manuf, totals=True, stacked=False)
+    
+    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
