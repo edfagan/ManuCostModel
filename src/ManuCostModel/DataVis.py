@@ -8,6 +8,7 @@ Created on Thu Jul 23 11:27:35 2020
 from numpy import array, arange
 from matplotlib.pyplot import figure
 import matplotlib.pyplot as plt
+import webcolors
 
 """ Data visualisation """
 # Convert rgd values to hexadecimal values for the colour code
@@ -24,39 +25,52 @@ def invisiblePatchSpines(ax):
         val.set_visible(False)
 
 # Create a list of colour codes in shades of red, green or blue
-def randomColor(colourInp, num_bars, shadedBars):
+def randomColour(colourInp, num_bars, shadedBars):
     
     if(shadedBars is True):
         base = colourInp
-        if(base=='red'):
-            rgbl=[255,0,0]
-            chng = 0
-        elif(base=='green'):
-            rgbl=[0,255,0]
-            chng = 1
-        elif(base=='blue'):
-            rgbl=[0,0,255]
-            chng = 2
+#        if(base=='red'):
+#            rgbl=[255,0,0]
+#            chng = 0
+#        elif(base=='green'):
+#            rgbl=[0,255,0]
+#            chng = 1
+#        elif(base=='blue'):
+#            rgbl=[0,0,255]
         
-        segment = int(255/num_bars)
-        colour_list = [rgb2hex(tuple(rgbl))]
+        rgbl = webcolors.name_to_rgb(base)
+            
+        chng = 0
+        if base in ['red', 'green', 'blue']:
+            for i, val in enumerate(rgbl):
+                if val > 0:
+                    chng = i
+        
+        segment = int(max(rgbl)/num_bars)
+        colour_list = [webcolors.rgb_to_hex(rgbl)]
+        
+        rgbl = list(rgbl)
         
         for vals in range(num_bars-1):
             rgbl[chng] = rgbl[chng] - segment
-            colour_list.append(rgb2hex(tuple(rgbl)))
+            
+            webcolors.IntegerRGB(rgbl[0], rgbl[1], rgbl[2])
+            colour_list.append(webcolors.rgb_to_hex(rgbl))
             
     else:
         colour_list = []
         
         for base in colourInp:
-            if(base=='red'):
-                rgbl=[255,0,0]
-            elif(base=='green'):
-                rgbl=[0,255,0]
-            elif(base=='blue'):
-                rgbl=[0,0,255]
+#            if(base=='red'):
+#                rgbl=[255,0,0]
+#            elif(base=='green'):
+#                rgbl=[0,255,0]
+#            elif(base=='blue'):
+#                rgbl=[0,0,255]
+                
+            rgbl = webcolors.name_to_rgb(base)
             
-            colour_list.append(rgb2hex(tuple(rgbl)))
+            colour_list.append(webcolors.rgb_to_hex(rgbl))
     
     return colour_list
 
@@ -95,7 +109,8 @@ def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=Fa
                 shadedBars = True
                 colourInp = colourSet[label][x][0]
             
-            colour_list = randomColor(colourInp, len(data[label][x]), shadedBars)
+            colour_list = randomColour(colourInp, len(data[label][x]), shadedBars)
+            
             
             patch_handles[label].append([])
             bottom = (0.0) # Bottom alignment of data
@@ -103,6 +118,7 @@ def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=Fa
             for i, d in enumerate(indiv_data):
                 # Horizontal bar chart option
     #            patch_handles.append(ax.bar(x_pos, d, color=colours[i], align='center', left=left))
+                
                 bar = ax.bar(h_pos, d, 0.2, bottom=bottom, color=colour_list[i])
                 patch_handles[label][x].append(bar)
                 # Accumulate the blocks in the bar
@@ -285,6 +301,10 @@ if(__name__ == '__main__'):
     data = [[[5000.0],[1000.0]],
             [[2500.0],[4000.0]],
             [[2500.0],[1500.0]]]
+    
+    data = [[[5000.0]],
+            [[2500.0]],
+            [[2500.0]]]
     
     dataLabels = [[["LRTM"],["VI"]],
                   [["LRTM"],["VI"]],
