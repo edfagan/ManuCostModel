@@ -1,0 +1,190 @@
+<inputs model="wing cost model">
+	<spar>
+         <parameter name="fabric">
+            <property name="name">Saertex Zoltek PX35</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="resin">
+            <property name="name">Araldite LY1564</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="hardener">
+            <property name="name">Araldite XP3416</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="prepreg">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="core">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="adhesive">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="coating">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="preforming">
+            <property name="name">VI</property>
+            <property name="description">production</property>
+			<property name="steps_ignore">step 02, step 04, step 06, step 07</property>
+         </parameter>
+		 <parameter name="curing">
+            <property name="name">N/A</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="assembly">
+            <property name="name">N/A</property>
+            <property name="description">construction</property>
+         </parameter>
+		 <parameter name="# spars">
+            <property name="name" type="double">2.0</property>
+            <property name="description">construction</property>
+         </parameter>
+	</spar>
+	<web>
+         <parameter name="fabric">
+            <property name="name">Optimat MD3 BIAX Fabric</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="resin">
+            <property name="name">Araldite LY1564</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="hardener">
+            <property name="name">Araldite XP3416</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="prepreg">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="core">
+            <property name="name">Rohacell 51 RIST</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="adhesive">
+            <property name="name">DP460</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="coating">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="preforming">
+            <property name="name">VI</property>
+            <property name="description">production</property>
+			<property name="steps_ignore">step 04, step 07</property>
+         </parameter>
+		 <parameter name="curing">
+            <property name="name">N/A</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="assembly">
+            <property name="name">N/A</property>
+            <property name="description">construction</property>
+         </parameter>
+		 <parameter name="# webs">
+            <property name="name" type="double">2.0</property>
+            <property name="description">construction</property>
+         </parameter>
+	</web>
+	<skin>
+         <parameter name="fabric">
+            <property name="name">Optimat MD3 BIAX Fabric</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="resin">
+            <property name="name">Araldite LY1564</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="hardener">
+            <property name="name">Araldite XP3416</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="prepreg">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="core">
+            <property name="name">Rohacell 51 RIST</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="adhesive">
+            <property name="name">DP460</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="coating">
+            <property name="name">gel coat</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="preforming">
+            <property name="name">VI</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="curing">
+            <property name="name">N/A</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="assembly">
+            <property name="name">N/A</property>
+            <property name="description">construction</property>
+         </parameter>
+		 <parameter name="# skins">
+            <property name="name" type="double">2.0</property>
+            <property name="description">construction</property>
+         </parameter>
+	</skin>
+	<wing>
+		 <parameter name="fabric">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="resin">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="hardener">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+         <parameter name="prepreg">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="core">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="adhesive">
+            <property name="name">DP460</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="coating">
+            <property name="name">N/A</property>
+            <property name="description">materials</property>
+         </parameter>
+		 <parameter name="preforming">
+            <property name="name">VI</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="curing">
+            <property name="name">N/A</property>
+            <property name="description">production</property>
+         </parameter>
+		 <parameter name="assembly">
+            <property name="name">Glued_Assembly</property>
+            <property name="description">construction</property>
+         </parameter>
+		 <parameter name="# wings">
+            <property name="name" type="double">1.0</property>
+            <property name="description">construction</property>
+         </parameter>
+	</wing>
+</inputs>
+
+ 

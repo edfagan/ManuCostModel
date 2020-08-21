@@ -8,58 +8,76 @@ Created on Thu Jul 23 11:27:35 2020
 from numpy import array, arange
 from matplotlib.pyplot import figure
 import matplotlib.pyplot as plt
+import webcolors
 
 """ Data visualisation """
 # Convert rgd values to hexadecimal values for the colour code
-def rgb_to_hex(rgb):
-    return '#%02x%02x%02x' % rgb
+def rgb2hex(rgb):
+    newVal = '#%02x%02x%02x' % rgb
+    return newVal
 
 
-def make_patch_spines_invisible(ax):
+def invisiblePatchSpines(ax):
     ax.set_frame_on(True)
     ax.patch.set_visible(False)
-    for sp in ax.spines.values():
-        sp.set_visible(False)
+    
+    for val in ax.spines.values():
+        val.set_visible(False)
 
 # Create a list of colour codes in shades of red, green or blue
-def random_color(colourInp, num_bars, shadedBars):
+def randomColour(colourInp, num_bars, shadedBars):
     
     if(shadedBars is True):
         base = colourInp
-        if(base=='red'):
-            rgbl=[255,0,0]
-            chng = 0
-        elif(base=='green'):
-            rgbl=[0,255,0]
-            chng = 1
-        elif(base=='blue'):
-            rgbl=[0,0,255]
-            chng = 2
+#        if(base=='red'):
+#            rgbl=[255,0,0]
+#            chng = 0
+#        elif(base=='green'):
+#            rgbl=[0,255,0]
+#            chng = 1
+#        elif(base=='blue'):
+#            rgbl=[0,0,255]
         
-        segment = int(255/num_bars)
-        colour_list = [rgb_to_hex(tuple(rgbl))]
+        rgbl = webcolors.name_to_rgb(base)
+            
+        chng = 0
+        if base in ['red', 'green', 'blue']:
+            for i, val in enumerate(rgbl):
+                if val > 0:
+                    chng = i
+        
+        segment = int(max(rgbl)/num_bars)
+        colour_list = [webcolors.rgb_to_hex(rgbl)]
+        
+        rgbl = list(rgbl)
         
         for vals in range(num_bars-1):
             rgbl[chng] = rgbl[chng] - segment
-            colour_list.append(rgb_to_hex(tuple(rgbl)))
+            
+            webcolors.IntegerRGB(rgbl[0], rgbl[1], rgbl[2])
+            colour_list.append(webcolors.rgb_to_hex(rgbl))
             
     else:
         colour_list = []
         
         for base in colourInp:
-            if(base=='red'):
-                rgbl=[255,0,0]
-            elif(base=='green'):
-                rgbl=[0,255,0]
-            elif(base=='blue'):
-                rgbl=[0,0,255]
+#            if(base=='red'):
+#                rgbl=[255,0,0]
+#            elif(base=='green'):
+#                rgbl=[0,255,0]
+#            elif(base=='blue'):
+#                rgbl=[0,0,255]
+                
+            rgbl = webcolors.name_to_rgb(base)
             
-            colour_list.append(rgb_to_hex(tuple(rgbl)))
+            colour_list.append(webcolors.rgb_to_hex(rgbl))
     
     return colour_list
 
 # Create a bar plot
-def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=False, secondAxis=False, secondAxisVars=None):
+def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=False, secondAxisVars=None):
+    
+    plotInfo, data, dataLabels, colourSet, legendDisplay = plotData
     
     sources = tuple([val[0] for val in plotInfo])
     ylabel = ('Cost (€)')
@@ -91,7 +109,8 @@ def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay
                 shadedBars = True
                 colourInp = colourSet[label][x][0]
             
-            colour_list = random_color(colourInp, len(data[label][x]), shadedBars)
+            colour_list = randomColour(colourInp, len(data[label][x]), shadedBars)
+            
             
             patch_handles[label].append([])
             bottom = (0.0) # Bottom alignment of data
@@ -99,6 +118,7 @@ def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay
             for i, d in enumerate(indiv_data):
                 # Horizontal bar chart option
     #            patch_handles.append(ax.bar(x_pos, d, color=colours[i], align='center', left=left))
+                
                 bar = ax.bar(h_pos, d, 0.2, bottom=bottom, color=colour_list[i])
                 patch_handles[label][x].append(bar)
                 # Accumulate the blocks in the bar
@@ -163,7 +183,7 @@ def barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay
         ax2 = ax.twiny()
         
         ax2.spines["bottom"].set_position(("axes", -0.15))
-        #make_patch_spines_invisible(ax2)
+        #invisiblePatchSpines(ax2)
         ax2.spines["bottom"].set_visible(True)
         
         ax2.xaxis.set_label_position('bottom')
@@ -245,7 +265,7 @@ if(__name__ == '__main__'):
     pieChart(plotInfo, data, dataLabels)
     
 
-if(__name__ == '__man__'):
+if(__name__ == '__main__'):
     
     # Example plot for visualising the full breakdown of materials, labour and equipment costs for one production method
     plotInfo = [['Material Cost (€)'],
@@ -268,7 +288,9 @@ if(__name__ == '__man__'):
                      [[1,1,1,1,1]],
                      [[1,1,1]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=True, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=True, barLabelDisplay=True)
     
     
     # Example plot for comparing major cost centres for multiple production methods
@@ -279,6 +301,10 @@ if(__name__ == '__man__'):
     data = [[[5000.0],[1000.0]],
             [[2500.0],[4000.0]],
             [[2500.0],[1500.0]]]
+    
+    data = [[[5000.0]],
+            [[2500.0]],
+            [[2500.0]]]
     
     dataLabels = [[["LRTM"],["VI"]],
                   [["LRTM"],["VI"]],
@@ -292,7 +318,9 @@ if(__name__ == '__man__'):
                      [[],[]],
                      [[],[]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
     # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods
@@ -316,7 +344,9 @@ if(__name__ == '__man__'):
                      [[]],
                      [[]]]
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=False, barLabelDisplay=True)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
     # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods and for another variable, e.g. PPA
@@ -346,4 +376,6 @@ if(__name__ == '__man__'):
     
     secondVars = ['200 PPA', '500 PPA']
     
-    barPlot(plotInfo, data, dataLabels, colourSet, legendDisplay, percentDisplay=True, barLabelDisplay=False, secondAxis=True, secondAxisVars=secondVars)
+    plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
+    
+    barPlot(plotData, percentDisplay=True, barLabelDisplay=False, secondAxis=True, secondAxisVars=secondVars)
