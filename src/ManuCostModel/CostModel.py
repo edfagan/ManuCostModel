@@ -38,6 +38,8 @@ class component:
         # Equipment variables
         self.equipment = self.Equipment(self.activityLevels)
         
+        # Building variables
+        self.spaceReqs = []
         
         
     # Method for resetting dictionaries to zeros or for setting up a new empty dictionary
@@ -201,12 +203,14 @@ class component:
             # Make these into dictionaries to capture the values for each step
             self.equipmentList = {}
             self.equipmentCosts = {}
+            self.powerCosts = {}
             self.activityCosts = {}
             
             self.activityDict(activityLevels, self.equipmentList)
             self.activityDict(activityLevels, self.activityCosts)
             
             self.cost = 0.0
+            self.power = 0.0
             
         def activityDict(self, activityLevels, equipDict):
             for act in activityLevels:
@@ -226,6 +230,7 @@ class component:
                         for equip in fullList[i]:
                             if equip != 'None':
                                 self.equipmentCosts[equip] = 0.0
+                                self.powerCosts[equip] = 0.0
             
             except:
                 pass
@@ -233,6 +238,7 @@ class component:
         # Method for summing up the total costs
         def totals(self):
             self.cost = sum(self.equipmentCosts.values())
+            self.power = sum(self.powerCosts.values())
 
 
 class ProductionStep:
@@ -351,9 +357,12 @@ class Manufacture:
         self.materialCosts = 0.0
         self.labourCosts = 0.0
         self.equipmentCosts = 0.0
+        self.overheadCosts = 0.0
         
         self.structureMass = 0.0
         self.unitCost = 0.0
+        
+        self.building = 0.0
     
     
     def reSetManufacturing(self):
@@ -954,13 +963,35 @@ class Manufacture:
                 # Save the equipment cost per part
                 cost = annualDepr * numProductionLines / partsPerAnnum
             
+#            self.powerCosts(comp, equipVal, processTime)
+            
             
             if equipVal not in list(self.commonEquipment.keys()):
                 comp.equipment.equipmentCosts[equipVal] = cost
             else:
                 self.commonEquipmentCost[equipVal] = cost
-                
-
+          
+            
+    def powerCosts(self, comp, equipVal, processTime):
+        
+        powerUsage = self.equipmentVars['capital_equipment'][equipVal]['average power usage']
+        
+        energyRate = self.productionVars['General']['energy'][0]
+        
+        comp.equipment.powerCosts[equipVal] = processTime * powerUsage * energyRate
+    
+    
+    def buildingCosts(self, placeholder):
+        
+        placeholder += 1
+    
+    
+    def overheads(self, totalCost, overheadCost):
+        
+        overheadCosts = totalCost * 0.05
+        
+        return overheadCosts
+        
     
     def totalCosts(self):
         
@@ -1065,6 +1096,10 @@ class Manufacture:
         self.equipmentCosts = partEquipmentCosts + factoryEquipmentCosts
         
         self.manufacturingCosts = self.materialCosts + self.labourCosts + self.equipmentCosts
+        
+        self.overheadCosts = self.overheads(self.manufacturingCosts, self.overheadCosts)
+        
+        self.manufacturingCosts += self.overheadCosts
         
         self.structureMass = sum([val.materials.totalMass(structureMass=True) for val in flatList])
         
