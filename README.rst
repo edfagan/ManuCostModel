@@ -6,9 +6,11 @@ README.rst
 Introduction
 ############
 
-Place an introduction to the model here
+The Manufacturing Cost Model (ManuCostModel) is a python package developed for
+modelling the manufacturing costs of products made from fibre reinforced composite
+materials.
 
-Follow it up with sections adapted from the reports
+The cost model was developed with a generic wing design in mind, consisting of a
+structural I-beam spar supporting an aerodynamic skin. The design is also applicable
+to standard wind turbine blade construction.
 
-
-https://github.com/ralsina/rst-cheatsheet/blob/master/rst-cheatsheet.rst
