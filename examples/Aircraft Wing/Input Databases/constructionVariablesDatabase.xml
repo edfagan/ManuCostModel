@@ -2,7 +2,7 @@
 	<general>
          <parameter name="segments">
             <property name="name">seg</property>
-			<property name="value" type="double">20.0</property>
+			<property name="value" type="double">10.0</property>
             <property name="description">Number of discrete spanwise segments in the wing</property>
 			<property name="units">-</property>
 			<property name="reference" type="char">Self Defined</property>
