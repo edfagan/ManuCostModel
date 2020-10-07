@@ -341,10 +341,14 @@ class Manufacture:
         self.skins = self.setComponents(self.ap4Params, self.activityLevels, 'skin', self.brandTypes['skin'], self.ap4Params['skin']['# '+'skin'+'s'])
         self.wing = self.setComponents(self.ap4Params, self.activityLevels, 'wing', self.brandTypes['wing'], self.ap4Params['wing']['# '+'wing'+'s'])
         
-        # Leaving it like this until differentiating them becomes necessary
+        # Leaving it like this until differentiating between them becomes necessary
         self.skins[0].side = 'Lower'
         self.skins[1].side = 'Upper'
         self.webs[0].side = 'Fore'
+        try:
+            self.webs[1].side = 'Aft'
+        except:
+            pass
         
         self.partsList = [self.spars, self.webs, self.skins, self.wing]
         

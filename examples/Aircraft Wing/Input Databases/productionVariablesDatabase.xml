@@ -1,5 +1,5 @@
-<inputs model="production variables database">
-	<VI>
+<parameters concept="wing">
+	<element name="VI">
 		 <parameter name="fabricCutRate">
             <property name="name" type="char">Fabric cut rate</property>
             <property name="description" type="char">Cutting rate for fabric materials</property>
@@ -49,8 +49,8 @@
 			<property name="units" type="char">hr/m^2</property>
 			<property name="reference" type="char">None</property>
 		 </parameter>
-	</VI>
-	<Glued_Assembly>
+	</element>
+	<element name="Glued_Assembly">
 		 <parameter name="bondPrep">
             <property name="name" type="char">Bond line  prep rate</property>
             <property name="description" type="char">Rate of preparing the bond line for gluing</property>
@@ -100,8 +100,8 @@
 			<property name="units" type="char">hr/m^2</property>
 			<property name="reference" type="char">None</property>
 		 </parameter>
-	</Glued_Assembly>
-	<General>
+	</element>
+	<element name="General">
 		 <parameter name="salary">
             <property name="name" type="char">Hourly salary rate</property>
             <property name="description" type="char">Average hourly rate of salary for employees</property>
@@ -130,7 +130,7 @@
 			<property name="units" type="char">parts per annum</property>
 			<property name="reference" type="char">None</property>
 		 </parameter>
-	</General>
-</inputs> 
+	</element>
+</parameters> 
 
 

@@ -1,5 +1,5 @@
-<inputs model="construction variables database">
-	<general>
+<parameters concept="wing">
+	<element name="general">
          <parameter name="segments">
             <property name="name">seg</property>
 			<property name="value" type="double">10.0</property>
@@ -7,8 +7,8 @@
 			<property name="units">-</property>
 			<property name="reference" type="char">Self Defined</property>
 		 </parameter>
-	</general>
-	<external_geometry>
+	</element>
+	<element name="external_geometry">
          <parameter name="wing length">
             <property name="name">wingLen</property>
 			<property name="value">30.0</property>
@@ -44,8 +44,8 @@
 			<property name="units">m/c</property>
 			<property name="reference">Input Data.xlsx</property>
 		 </parameter>
-	</external_geometry>
-	<internal_structure>
+	</element>
+	<element name="internal_structure">
          <parameter name="spar width distribution">
 			<property name="name">sparWidth</property>
             <property name="value">SparLocation.csv</property>
@@ -109,7 +109,7 @@
 			<property name="units">-</property>
 			<property name="reference">Input Data.xlsx</property>
 		 </parameter>
-	</internal_structure>
-</inputs>
+	</element>
+</parameters>
  
 

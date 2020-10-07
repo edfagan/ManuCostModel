@@ -20,8 +20,8 @@ if __name__ == '__main__':
     """
     Read in variables and initialise the manufacturing class object
     """
-    # Replace with location of input data
-    directory = r"C:\Users\0116092S\Documents\GitHub\ManuCostModel\examples\Aircraft Wing"
+    
+    directory = os.path.dirname(os.path.realpath(__file__))
     
     dirOutputDatabases = "\Output Databases"
     outFileName = '\costOutput.xml'
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     inputFileName = "manufacturingDatabase"
     
     # Initialise the class
-    wingProduction = man.CostModel.Manufacture(directory, inputFile=inputFileName)
+    wingProduction = CostModel.Manufacture(directory, inputFile=inputFileName)
     
     # Analyse the wing manufacturing process
     wingProduction.productionRun(scaling=True)
