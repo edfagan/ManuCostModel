@@ -1,8 +1,7 @@
 """
 Wing Composites Manufacturing Cost Model
 
-Author: Edward M Fagan
-
+Author: Edward Fagan
 """
 
 import os
@@ -259,7 +258,7 @@ class ProductionStep:
 
 class Manufacture:
     
-    def __init__(self, directory, inputFile='', prodName='Default'):
+    def __init__(self, directory, inputFile='', prodName=''):
         """ 
         Import the material, production and construction parameters
         """
@@ -279,44 +278,44 @@ class Manufacture:
             # Default manufacturing inputs database name
             inputFile = "manufacturingDatabase"
         
-        AP4inputVars = self.dirInputDatabases + inputFile + ".xml"
+        manufacturingInputVars = self.dirInputDatabases + inputFile + ".xml"
         consVariables = self.dirInputDatabases + "constructionVariablesDatabase.xml"
         productionVariables = self.dirInputDatabases + "productionVariablesDatabase.xml"
         productionMethods = self.dirInputDatabases + "productionMethodsDatabase.xml"
         materialVariables = self.dirInputDatabases + "materialsDatabase.xml"
         equipmentVariables = self.dirInputDatabases + "equipmentVariablesDatabase.xml"
 
-        AP4inputVars = self.directory + AP4inputVars
+        manufacturingInputVars = self.directory + manufacturingInputVars
         consVariables = self.directory + consVariables
         productionVariables = self.directory + productionVariables
         productionMethods = self.directory + productionMethods
         materialVariables = self.directory + materialVariables
         equipmentVariables = self.directory + equipmentVariables
         
-        self.ap4Params, self.consInputVars, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars = readInputs(AP4inputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables)
+        self.manufParams, self.consInputVars, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars = readInputs(manufacturingInputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables)
         
         self.equipmentList = {}
         
         # Set the construction variables
-        self.numSpars = int(float(self.ap4Params['spar']['# spars']))
-        self.numWebs = int(float(self.ap4Params['web']['# webs']))
-        self.numSkins = int(float(self.ap4Params['skin']['# skins']))
+        self.numSpars = int(float(self.manufParams['spar']['# spars']))
+        self.numWebs = int(float(self.manufParams['web']['# webs']))
+        self.numSkins = int(float(self.manufParams['skin']['# skins']))
         
         # Add the material names to the part thickness csv file names
-        if(self.ap4Params['spar']['fabric'] != 'N/A'):
-            sparMatName = self.ap4Params['spar']['fabric']
+        if(self.manufParams['spar']['fabric'] != 'N/A'):
+            sparMatName = self.manufParams['spar']['fabric']
         else:
-            sparMatName = self.ap4Params['spar']['prepreg']
+            sparMatName = self.manufParams['spar']['prepreg']
         
-        if(self.ap4Params['web']['fabric'] != 'N/A'):
-            webMatName = self.ap4Params['web']['fabric']
+        if(self.manufParams['web']['fabric'] != 'N/A'):
+            webMatName = self.manufParams['web']['fabric']
         else:
-            webMatName = self.ap4Params['web']['prepreg']
+            webMatName = self.manufParams['web']['prepreg']
             
-        if(self.ap4Params['skin']['fabric'] != 'N/A'):
-            skinMatName = self.ap4Params['skin']['fabric']
+        if(self.manufParams['skin']['fabric'] != 'N/A'):
+            skinMatName = self.manufParams['skin']['fabric']
         else:
-            skinMatName = self.ap4Params['skin']['prepreg']
+            skinMatName = self.manufParams['skin']['prepreg']
         
         self.consInputVars['internal_structure']['sparThick'] = sparMatName + "_" + self.consInputVars['internal_structure']['sparThick']
         self.consInputVars['internal_structure']['webThick'] = webMatName + "_" + self.consInputVars['internal_structure']['webThick']
@@ -331,15 +330,15 @@ class Manufacture:
         
         self.brandTypes = {'spar': 'preform', 'web': 'preform', 'skin': 'preform', 'wing': 'assembly'}
         
-#        self.spars = [component("spar"+str(i+1), "spar", matDetails=self.materialDetails(self.ap4Params, "spar"), activityLevels=self.activityLevels) for i in range(self.numSpars)]
-#        self.webs = [component("web"+str(i+1), "web", matDetails=self.materialDetails(self.ap4Params, "web"), activityLevels=self.activityLevels) for i in range(self.numWebs)]
-#        self.skins = [component("skin"+str(i+1), "skin", matDetails=self.materialDetails(self.ap4Params, "skin"), activityLevels=self.activityLevels) for i in range(self.numSkins)]
-#        self.wing = [component("wing", "wing", matDetails=self.materialDetails(self.ap4Params, "wing"), partBrand='assembly', activityLevels=self.activityLevels)]
+#        self.spars = [component("spar"+str(i+1), "spar", matDetails=self.materialDetails(self.manufParams, "spar"), activityLevels=self.activityLevels) for i in range(self.numSpars)]
+#        self.webs = [component("web"+str(i+1), "web", matDetails=self.materialDetails(self.manufParams, "web"), activityLevels=self.activityLevels) for i in range(self.numWebs)]
+#        self.skins = [component("skin"+str(i+1), "skin", matDetails=self.materialDetails(self.manufParams, "skin"), activityLevels=self.activityLevels) for i in range(self.numSkins)]
+#        self.wing = [component("wing", "wing", matDetails=self.materialDetails(self.manufParams, "wing"), partBrand='assembly', activityLevels=self.activityLevels)]
 #        
-        self.spars = self.setComponents(self.ap4Params, self.activityLevels, 'spar', self.brandTypes['spar'], self.ap4Params['spar']['# '+'spar'+'s'])
-        self.webs = self.setComponents(self.ap4Params, self.activityLevels, 'web', self.brandTypes['web'], self.ap4Params['web']['# '+'web'+'s'])
-        self.skins = self.setComponents(self.ap4Params, self.activityLevels, 'skin', self.brandTypes['skin'], self.ap4Params['skin']['# '+'skin'+'s'])
-        self.wing = self.setComponents(self.ap4Params, self.activityLevels, 'wing', self.brandTypes['wing'], self.ap4Params['wing']['# '+'wing'+'s'])
+        self.spars = self.setComponents(self.manufParams, self.activityLevels, 'spar', self.brandTypes['spar'], self.manufParams['spar']['# '+'spar'+'s'])
+        self.webs = self.setComponents(self.manufParams, self.activityLevels, 'web', self.brandTypes['web'], self.manufParams['web']['# '+'web'+'s'])
+        self.skins = self.setComponents(self.manufParams, self.activityLevels, 'skin', self.brandTypes['skin'], self.manufParams['skin']['# '+'skin'+'s'])
+        self.wing = self.setComponents(self.manufParams, self.activityLevels, 'wing', self.brandTypes['wing'], self.manufParams['wing']['# '+'wing'+'s'])
         
         # Leaving it like this until differentiating between them becomes necessary
         self.skins[0].side = 'Lower'
@@ -370,10 +369,10 @@ class Manufacture:
     
     
     def reSetManufacturing(self):
-        self.reSetComponents(self.spars, self.ap4Params, self.activityLevels)
-        self.reSetComponents(self.webs, self.ap4Params, self.activityLevels)
-        self.reSetComponents(self.skins, self.ap4Params, self.activityLevels)
-        self.reSetComponents(self.wing, self.ap4Params, self.activityLevels)
+        self.reSetComponents(self.spars, self.manufParams, self.activityLevels)
+        self.reSetComponents(self.webs, self.manufParams, self.activityLevels)
+        self.reSetComponents(self.skins, self.manufParams, self.activityLevels)
+        self.reSetComponents(self.wing, self.manufParams, self.activityLevels)
 
         self.skins[0].side = 'Lower'
         self.skins[1].side = 'Upper'
@@ -393,24 +392,24 @@ class Manufacture:
         self.unitCost = 0.0
         
     
-    def setComponents(self, ap4Params, activityLevels, partName, brand, numParts):
-        return [component(partName+str(i+1), partName, matDetails=self.materialDetails(ap4Params, partName), partBrand=brand, activityLevels=activityLevels) for i in range(numParts)]
+    def setComponents(self, manufParams, activityLevels, partName, brand, numParts):
+        return [component(partName+str(i+1), partName, matDetails=self.materialDetails(manufParams, partName), partBrand=brand, activityLevels=activityLevels) for i in range(numParts)]
     
-    def reSetComponents(self, compList, ap4Params, activityLevels):
+    def reSetComponents(self, compList, manufParams, activityLevels):
         for comp in compList:
             scalingVars = copy.deepcopy(comp.scaleVars)
-            comp.__init__(comp.name, comp.type, self.materialDetails(ap4Params, comp.type), partBrand=self.brandTypes[comp.type], activityLevels=activityLevels)
+            comp.__init__(comp.name, comp.type, self.materialDetails(manufParams, comp.type), partBrand=self.brandTypes[comp.type], activityLevels=activityLevels)
             comp.scaleVars = copy.deepcopy(scalingVars)
         
     # Create a dictionary of the materials and material categories for a part
-    def materialDetails(self, ap4Params, partType):
+    def materialDetails(self, manufParams, partType):
         materialCategories = ['fabric', 'resin', 'hardener', 'prepreg', 'core', 'adhesive', 'coating']
         materialDetails = {}
         
-        for val in ap4Params[partType]:
+        for val in manufParams[partType]:
             if val in materialCategories:
-                if ap4Params[partType][val] != 'N/A':
-                    materialDetails[val] = ap4Params[partType][val]
+                if manufParams[partType][val] != 'N/A':
+                    materialDetails[val] = manufParams[partType][val]
         
         return materialDetails
     
@@ -457,8 +456,6 @@ class Manufacture:
     Calculates the building costs
     """
     def buildCost(self, equipName, partName):
-#        equipName = "Balancing equipment and scales"
-#        partName = 'spar1'
         
         equipVariables = self.equipmentVars['capital_equipment'][equipName]
         
@@ -497,7 +494,7 @@ class Manufacture:
             
             for comp in compList:
                 
-                comp.productionDef(self.ap4Params, self.productionMethods)
+                comp.productionDef(self.manufParams, self.productionMethods)
                 
                 self.partRun(comp, self.materialVars, self.productionVars, runEquip=False)
             

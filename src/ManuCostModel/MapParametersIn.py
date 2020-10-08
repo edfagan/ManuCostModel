@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as md
 
-# Import data from AP4 parameters list
-def ap4xml(source):
+# Import data from parameters list
+def apxml(source):
     
     src_tree = ET.parse(source)
     src_root = src_tree.getroot()
@@ -23,14 +23,11 @@ def ap4xml(source):
 
     return paramsList
 
-# Map data from AP4 parameters list into the MCM input databases
+# Map data from parameters list into the MCM input databases
 def mapMCMinputs(paramsList):
     
     # Perform the laminate sizing based on the new system level inputs
     
-    
-    
-
     # Update the construction input database with the new wing length
     source = 'constructionVariablesDatabase.xml'
     
@@ -44,10 +41,10 @@ def mapMCMinputs(paramsList):
     src_tree.write(source)
 
 # Read in the primary input variables for construction, production and materials from xml files
-def readInputs(AP4inputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables):
+def readInputs(manufInputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables):
     
     # Read values from manufacturing input database
-    tree1 = ET.parse(AP4inputVars)
+    tree1 = ET.parse(manufInputVars)
     root1 = tree1.getroot()
     
     # Read values from construction input database
@@ -70,7 +67,7 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     tree6 = ET.parse(equipmentVariables)
     root6 = tree6.getroot()
     
-    # Iterate thorugh the AP4 input parameters and copy values
+    # Iterate thorugh the input parameters and copy values
     params1 = {}
     
     # Loop through each component
@@ -235,10 +232,3 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
                     
     return params1, params2, params3, params4, params5, params6
 
-
-
-#if(__name__ == "__main__"):
-#    
-#    paramsList = ap4xml('FC1_Parameters.xml')
-#    
-#    mapMCMinputs(paramsList)

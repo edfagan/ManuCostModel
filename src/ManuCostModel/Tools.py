@@ -1,24 +1,19 @@
 """
+Cost Model Data Processing Tools
 
-Cost Model Tools
-
-Author: Edward M Fagan
-
+Author: Edward Fagan
 """
 
-from DataVis import barPlot
 
 def bom(manuf):
-    
     # Determine the bill of materials for manufacturing
+    
     
     pass
 
 
 def costCentres(manuf, totals=False, stacked=False, legendOn=True):
-    
-    # Example plot for visualising the full breakdown of materials, labour and equipment costs for one production method
-    
+    #
     
     if totals is False:
         plotInfo = [['Material Cost (€)'],
@@ -91,7 +86,13 @@ def costCentres(manuf, totals=False, stacked=False, legendOn=True):
     return plotData
 
 def compare(productionList, totals=True, stacked=True, oneLegend=True, centreIndex=None):
-    
+    """ 
+    centreIndex is a integer value referring to a particular Cost Centre 
+    Cost Centres are ordered as:
+        0 = Materials
+        1 = Equipment
+        2 = Labour
+    """
     plotList = []
     legendOn = True
     
@@ -145,17 +146,19 @@ def compare(productionList, totals=True, stacked=True, oneLegend=True, centreInd
     
     return plotData
     
-if __name__ == '__main__':
+# if __name__ == '__main__':
     
-    manuf.prodName = 'VI'
+    # from DataVis import barPlot
     
-    plotData = costCentres(manuf, totals=True, stacked=False)
+    # wingProduction.prodName = 'VI'
     
-    barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
+    # plotData = costCentres(wingProduction, totals=True, stacked=False)
     
-    plotData = compare([manuf, manuf, manuf, manuf, manuf], totals=True, stacked=False, centreIndex=2)
+    # barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
-    barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=True, secondAxisVars=['1','2','3','4','5'])
+    # plotData = compare([wingProduction, wingProduction, wingProduction], totals=True, stacked=False, centreIndex=2)
+    
+    # barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=True, secondAxisVars=['1','2','3','4','5'])
     
     
     
