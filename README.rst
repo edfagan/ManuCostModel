@@ -14,7 +14,8 @@ ManuCostModel was developed for a generic aircraft wing design, consisting
 of a structural I-beam spar supporting an aerodynamic skin. The design is also 
 applicable to a standard wind turbine blade construction.
 
-.. image:: docs/screenshot.png
+.. image:: docs/screengrab.png
+
 
 ============
 Installation
@@ -71,11 +72,13 @@ Contact Info & License
 ======================
 
 Edward Fagan 
+
 Twitter: @edwardmfagan 
+
 Email: edward_mcm@fastmail.com
 
-This package is distributed under the BSD 3-Clause license. See LICENSE.txt for 
-more information.
+This package is distributed under the BSD 3-Clause license. Copyright is held by 
+the National University of Ireland Galway 2020. See LICENSE.txt for more information.
 
 ============
 Contributing
