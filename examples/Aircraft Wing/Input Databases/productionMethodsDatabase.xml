@@ -1,5 +1,5 @@
-<inputs model="production methods database">
-	<VI>
+<parameters concept="wing">
+	<element name="VI">
 		 <parameter name="step 01">
             <property name="name" type="char">Fabric cutting</property>
             <property name="description" type="char">Cutting the fabric to shape</property>
@@ -200,8 +200,8 @@
 			<property name="scrapVar" type="char">None</property>
 			<property name="consumables" type="list">None</property>
 		 </parameter>
-	</VI>
-	<Glued_Assembly>
+	</element>
+	<element name="Glued_Assembly">
 		 <parameter name="step 01">
             <property name="name" type="char">Web bond prep</property>
             <property name="description" type="char">Trimming and preparing the bond lines for the web preforms</property>
@@ -456,7 +456,7 @@
 			<property name="scrapVar" type="char">None</property>
 			<property name="consumables" type="list">None</property>
 		 </parameter>
-	</Glued_Assembly>
-</inputs>
+	</element>
+</parameters>
 
 

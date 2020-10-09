@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as md
 
-# Import data from AP4 parameters list
-def ap4xml(source):
+# Import data from parameters list
+def apxml(source):
     
     src_tree = ET.parse(source)
     src_root = src_tree.getroot()
@@ -23,14 +23,11 @@ def ap4xml(source):
 
     return paramsList
 
-# Map data from AP4 parameters list into the MCM input databases
+# Map data from parameters list into the MCM input databases
 def mapMCMinputs(paramsList):
     
     # Perform the laminate sizing based on the new system level inputs
     
-    
-    
-
     # Update the construction input database with the new wing length
     source = 'constructionVariablesDatabase.xml'
     
@@ -44,10 +41,10 @@ def mapMCMinputs(paramsList):
     src_tree.write(source)
 
 # Read in the primary input variables for construction, production and materials from xml files
-def readInputs(AP4inputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables):
+def readInputs(manufInputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables):
     
     # Read values from manufacturing input database
-    tree1 = ET.parse(AP4inputVars)
+    tree1 = ET.parse(manufInputVars)
     root1 = tree1.getroot()
     
     # Read values from construction input database
@@ -70,13 +67,13 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     tree6 = ET.parse(equipmentVariables)
     root6 = tree6.getroot()
     
-    # Iterate thorugh the AP4 input parameters and copy values
+    # Iterate thorugh the input parameters and copy values
     params1 = {}
     
     # Loop through each component
     for tag in root1:
         # Dictionary to store the variables defining each component and the wing
-        params1[tag.tag] = {}
+        params1[tag.attrib['name']] = {}
         # Loop through each parameter
         for param1 in tag.iter('parameter'):
             # Loop through each property
@@ -89,9 +86,9 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
                             saveVal = prop.text
                     except:
                         saveVal = prop.text
-                    params1[tag.tag][param1.attrib['name']] = saveVal
+                    params1[tag.attrib['name']][param1.attrib['name']] = saveVal
                 if (prop.attrib['name'] == 'steps_ignore'):
-                    params1[tag.tag][param1.attrib['name'] +"_"+ prop.attrib['name']] = prop.text.split(", ")
+                    params1[tag.attrib['name']][param1.attrib['name'] +"_"+ prop.attrib['name']] = prop.text.split(", ")
     
     # Iterate thorugh the construction input parameters and copy values
     params2 = {}
@@ -100,7 +97,7 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     for tag in root2:
         # Dictionary to store the variables for (i) the external geometry, 
         # (ii) the internal structure and (iii) other general variables
-        params2[tag.tag] = {}
+        params2[tag.attrib['name']] = {}
         # Loop through each parameter
         for param2 in tag.iter('parameter'):
             # Loop through each property
@@ -109,9 +106,9 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
                     varName = prop.text
                 if (prop.attrib['name'] == 'value'):
                     try:
-                        params2[tag.tag][varName] = float(prop.text)
+                        params2[tag.attrib['name']][varName] = float(prop.text)
                     except ValueError:
-                        params2[tag.tag][varName] = prop.text
+                        params2[tag.attrib['name']][varName] = prop.text
     
     # Iterate thorugh the production variables input parameters and copy values
     params3 = {}
@@ -119,7 +116,7 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     # Loop through each component
     for tag in root3:
         # Dictionary to store the variables for each production method
-        params3[tag.tag] = {}
+        params3[tag.attrib['name']] = {}
         # Loop through each parameter
         for param3 in tag.iter('parameter'):
             varName = param3.attrib['name']
@@ -128,9 +125,9 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
                 if (prop.attrib['name'] == 'value'):
                     try:
                         coef, exponent = str.split(prop.text, ',')
-                        params3[tag.tag][varName] = [float(coef), float(exponent)]
+                        params3[tag.attrib['name']][varName] = [float(coef), float(exponent)]
                     except ValueError:
-                        params3[tag.tag][varName] = [float(prop.text), 0.0]
+                        params3[tag.attrib['name']][varName] = [float(prop.text), 0.0]
     
     # Iterate thorugh the production methods input parameters and copy values
     params4 = {}
@@ -143,12 +140,12 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     # Loop through each component
     for tag in root4:
         # Dictionary to store the production methods
-        params4[tag.tag] = {}
+        params4[tag.attrib['name']] = {}
         # Loop through each parameter
         for param4 in tag.iter('parameter'):
             varName = param4.attrib['name']
             # Dictionary to store the steps in each production method
-            params4[tag.tag][varName] = {}
+            params4[tag.attrib['name']][varName] = {}
             # Loop through each property
             for prop in param4.iter('property'):
                 if (prop.attrib['name'] in saveVars1):
@@ -166,7 +163,7 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
                         if prop.attrib['name'] == 'labourScaling':
                             saveVal = [saveVal]
                         
-                    params4[tag.tag][varName][prop.attrib['name']] = saveVal
+                    params4[tag.attrib['name']][varName][prop.attrib['name']] = saveVal
     
     # Iterate thorugh the material input parameters and copy values
     params5 = {}
@@ -182,19 +179,19 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     # Loop through each component
     for tag in root5:
         # Dictionary to store the materials
-        params5[tag.tag] = {}
+        params5[tag.attrib['name']] = {}
         # Loop through each parameter
         for param5 in tag.iter('parameter'):
             varName = param5.attrib['name']
             # Dictionary to store the material properties
-            params5[tag.tag][varName] = {}
+            params5[tag.attrib['name']][varName] = {}
             # Loop through each property
             for prop in param5.iter('property'):
                 if (prop.attrib['name'] in saveVars2):
                     try:
-                        params5[tag.tag][varName][prop.attrib['name']] = float(prop.text)
+                        params5[tag.attrib['name']][varName][prop.attrib['name']] = float(prop.text)
                     except ValueError:
-                        params5[tag.tag][varName][prop.attrib['name']] = prop.text
+                        params5[tag.attrib['name']][varName][prop.attrib['name']] = prop.text
                     
     # Iterate thorugh the equipment variables input parameters and copy values
     params6 = {}
@@ -207,38 +204,31 @@ def readInputs(AP4inputVars, consVariables, productionVariables, productionMetho
     # Loop through each component
     for tag in root6:
         # Dictionary to store the production methods
-        params6[tag.tag] = {}
+        params6[tag.attrib['name']] = {}
         # Loop through each parameter
         for param6 in tag.iter('parameter'):
             varName = param6.attrib['name']
             # Dictionary to store the steps in each production method
-            params6[tag.tag][varName] = {}
+            params6[tag.attrib['name']][varName] = {}
             # Loop through each property
             for prop in param6.iter('property'):
                 # Save different variables for moulds and for regular equipment
-                if('tooling_and_moulds' == tag.tag):
+                if('tooling_and_moulds' == tag.attrib['name']):
                     if (prop.attrib['name'] in saveVars2):
                         try:
                             if(prop.attrib['name'] in ["machine length", "machine width", "occupancy factor"]):
-                                params6[tag.tag][varName][prop.attrib['name']] = float(prop.text)
+                                params6[tag.attrib['name']][varName][prop.attrib['name']] = float(prop.text)
                             else:
-                                params6[tag.tag][varName][prop.attrib['name']] = prop.text
+                                params6[tag.attrib['name']][varName][prop.attrib['name']] = prop.text
                         except:
                             pass
                 elif (prop.attrib['name'] in saveVars1):
                     try:
-                        params6[tag.tag][varName][prop.attrib['name']] = float(prop.text)
+                        params6[tag.attrib['name']][varName][prop.attrib['name']] = float(prop.text)
                     except:
                         
-                        params6[tag.tag][varName][prop.attrib['name']] = prop.text
+                        params6[tag.attrib['name']][varName][prop.attrib['name']] = prop.text
                         pass
                     
     return params1, params2, params3, params4, params5, params6
 
-
-
-#if(__name__ == "__main__"):
-#    
-#    paramsList = ap4xml('FC1_Parameters.xml')
-#    
-#    mapMCMinputs(paramsList)

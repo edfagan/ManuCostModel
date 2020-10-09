@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<outputs model="wing cost model results">
+   <Summary>
+      <parameter name="total wing cost" units="euro">107340.98</parameter>
+      <parameter name="total material costs" units="euro">64639.92</parameter>
+      <parameter name="total labour costs" units="euro">9020.87</parameter>
+      <parameter name="total equipment costs" units="euro">28568.71</parameter>
+      <parameter name="total wing mass" units="kg">3255.77</parameter>
+      <parameter name="unit production cost" units="euro/kg">32.97</parameter>
+   </Summary>
+   <Materials>
+      <summary>
+         <mass units="kg">
+            <parameter name="Araldite LY1564">739.65</parameter>
+            <parameter name="Rohacell 51 RIST">73.84</parameter>
+            <parameter name="consumables">392.68</parameter>
+            <parameter name="Optimat MD3 BIAX Fabric">1978.59</parameter>
+            <parameter name="gel coat">83.45</parameter>
+            <parameter name="Araldite XP3416">317.04</parameter>
+            <parameter name="Saertex Zoltek PX35 Fabric">861.3</parameter>
+            <parameter name="DP460">15.6</parameter>
+         </mass>
+         <cost units="euro">
+            <parameter name="Araldite LY1564">2477.82</parameter>
+            <parameter name="Rohacell 51 RIST">411.29</parameter>
+            <parameter name="consumables">13276.19</parameter>
+            <parameter name="Optimat MD3 BIAX Fabric">3264.67</parameter>
+            <parameter name="gel coat">302.92</parameter>
+            <parameter name="Araldite XP3416">1062.08</parameter>
+            <parameter name="Saertex Zoltek PX35 Fabric">43064.83</parameter>
+            <parameter name="DP460">780.13</parameter>
+         </cost>
+      </summary>
+   </Materials>
+   <Labour>
+      <summary>
+         <costs units="euro">
+            <parameter name="preform">1453.67</parameter>
+            <parameter name="cure">3199.22</parameter>
+            <parameter name="assembly">3214.38</parameter>
+            <parameter name="finishing">1153.6</parameter>
+         </costs>
+         <hours units="hours">
+            <parameter name="preform">41.53</parameter>
+            <parameter name="cure">91.41</parameter>
+            <parameter name="assembly">91.84</parameter>
+            <parameter name="finishing">32.96</parameter>
+         </hours>
+      </summary>
+   </Labour>
+   <Equipment>
+      <summary>
+         <costs units="euro">
+            <parameter name="spar1">2258.27</parameter>
+            <parameter name="spar2">2258.27</parameter>
+            <parameter name="web1">2210.0</parameter>
+            <parameter name="web2">2207.72</parameter>
+            <parameter name="skin1">2642.31</parameter>
+            <parameter name="skin2">2637.26</parameter>
+            <parameter name="wing1">10499.39</parameter>
+            <parameter name="factory">3855.48</parameter>
+         </costs>
+      </summary>
+   </Equipment>
+</outputs>

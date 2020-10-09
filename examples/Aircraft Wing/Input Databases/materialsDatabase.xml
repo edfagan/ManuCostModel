@@ -1,6 +1,6 @@
-<inputs model="material variables database">
-	<fabric>
-		 <parameter name="Saertex Zoltek PX35">
+<parameters concept="wing">
+	<element name="fabric">
+		 <parameter name="Saertex Zoltek PX35 Fabric">
             <property name="material" type="char">carbon</property>
             <property name="description" type="char">Roll of dry UD carbon fibre</property>
 			<property name="manufacturer" type="char">Saertex</property>
@@ -41,8 +41,8 @@
 			<property name="USS" type="double" units="MPa">56.0</property>
 			<property name="production methods" type="char">VI,RTM,LRTM,Hand_Layup</property>
 		 </parameter>
-	</fabric>
-	<resin>
+	</element>
+	<element name="resin">
 		 <parameter name="Araldite LY1564">
             <property name="material" type="char">epoxy</property>
             <property name="description" type="char">Low viscosity thermoset epoxy resin</property>
@@ -97,8 +97,8 @@
 			<property name="reference" type="char">https://research-information.bris.ac.uk/ws/portalfiles/portal/34506506/541610.pdf | https://hexcel.com/user_area/content_media/raw/HexPly_M21_global_DataSheet.pdf</property>
 			<property name="production methods" type="char">ATL,AFP</property>
 		 </parameter>
-	</resin>
-	<hardener>
+	</element>
+	<element name="hardener">
 		 <parameter name="Araldite XP3416">
             <property name="material" type="char">epoxy hardener</property>
             <property name="description" type="char">Epoxy hardener</property>
@@ -110,8 +110,8 @@
 			<property name="cost" type="char" units="€/kg">3.35</property>
 			<property name="reference" type="char">Murray RE, Jenne S, Snowberg D, Berry D, Cousins D. Techno-economic analysis of a megawatt-scale thermoplastic resin wind turbine blade. Renew Energy 2019;131:111–9. https://doi.org/10.1016/J.RENENE.2018.07.032.</property>
 		 </parameter>
-	</hardener>
-	<prepreg>
+	</element>
+	<element name="prepreg">
 		 <parameter name="SANDIA Baseline CFRP Plate">
             <property name="material" type="char">carbon/epoxy</property>
 			<property name="manufacturer" type="char">___</property>
@@ -137,8 +137,8 @@
 			<property name="cure cycle" type="char">DER383_cureCycle.csv</property>
 			<property name="production methods" type="char">VBO,Hand_Layup</property>
 		 </parameter>
-	</prepreg>
-	<core>
+	</element>
+	<element name="core">
 		 <parameter name="Rohacell 51 RIST">
             <property name="material" type="char">Polymethacrylimide (PMI) Foam</property>
 			<property name="structure" type="char">monolithic</property>
@@ -154,8 +154,8 @@
 			<property name="cost (thickness)" type="double" units="€/mm">0.0</property>
 			<property name="reference" type="char">https://www.rockwestcomposites.com/media/wysiwyg/ROHACELL-RIST-mechanical-properties-EN.pdf</property>
 		 </parameter>
-	</core>
-	<coating>
+	</element>
+	<element name="coating">
 		<parameter name="gel coat">
             <property name="material" type="char">epoxy</property>
             <property name="description" type="char">Epoxy based gel coat providing high-quality finish to the part</property>
@@ -166,8 +166,8 @@
 			<property name="cost" type="char" units="€/kg">3.63</property>
 			<property name="reference" type="char">Murray paper?</property>
 		 </parameter>
-	</coating>
-	<adhesive>
+	</element>
+	<element name="adhesive">
 		<parameter name="DP460">
             <property name="material" type="char">epoxy</property>
             <property name="description" type="char">Epoxy based two-part adhesive</property>
@@ -178,8 +178,8 @@
 			<property name="cure cycle" type="char">DP460_cureCycle.csv</property>
 			<property name="reference" type="char">"See Input Data"</property>
 		 </parameter>
-	</adhesive>
-	<consumables>
+	</element>
+	<element name="consumables">
          <parameter name="Mould release">
             <property name="description">Rexco - Formula Five Mould Release Wax</property>
 			<property name="cost" type="double" units="€/kg">31.35</property>
@@ -260,7 +260,7 @@
 			<property name="scrap_rate" type="double">0.2</property>
 			<property name="reference" type="char">None</property>
 		 </parameter>
-	</consumables>
-</inputs>
+	</element>
+</parameters>
 
 

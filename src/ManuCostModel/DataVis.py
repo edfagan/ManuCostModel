@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jul 23 11:27:35 2020
+Modules for Data Visualisation
 
-@author: 0116092S
+Edward Fagan
 """
 
 from numpy import array, arange
@@ -16,7 +16,7 @@ def rgb2hex(rgb):
     newVal = '#%02x%02x%02x' % rgb
     return newVal
 
-
+# Make patch spines invisible on plot
 def invisiblePatchSpines(ax):
     ax.set_frame_on(True)
     ax.patch.set_visible(False)
@@ -29,14 +29,6 @@ def randomColour(colourInp, num_bars, shadedBars):
     
     if(shadedBars is True):
         base = colourInp
-#        if(base=='red'):
-#            rgbl=[255,0,0]
-#            chng = 0
-#        elif(base=='green'):
-#            rgbl=[0,255,0]
-#            chng = 1
-#        elif(base=='blue'):
-#            rgbl=[0,0,255]
         
         rgbl = webcolors.name_to_rgb(base)
             
@@ -61,12 +53,6 @@ def randomColour(colourInp, num_bars, shadedBars):
         colour_list = []
         
         for base in colourInp:
-#            if(base=='red'):
-#                rgbl=[255,0,0]
-#            elif(base=='green'):
-#                rgbl=[0,255,0]
-#            elif(base=='blue'):
-#                rgbl=[0,0,255]
                 
             rgbl = webcolors.name_to_rgb(base)
             
@@ -87,14 +73,11 @@ def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=Fa
     fig = figure(figsize=(10,8))
     ax = fig.add_subplot(111)
     
-#    colours =['red','green','blue']
     patch_handles = []
     legend_handles = []
     
-#    left = zeros(len(sources)) # Left alignment of data
     for label in range(len(data)):
         
-#        indiv_data = data[label]
         data_set = data[label]
         patch_handles.append([])
         h_pos = label
@@ -117,10 +100,9 @@ def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=Fa
             
             for i, d in enumerate(indiv_data):
                 # Horizontal bar chart option
-    #            patch_handles.append(ax.bar(x_pos, d, color=colours[i], align='center', left=left))
-                
                 bar = ax.bar(h_pos, d, 0.2, bottom=bottom, color=colour_list[i])
                 patch_handles[label][x].append(bar)
+                
                 # Accumulate the blocks in the bar
                 bottom += (d)
                 
@@ -223,7 +205,9 @@ def barPlot(plotData, percentDisplay=False, barLabelDisplay=False, secondAxis=Fa
 
 
 
-def pieChart(plotInfo, data, dataLabels):
+def pieChart(plotData):
+    
+    plotInfo, data, dataLabels, colourSet, legendDisplay = plotData
     
     # Make the figure
     fig = plt.figure(figsize=(9, 5))
@@ -250,6 +234,8 @@ def pieChart(plotInfo, data, dataLabels):
 
 if(__name__ == '__main__'):
     
+    # Example pie chart for visualising the full breakdown of materials, labour 
+    # and equipment costs for several production methods
     plotInfo = [['VI'],
                 ['LRTM'],
                 ['VBO']]
@@ -262,12 +248,13 @@ if(__name__ == '__main__'):
                   [["Materials", "Equipment", "Labour"]],
                   [["Materials", "Equipment", "Labour"]]]
     
-    pieChart(plotInfo, data, dataLabels)
+    plotData = plotInfo, data, dataLabels, None, None
     
-
-if(__name__ == '__main__'):
+    pieChart(plotData)
     
-    # Example plot for visualising the full breakdown of materials, labour and equipment costs for one production method
+    
+    # Example bar plot for visualising the full breakdown of materials, labour  
+    # and equipment costs for one production method
     plotInfo = [['Material Cost (€)'],
                 ['Equipment Cost (€)'],
                 ['Labour Cost (€)']]
@@ -293,7 +280,8 @@ if(__name__ == '__main__'):
     barPlot(plotData, percentDisplay=True, barLabelDisplay=True)
     
     
-    # Example plot for comparing major cost centres for multiple production methods
+    # Example bar plot for comparing major cost centres for multiple production 
+    # methods
     plotInfo = [['Material Cost (€)'],
                 ['Equipment Cost (€)'],
                 ['Labour Cost (€)']]
@@ -323,7 +311,8 @@ if(__name__ == '__main__'):
     barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
-    # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods
+    # Example bar plot for comparing the contribution of major cost centres to  
+    # the total cost for multiple production methods
     plotInfo = [['VI'],
                 ['LRTM'],
                 ['VBO']]
@@ -349,7 +338,9 @@ if(__name__ == '__main__'):
     barPlot(plotData, percentDisplay=False, barLabelDisplay=True)
     
     
-    # Example plot for comparing the contribution of major cost centres to the total cost for multiple production methods and for another variable, e.g. PPA
+    # Example bar plot for comparing the contribution of major cost centres to  
+    # the total cost for multiple production methods and for another variable, 
+    # e.g. parts per annum
     plotInfo = [['VI'],
                 ['LRTM'],
                 ['VBO']]
@@ -358,17 +349,16 @@ if(__name__ == '__main__'):
             [[5000.0, 3000.0, 1000.0],[4000.0, 2000.0, 500.0]],
             [[5000.0, 3000.0, 1000.0],[4000.0, 2000.0, 500.0]]]
     
-    dataLabels = [[["Materials (200 PPA)", "Labour (200 PPA)", "Equipment (200 PPA)"],["Materials (500 PPA)", "Labour (500 PPA)", "Equipment (500 PPA)"]],
-                  [["Materials", "Labour", "Equipment"],["Materials", "Labour", "Equipment"]],
-                  [["Materials", "Labour", "Equipment"],["Materials", "Labour", "Equipment"]]]
+    dataLabels = [[["Materials (200 PPA)", "Labour (200 PPA)", "Equipment (200 PPA)"],
+                   ["Materials (500 PPA)", "Labour (500 PPA)", "Equipment (500 PPA)"]],
+                  [["Materials", "Labour", "Equipment"],
+                   ["Materials", "Labour", "Equipment"]],
+                  [["Materials", "Labour", "Equipment"],
+                   ["Materials", "Labour", "Equipment"]]]
     
     colourSet = [[['blue'],['red']],
                  [['blue'],['red']],
                  [['blue'],['red']]]
-    
-#    colourSet = [[['red'],['red']],
-#                 [['red', 'green', 'blue'],['red']],
-#                 [['red'],['red']]]
     
     legendDisplay = [[[1,1,1],[1,1,1]],
                      [[],[]],
@@ -378,4 +368,5 @@ if(__name__ == '__main__'):
     
     plotData = plotInfo, data, dataLabels, colourSet, legendDisplay
     
-    barPlot(plotData, percentDisplay=True, barLabelDisplay=False, secondAxis=True, secondAxisVars=secondVars)
+    barPlot(plotData, percentDisplay=True, barLabelDisplay=False, 
+            secondAxis=True, secondAxisVars=secondVars)

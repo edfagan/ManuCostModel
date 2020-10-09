@@ -114,10 +114,10 @@ def writeOutputs(outFileName, model):
     # Create a list of all materials present in the wing from the input parameters
     materialsSet = []
     checkSet = ['fabric', 'resin', 'hardener', 'prepreg', 'core', 'adhesive', 'coating', 'consumables']
-    for partKey in model.ap4Params.keys():
-        for matKey in model.ap4Params[partKey]:
+    for partKey in model.manufParams.keys():
+        for matKey in model.manufParams[partKey]:
             if(matKey in checkSet):
-                materialsSet.append(model.ap4Params[partKey][matKey])
+                materialsSet.append(model.manufParams[partKey][matKey])
     
     materialsSet.append('consumables')
     

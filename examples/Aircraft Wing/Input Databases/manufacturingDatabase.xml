@@ -1,7 +1,7 @@
-<inputs model="wing cost model">
-	<spar>
+<parameters concept="wing">
+	<element name="spar">
          <parameter name="fabric">
-            <property name="name">Saertex Zoltek PX35</property>
+            <property name="name">Saertex Zoltek PX35 Fabric</property>
             <property name="description">materials</property>
          </parameter>
          <parameter name="resin">
@@ -45,8 +45,8 @@
             <property name="name" type="double">2.0</property>
             <property name="description">construction</property>
          </parameter>
-	</spar>
-	<web>
+	</element>
+	<element name="web">
          <parameter name="fabric">
             <property name="name">Optimat MD3 BIAX Fabric</property>
             <property name="description">materials</property>
@@ -92,8 +92,8 @@
             <property name="name" type="double">2.0</property>
             <property name="description">construction</property>
          </parameter>
-	</web>
-	<skin>
+	</element>
+	<element name="skin">
          <parameter name="fabric">
             <property name="name">Optimat MD3 BIAX Fabric</property>
             <property name="description">materials</property>
@@ -138,8 +138,8 @@
             <property name="name" type="double">2.0</property>
             <property name="description">construction</property>
          </parameter>
-	</skin>
-	<wing>
+	</element>
+	<element name="wing">
 		 <parameter name="fabric">
             <property name="name">N/A</property>
             <property name="description">materials</property>
@@ -169,7 +169,7 @@
             <property name="description">materials</property>
          </parameter>
 		 <parameter name="preforming">
-            <property name="name">VI</property>
+            <property name="name">N/A</property>
             <property name="description">production</property>
          </parameter>
 		 <parameter name="curing">
@@ -184,7 +184,7 @@
             <property name="name" type="double">1.0</property>
             <property name="description">construction</property>
          </parameter>
-	</wing>
-</inputs>
+	</element>
+</parameters>
 
  
