@@ -1,7 +1,19 @@
 """
-Wing Composites Manufacturing Cost Model
+Manufacturing Cost Model
+----------
 
-Author: Edward Fagan
+The cost model is structured around three class types:
+    
+    1. A component class is used to store information and perform calculations 
+    on the "part" level. The component class object has its own internal classes 
+    for specific cost centres, including materials, labour and equipment.
+
+    2. A production step class is used to store information on a single step in
+    the manufacturing approach.
+
+    3. A manufacturing class is used to perform calculations on all of the parts.
+    It can be considered as the "factory" level.
+    
 """
 
 import os
@@ -13,6 +25,49 @@ from .PartDecomposition import ScalingVariables, AssemblyScaling
 
 
 class component:
+    """
+    Class for creating component objects.
+
+    Parameters
+    ----------
+    partName : str
+        Name of the part
+        
+    partType : str
+        Type of part, must match an element from the manufacturing database.
+        Current options include: 'spar', 'web', 'skin' and 'wing'
+        
+    matDetails : dict, default None
+        Dictionary identifying the materials present in the part and the names
+        of those materials.
+        Keys must match elements from the materials database and elements must
+        match associated parameter names from the materials database
+        
+    partBrand : str, default 'preform'
+        Identifier of the type of manufacturing operation, current options 
+        include 'preform' or 'assembly'
+        
+    activityLevels : list[str], default ['manufacturing']
+        A list of the different activities the cost centres are associated with.
+        Options are customisable and can be found in the "activity" property
+        of the production methods database. Current options include: 'preform',
+        'cure', 'assembly', and 'finishing'
+
+    Notes
+    -----
+    Comments are under development
+
+    Examples
+    --------
+    Default usage:
+
+    >>> spar = component('Upper Spar', 
+                         'spar', 
+                         matDetails={'fabric':'Saertex UD'}, 
+                         partBrand='preform', 
+                         activityLevels=['preforming', 'curing', 
+                                         'assembly'])
+    """
     
     def __init__(self, partName, partType, matDetails=None, partBrand='preform', activityLevels=['Manufacturing']):
         # General object variables
@@ -105,9 +160,20 @@ class component:
             except:
                 pass
             
-        
-    "Internal class for material cost related functions and variables"
+    
     class Materials:
+        """
+        Internal class for material cost centre related functions and variables.
+        
+        Parameters
+        ----------
+        matDetails : dict, default None
+            Dictionary identifying the materials present in the part and the names
+            of those materials.
+            Keys must match elements from the materials database and elements must
+            match associated parameter names from the materials database
+        """
+        
         def __init__(self, matDetails=None):
             # Define material variables
             self.mass = {}
@@ -126,8 +192,8 @@ class component:
                 elif type(matDetails) is str or list:
                     self.materialAddition(matDetails)
         
-        # Method for populating a dictionary with zeros
         def materialDict(self, matDict, matDetails):
+            # Method for populating a dictionary with zeros
             
             for val in iter(matDetails):
                 matDict[val] = 0.0
@@ -162,8 +228,22 @@ class component:
         def totalCost(self):
             self.cost = sum(self.matCost.values()) + sum(self.matCostScrap.values())
         
-    "Internal class for labour cost related functions and variables"
     class Labour:
+        """
+        Internal class for labour cost centre related functions and variables.
+        
+        Parameters
+        ----------
+        numSteps : int, default None
+            Number of steps in the production method
+            
+        activities : list[str,str,...], default None
+            A list of the different activities the cost centres are associated with.
+            Options are customisable and can be found in the "activity" property
+            of the production methods database. Current options include: 'preform',
+            'cure', 'assembly', and 'finishing'
+        """
+        
         def __init__(self, numSteps=None, activities=None):
             # Make these into dictionaries to capture the values for each step
             if numSteps is None:
@@ -196,8 +276,19 @@ class component:
             self.totalLabourHours = sum(self.labourHours)
             self.totalCost = sum(self.labourCosts)
     
-    "Internal class for equipment cost related functions and variables"
     class Equipment:
+        """
+        Internal class for equipment cost centre related functions and variables.
+        
+        Parameters
+        ----------
+        activityLevels : list[str,str,...], default None
+            A list of the different activities the cost centres are associated with.
+            Options are customisable and can be found in the "activity" property
+            of the production methods database. Current options include: 'preform',
+            'cure', 'assembly', and 'finishing'
+        """
+        
         def __init__(self, activityLevels):
             # Make these into dictionaries to capture the values for each step
             self.equipmentList = {}
@@ -257,11 +348,24 @@ class ProductionStep:
 
 
 class Manufacture:
+    """ 
+    Class for creating Manufacture objects.
+
+    Parameters
+    ----------
+    directory : str
+        Path to the directory where the input databases are located.
+        
+    inputFile : str
+        Name of the name of the manufacturing database file.
+        
+    prodName : str
+        Optional name for identifying the manufacturing analysis. Used for 
+        naming data series and data visualisation.
+    """
     
     def __init__(self, directory, inputFile='', prodName=''):
-        """ 
-        Import the material, production and construction parameters
-        """
+        
         self.directory = directory
         self.CSVloc = "CSV Files\\"
         self.dirInputDatabases = "\\Input Databases\\"

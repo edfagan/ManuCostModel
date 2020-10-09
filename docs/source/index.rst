@@ -22,9 +22,9 @@ Indices and tables
 Installation
 ------------
 
-Install ManuCostModel by running:
+Installation on Windows: ::
 
-    install _______
+	pip install manucostmodel
 
 Contribute
 ----------
@@ -34,10 +34,10 @@ Contribute
 Support
 -------
 
-If you are having issues, please let us know.
-We have a mailing list located at: ndroid123@fastmail.com
+If you are having issues, please let me know.
+I have a mailing list located at: edward_mcm@fastmail.com
 
 License
 -------
 
-The project is licensed under the BSD 3-Clause "New" or "Revised" license.
+The project is licensed under the BSD 3-Clause license.

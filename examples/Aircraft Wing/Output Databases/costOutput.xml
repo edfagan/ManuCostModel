@@ -11,24 +11,24 @@
    <Materials>
       <summary>
          <mass units="kg">
-            <parameter name="DP460">15.6</parameter>
-            <parameter name="Araldite XP3416">317.04</parameter>
-            <parameter name="gel coat">83.45</parameter>
-            <parameter name="consumables">392.68</parameter>
-            <parameter name="Optimat MD3 BIAX Fabric">1978.59</parameter>
-            <parameter name="Saertex Zoltek PX35 Fabric">861.3</parameter>
             <parameter name="Araldite LY1564">739.65</parameter>
             <parameter name="Rohacell 51 RIST">73.84</parameter>
+            <parameter name="consumables">392.68</parameter>
+            <parameter name="Optimat MD3 BIAX Fabric">1978.59</parameter>
+            <parameter name="gel coat">83.45</parameter>
+            <parameter name="Araldite XP3416">317.04</parameter>
+            <parameter name="Saertex Zoltek PX35 Fabric">861.3</parameter>
+            <parameter name="DP460">15.6</parameter>
          </mass>
          <cost units="euro">
-            <parameter name="DP460">780.13</parameter>
-            <parameter name="Araldite XP3416">1062.08</parameter>
-            <parameter name="gel coat">302.92</parameter>
-            <parameter name="consumables">13276.19</parameter>
-            <parameter name="Optimat MD3 BIAX Fabric">3264.67</parameter>
-            <parameter name="Saertex Zoltek PX35 Fabric">43064.83</parameter>
             <parameter name="Araldite LY1564">2477.82</parameter>
             <parameter name="Rohacell 51 RIST">411.29</parameter>
+            <parameter name="consumables">13276.19</parameter>
+            <parameter name="Optimat MD3 BIAX Fabric">3264.67</parameter>
+            <parameter name="gel coat">302.92</parameter>
+            <parameter name="Araldite XP3416">1062.08</parameter>
+            <parameter name="Saertex Zoltek PX35 Fabric">43064.83</parameter>
+            <parameter name="DP460">780.13</parameter>
          </cost>
       </summary>
    </Materials>

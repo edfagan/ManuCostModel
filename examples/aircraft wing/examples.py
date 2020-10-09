@@ -2,7 +2,7 @@
 """
 Example script for analysing the variation in wing cost with production capacity
 
-@author: Edward Fagan
+Author: Edward Fagan
 """
 
 import os
@@ -20,19 +20,20 @@ if __name__ == '__main__':
     # Read in variables and initialise the manufacturing class object
     directory = os.path.dirname(os.path.realpath(__file__))
     
-    dirOutputDatabases = "\Output Databases"
-    outFileName = '\costOutput.xml'
-    outFileName = dirOutputDatabases + outFileName
-    
     inputFileName = "manufacturingDatabase"
     
     # Initialise the class
-    wingProduction = mcm.CostModel.Manufacture(directory, inputFile=inputFileName)
+    wingProduction = mcm.CostModel.Manufacture(directory, 
+                                               inputFile=inputFileName)
     
     # Analyse the wing manufacturing process
     wingProduction.productionRun(scaling=True)
     
     # Write results to an output database
+    dirOutputDatabases = "\Output Databases"
+    outFileName = '\costOutput.xml'
+    outFileName = dirOutputDatabases + outFileName
+    
     writeOutputs(directory+outFileName, wingProduction)
     
     
@@ -53,6 +54,7 @@ if __name__ == '__main__':
         
         wingProduction.productionVars['General']['ppa'][0] = float(var)
         
+        # Reanalyse the production costs, resetting the cost variables each time
         wingProduction.productionRun(scaling=False, reSet=True)
        
         productionCapacity[count][0] = var
@@ -63,6 +65,7 @@ if __name__ == '__main__':
     
     # Plot results of sensitivity analysis
     plt.plot(productionCapacity[:,0], productionCapacity[:,1])
+    
     plt.xlabel('Production Capacity (ppa)')
     plt.ylabel('Total Wing Cost (€)')
     plt.title('Production Capacity Sensitivity Analysis')
@@ -70,19 +73,23 @@ if __name__ == '__main__':
     # Export results of sensitivity analysis to excel file
     productionCapacity = pd.DataFrame(productionCapacity)
     
-    writer = pd.ExcelWriter(directory+dirOutputDatabases+"\\results.xlsx", engine='xlsxwriter')
-    productionCapacity.to_excel(writer, sheet_name='sheet 1', startrow=0, startcol=0, header=True, index=False)
+    writer = pd.ExcelWriter(directory+dirOutputDatabases+"\\results.xlsx", 
+                            engine='xlsxwriter')
+    productionCapacity.to_excel(writer, sheet_name='sheet 1', startrow=0, 
+                                startcol=0, header=True, index=False)
     writer.save()
     
     
     """ General data processing and visualisation """
-    
+    # Name the manufacturing anlaysis
     wingProduction.prodName = 'VI'
     
+    # Create a data structure for a bar plot
     plotData1 = mcm.Tools.costCentres(wingProduction, totals=True, stacked=False)
     
     mcm.DataVis.barPlot(plotData1, percentDisplay=False, barLabelDisplay=True)
     
+    # Create a data structure for a pie chart
     plotData2 = mcm.Tools.costCentres(wingProduction, totals=True, stacked=True)
     
     mcm.DataVis.pieChart(plotData2)
