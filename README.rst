@@ -20,9 +20,9 @@ applicable to a standard wind turbine blade construction.
 Installation
 ============
 
-Installation on Windows: ::
+Installation on Windows: 
 
-	pip install manucostmodel
+	
 
 =============
 Usage Example
@@ -68,6 +68,15 @@ Release History
 
 
 ======================
+Citing
+======================
+
+When publishing work using the ManuCostModel, please cite the following:
+
+
+
+
+======================
 Contact Info & License
 ======================
 
@@ -88,7 +97,7 @@ Contributing
 
 
 
-.. |screengrab| image:: screengrab.*
+.. |screengrab| image:: docs/screengrab.png
     :alt: cost breakdown for an aircraft wing
     :scale: 100%
 
