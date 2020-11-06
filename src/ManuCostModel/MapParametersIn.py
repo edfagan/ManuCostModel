@@ -232,3 +232,40 @@ def readInputs(manufInputVars, consVariables, productionVariables, productionMet
                     
     return params1, params2, params3, params4, params5, params6
 
+
+def xmlInputs(dataBase):
+    
+    # Read values from the input database
+    tree = ET.parse(dataBase)
+    root = tree.getroot()
+    params = {}
+    
+    # Iterate thorugh the input parameters and copy values
+    for tag in root:
+        # Dictionary to store the variables defining each component and the wing
+        params[tag.attrib['name']] = {}
+        # Loop through each parameter
+        for param in tag.iter('parameter'):
+            params[tag.attrib['name']][param.attrib['name']] = {}
+            # Loop through each property
+            for prop in param.iter('property'):
+                # if (prop.attrib['name'] == 'name'):
+                    # Check if input value should be converted to a float
+                    try:
+                        if prop.attrib['type'] == 'double':
+                            saveVal = float(prop.text)
+                        elif prop.attrib['type'] == 'int':
+                            saveVal = int(float(prop.text))
+                        else:
+                            saveVal = prop.text
+                    except:
+                        saveVal = prop.text
+                    
+                    # Save the value into the input parameters dictionary
+                    params[tag.attrib['name']][param.attrib['name']][prop.attrib['name']] = saveVal
+                
+    return params
+
+# def ReadScaling():
+    
+    

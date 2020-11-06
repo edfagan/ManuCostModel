@@ -14,16 +14,15 @@ ManuCostModel was developed for a generic aircraft wing design, consisting
 of a structural I-beam spar supporting an aerodynamic skin. The design is also 
 applicable to a standard wind turbine blade construction.
 
-.. image:: docs/screengrab.png
-
+|screengrab|
 
 ============
 Installation
 ============
 
-Installation on Windows: ::
+Installation on Windows: 
 
-	pip install manucostmodel
+	
 
 =============
 Usage Example
@@ -44,13 +43,14 @@ The following outlines an example analysis case using ManuCostModel::
 	wingProduction = mcm.CostModel.Manufacture(directory, inputFile=inputFileName)			
 	
 	# Analyse the production costs
+	# scaling is True if the model determines its own geometric scaling variables
 	wingProduction.productionRun(scaling=True)
 	
 	# Use the toolset to create a data object from the analysis results
-	plotData2 = mcm.Tools.costCentres(wingProduction, totals=True, stacked=True)
+	plotData = mcm.Tools.costCentres(wingProduction, totals=True, stacked=True)
     
 	# Produce a pie chart of the main cost centres for the product
-	mcm.DataVis.pieChart(plotData2)
+	mcm.DataVis.pieChart(plotData)
 
 
 =================
@@ -65,6 +65,15 @@ Release History
 * 0.0.1
 
 	* Work in progress
+
+
+======================
+Citing
+======================
+
+When publishing work using the ManuCostModel, please cite the following:
+
+
 
 
 ======================
@@ -84,5 +93,12 @@ the National University of Ireland Galway 2020. See LICENSE.txt for more informa
 Contributing
 ============
 
+
+
+
+
+.. |screengrab| image:: docs/screengrab.png
+    :alt: cost breakdown for an aircraft wing
+    :scale: 100%
 
 

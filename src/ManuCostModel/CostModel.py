@@ -19,7 +19,7 @@ The cost model is structured around three class types:
 import os
 from numpy import loadtxt, ceil, array
 import copy
-from .MapParametersIn import readInputs
+from .MapParametersIn import readInputs, xmlInputs
 from .MapParametersOut import writeOutputs, sumMats, sumTotals
 from .PartDecomposition import ScalingVariables, AssemblyScaling
 
@@ -70,6 +70,27 @@ class component:
     """
     
     def __init__(self, partName, partType, matDetails=None, partBrand='preform', activityLevels=['Manufacturing']):
+        """
+        
+
+        Parameters
+        ----------
+        partName : TYPE
+            DESCRIPTION.
+        partType : TYPE
+            DESCRIPTION.
+        matDetails : TYPE, optional
+            DESCRIPTION. The default is None.
+        partBrand : TYPE, optional
+            DESCRIPTION. The default is 'preform'.
+        activityLevels : TYPE, optional
+            DESCRIPTION. The default is ['Manufacturing'].
+
+        Returns
+        -------
+        None.
+
+        """
         # General object variables
         self.name = partName
         self.type = partType
@@ -96,16 +117,48 @@ class component:
         self.spaceReqs = []
         
         
-    # Method for resetting dictionaries to zeros or for setting up a new empty dictionary
+    
     def emptyDict(self, dictVars, newDict={}):
+        """
+        Method for resetting dictionaries to zeros or for setting up a new 
+        empty dictionary
+
+        Parameters
+        ----------
+        dictVars : TYPE
+            DESCRIPTION.
+        newDict : TYPE, optional
+            DESCRIPTION. The default is {}.
+
+        Returns
+        -------
+        newDict : TYPE
+            DESCRIPTION.
+
+        """
         
         for val in iter(dictVars):
             newDict[val] = 0.0
             
         return newDict
     
-    # Method to populate a list of production steps
+    
     def productStepDef(self, productionDict, append=True):
+        """
+        Method to populate a list of production steps
+
+        Parameters
+        ----------
+        productionDict : TYPE
+            DESCRIPTION.
+        append : TYPE, optional
+            DESCRIPTION. The default is True.
+
+        Returns
+        -------
+        None.
+
+        """
         
         if append is False:
             self.productionSteps = []
@@ -135,6 +188,21 @@ class component:
         self.equipment.findEquipment(self.productionSteps)
     
     def productionDef(self, inputParams, productionMethods):
+        """
+        
+
+        Parameters
+        ----------
+        inputParams : TYPE
+            DESCRIPTION.
+        productionMethods : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         paramData = inputParams[self.type]
         
@@ -154,7 +222,11 @@ class component:
                     except:
                         pass
                     
-                    self.productStepDef(activitySteps, append=False)
+                    try:
+                        self.productStepDef(activitySteps, append=True)
+                    except:
+                        self.productStepDef(activitySteps, append=False)
+                    
                     self.productionNames = self.productionNames + [activityName for i in range(len(activitySteps))]
                     
             except:
@@ -193,18 +265,59 @@ class component:
                     self.materialAddition(matDetails)
         
         def materialDict(self, matDict, matDetails):
-            # Method for populating a dictionary with zeros
+            """
+            Method for populating a dictionary with zeros
+
+            Parameters
+            ----------
+            matDict : TYPE
+                DESCRIPTION.
+            matDetails : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             
             for val in iter(matDetails):
                 matDict[val] = 0.0
                 
-        # Method for populating all dictionaries with zeros and adding new elements
+        
         def dictionaryFill(self, matDetails):
+            """
+            Method for populating all dictionaries with zeros and adding new 
+            elements
+
+            Parameters
+            ----------
+            matDetails : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             for obj in [self.mass, self.matCost, self.massScrap, self.matCostScrap]:
                 self.materialDict(obj, matDetails)
         
-        # Method for adding a new material or list of materials
+        
         def materialAddition(self, materials):
+            """
+            Method for adding a new material or list of materials
+
+            Parameters
+            ----------
+            materials : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             materialDict = {}
             
             # Check for single item or list for addition
@@ -217,15 +330,37 @@ class component:
             
             self.dictionaryFill(materialDict)
         
-        # Method for summing up the total mass
+        
         def totalMass(self, structureMass=False):
+            """
+            Method for summing up the total mass
+
+            Parameters
+            ----------
+            structureMass : TYPE, optional
+                DESCRIPTION. The default is False.
+
+            Returns
+            -------
+            TYPE
+                DESCRIPTION.
+
+            """
             if structureMass is False:
                 self.materialMass = sum(self.mass.values()) + sum(self.massScrap.values())
             elif structureMass is True:
                 return sum(self.mass.values())
         
-        # Method for summing up the total costs
+        
         def totalCost(self):
+            """
+            Method for summing up the total costs
+
+            Returns
+            -------
+            None.
+
+            """
             self.cost = sum(self.matCost.values()) + sum(self.matCostScrap.values())
         
     class Labour:
@@ -262,16 +397,53 @@ class component:
                 self.activityDict(activities, self.activityCosts)
                 self.activityDict(activities, self.activityHours)
             
-        # Method to populate the dictionaries
+        
         def fillEmpty(self, numSteps):
+            """
+            Method to populate the dictionaries
+
+            Parameters
+            ----------
+            numSteps : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            list
+                DESCRIPTION.
+
+            """
             return [0.0 for i in range(numSteps)]
         
         def activityDict(self, activityLevels, labourDict):
+            """
+            
+
+            Parameters
+            ----------
+            activityLevels : TYPE
+                DESCRIPTION.
+            labourDict : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             for act in activityLevels:
                 labourDict[act] = 0.0
             
-        # Method for summing up the results
+        
         def totals(self):
+            """
+            Method for summing up the results
+
+            Returns
+            -------
+            None.
+
+            """
             self.totalProcessHours = sum(self.processHours)
             self.totalLabourHours = sum(self.labourHours)
             self.totalCost = sum(self.labourCosts)
@@ -302,12 +474,41 @@ class component:
             self.cost = 0.0
             self.power = 0.0
             
+            
         def activityDict(self, activityLevels, equipDict):
+            """
+            
+
+            Parameters
+            ----------
+            activityLevels : TYPE
+                DESCRIPTION.
+            equipDict : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             for act in activityLevels:
                 equipDict[act] = []
             
-        # A method to populate the dictionaries
+        
         def findEquipment(self, productionSteps):
+            """
+            A method to populate the dictionaries
+
+            Parameters
+            ----------
+            productionSteps : TYPE
+                DESCRIPTION.
+
+            Returns
+            -------
+            None.
+
+            """
             
             try:
                 fullList = [val.capitalEquipment for val in iter(productionSteps)]
@@ -325,14 +526,32 @@ class component:
             except:
                 pass
         
-        # Method for summing up the total costs
+        
         def totals(self):
+            """
+            Method for summing up the total costs
+
+            Returns
+            -------
+            None.
+
+            """
             self.cost = sum(self.equipmentCosts.values())
             self.power = sum(self.powerCosts.values())
 
 
 class ProductionStep:
+    """
+    """
     def __init__(self):
+        """
+        
+
+        Returns
+        -------
+        None.
+
+        """
         self.stepLabel = None
         self.name = None
         self.labourScaling = None
@@ -388,6 +607,8 @@ class Manufacture:
         productionMethods = self.dirInputDatabases + "productionMethodsDatabase.xml"
         materialVariables = self.dirInputDatabases + "materialsDatabase.xml"
         equipmentVariables = self.dirInputDatabases + "equipmentVariablesDatabase.xml"
+        
+        self.scalingInputVariables = self.dirInputDatabases + "scalingVariables.xml"
 
         manufacturingInputVars = self.directory + manufacturingInputVars
         consVariables = self.directory + consVariables
@@ -473,6 +694,14 @@ class Manufacture:
     
     
     def reSetManufacturing(self):
+        """
+        
+
+        Returns
+        -------
+        None.
+
+        """
         self.reSetComponents(self.spars, self.manufParams, self.activityLevels)
         self.reSetComponents(self.webs, self.manufParams, self.activityLevels)
         self.reSetComponents(self.skins, self.manufParams, self.activityLevels)
@@ -497,16 +726,72 @@ class Manufacture:
         
     
     def setComponents(self, manufParams, activityLevels, partName, brand, numParts):
+        """
+        
+
+        Parameters
+        ----------
+        manufParams : TYPE
+            DESCRIPTION.
+        activityLevels : TYPE
+            DESCRIPTION.
+        partName : TYPE
+            DESCRIPTION.
+        brand : TYPE
+            DESCRIPTION.
+        numParts : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        list
+            DESCRIPTION.
+
+        """
         return [component(partName+str(i+1), partName, matDetails=self.materialDetails(manufParams, partName), partBrand=brand, activityLevels=activityLevels) for i in range(numParts)]
     
     def reSetComponents(self, compList, manufParams, activityLevels):
+        """
+        
+
+        Parameters
+        ----------
+        compList : TYPE
+            DESCRIPTION.
+        manufParams : TYPE
+            DESCRIPTION.
+        activityLevels : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
+        
         for comp in compList:
             scalingVars = copy.deepcopy(comp.scaleVars)
             comp.__init__(comp.name, comp.type, self.materialDetails(manufParams, comp.type), partBrand=self.brandTypes[comp.type], activityLevels=activityLevels)
             comp.scaleVars = copy.deepcopy(scalingVars)
         
-    # Create a dictionary of the materials and material categories for a part
+    
     def materialDetails(self, manufParams, partType):
+        """
+        Create a dictionary of the materials and material categories for a part
+
+        Parameters
+        ----------
+        manufParams : TYPE
+            DESCRIPTION.
+        partType : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        materialDetails : TYPE
+            DESCRIPTION.
+
+        """
         materialCategories = ['fabric', 'resin', 'hardener', 'prepreg', 'core', 'adhesive', 'coating']
         materialDetails = {}
         
@@ -518,20 +803,63 @@ class Manufacture:
         return materialDetails
     
 
-    def scale(self):
+    def scale(self, readFile=False):
+        """
+        
+
+        Parameters
+        ----------
+        readFile : TYPE, optional
+            DESCRIPTION. The default is False.
+
+        Returns
+        -------
+        None.
+
+        """
         directory = self.directory + self.dirInputDatabases + self.CSVloc
         
-        for compList in [self.spars, self.webs, self.skins]:
-            for comp in compList:
-                ScalingVariables(comp, directory, self.consInputVars, self.materialVars)
+        # Default is to calculate scaling variables from structural and 
+        # geometric parameters
+        if readFile is False:
+            for compList in [self.spars, self.webs, self.skins]:
+                for comp in compList:
+                    ScalingVariables(comp, directory, self.consInputVars, self.materialVars)
+        
+            AssemblyScaling(self.skins, self.webs, self.wing[0])
+            
+        # Otherwise read in predefined values from an input database
+        else:
+            scalingInputs = xmlInputs(self.directory + self.scalingInputVariables)
+            
+            for compList in [self.spars, self.webs, self.skins]:
+                for comp in compList:
+                    try:
+                        comp.scaleVars = scalingInputs['parts'][comp.name]
+                    except:
+                        pass
+            
+            try:
+                self.wing[0].scaleVars = scalingInputs['assembly'][self.wing[0].name]
+            except:
+                pass
     
-        AssemblyScaling(self.skins, self.webs, self.wing[0])
     
-    
-    """ 
-    Calculates the annual portion of depreciation for a piece of equipment
-    """
     def depr(self, equipName):
+        """
+        Calculates the annual portion of depreciation for a piece of equipment
+
+        Parameters
+        ----------
+        equipName : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        annualDepr : TYPE
+            DESCRIPTION.
+
+        """
         equipVariables = self.equipmentVars['capital_equipment'][equipName]
         
         purchaseVal = equipVariables['purchase cost']
@@ -555,12 +883,24 @@ class Manufacture:
     """ 
     Calculates the number of production lines
     """
-
-    """ 
-    Calculates the building costs
-    """
+    
     def buildCost(self, equipName, partName):
-        
+        """
+        Method for calculating the building costs
+
+        Parameters
+        ----------
+        equipName : TYPE
+            DESCRIPTION.
+        partName : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        floorArea : TYPE
+            DESCRIPTION.
+
+        """
         equipVariables = self.equipmentVars['capital_equipment'][equipName]
         
         if(equipVariables['floorspace'] == "N/A"):
@@ -586,13 +926,30 @@ class Manufacture:
         return floorArea
     
     
-    def productionRun(self, scaling=True, reSet=False):
+    def productionRun(self, scaling=True, readScaling=False, reSet=False):
+        """
+        A method for performing the manufacturing analysis
+
+        Parameters
+        ----------
+        scaling : BOOLEAN, optional
+            scaling determines if the scaling calculation is performed 
+            (default option) or not. The default is True.
+        readScaling : BOOLEAN, optional
+            readScaling determines if the scaling values are calculated within
+            the model (default option) or read from a file. The default is False.
+        reSet : BOOLEAN, optional
+            The default is False.
         
+        Returns
+        -------
+        None.
+        """
         if reSet is True:
             self.reSetManufacturing()
         
         if scaling is True:
-            self.scale()
+            self.scale(readScaling)
         
         for compList in self.partsList:
             
@@ -616,6 +973,29 @@ class Manufacture:
         
         
     def partRun(self, comp, materialVars, productionVars, runMats=True, runLab=True, runEquip=True):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+        productionVars : TYPE
+            DESCRIPTION.
+        runMats : TYPE, optional
+            DESCRIPTION. The default is True.
+        runLab : TYPE, optional
+            DESCRIPTION. The default is True.
+        runEquip : TYPE, optional
+            DESCRIPTION. The default is True.
+
+        Returns
+        -------
+        None.
+
+        """
         
         if runMats is True:
             self.materialsRun(comp, materialVars)
@@ -635,6 +1015,21 @@ class Manufacture:
         
         
     def materialsRun(self, comp, materialVars):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         productSteps = comp.productionSteps
         
@@ -657,6 +1052,23 @@ class Manufacture:
     
     
     def labourRun(self, comp, materialVars, productionVars):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+        productionVars : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         productSteps = comp.productionSteps
         
@@ -672,6 +1084,19 @@ class Manufacture:
     
     
     def equipmentRun(self, comp):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         productSteps = comp.productionSteps
         
@@ -685,10 +1110,24 @@ class Manufacture:
                 
         comp.equipment.totals()
     
-    """
-    New material cost methods
-    """
+
     def matValProcess(self, value, variableName):
+        """
+        material cost methods
+
+        Parameters
+        ----------
+        value : TYPE
+            DESCRIPTION.
+        variableName : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        value : TYPE
+            DESCRIPTION.
+
+        """
         
         if variableName == 'density':
             value = value
@@ -699,6 +1138,26 @@ class Manufacture:
     
     
     def materialCost(self, comp, materialVars, stepNum):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+        stepNum : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        mass : TYPE
+            DESCRIPTION.
+        cost : TYPE
+            DESCRIPTION.
+
+        """
         
         # Determine the production step
         prodStep = comp.productionSteps[stepNum]
@@ -801,6 +1260,24 @@ class Manufacture:
 
 
     def consumablesCost(self, comp, materialVars, stepNum):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+        stepNum : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        stepConsCost : TYPE
+            DESCRIPTION.
+
+        """
         
         # Determine the production step
         prodStep = comp.productionSteps[stepNum]
@@ -852,6 +1329,25 @@ class Manufacture:
     
     
     def labourCost(self, comp, materialVars, productionVars, stepNum):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        materialVars : TYPE
+            DESCRIPTION.
+        productionVars : TYPE
+            DESCRIPTION.
+        stepNum : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         # Determine the production step
         prodStep = comp.productionSteps[stepNum]
@@ -913,7 +1409,7 @@ class Manufacture:
                     matType = 'prepreg'
                     
                 cycleType = 'post cure cycle'
-                
+            
             matName = comp.matDetails[matType]
             
             cureFile = materialVars[matType][matName][cycleType]
@@ -937,6 +1433,19 @@ class Manufacture:
         
     
     def labourActivity(self, comp):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         for i, stepName in enumerate(comp.productionSteps):
             activityName = stepName.activity
@@ -950,12 +1459,33 @@ class Manufacture:
 #            labourHours = processHours * staffNum
         
     def determineCommonEquip(self):
+        """
+        
+
+        Returns
+        -------
+        None.
+
+        """
         
         if len(self.commonEquipment.keys()) == 0:
             self.commonEquip(self.partsList)
     
     
     def commonEquip(self, partsList):
+        """
+        
+
+        Parameters
+        ----------
+        partsList : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         # List of single "factory level" equipment
         commonEquipmentList = ['Freezer', 'NDT equipment',
@@ -981,6 +1511,22 @@ class Manufacture:
         
     
     def mouldCost(self, comp, mouldType):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        mouldType : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        partMouldCost : TYPE
+            DESCRIPTION.
+
+        """
         
         equipVariables = self.equipmentVars['tooling_and_moulds'][mouldType]
         
@@ -1000,6 +1546,14 @@ class Manufacture:
     
     
     def determineManufLines(self):
+        """
+        
+
+        Returns
+        -------
+        None.
+
+        """
         
         if len(self.productLines.keys()) == 0:
             self.productionLineAnalysis(self.productLines, self.productionVars, lineType='preform')
@@ -1009,6 +1563,23 @@ class Manufacture:
         
     
     def productionLineAnalysis(self, productLines, productionVars, lineType):
+        """
+        
+
+        Parameters
+        ----------
+        productLines : TYPE
+            DESCRIPTION.
+        productionVars : TYPE
+            DESCRIPTION.
+        lineType : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         # Flatten parts list and retrieve the process hours for each component
         flatList = [val for partsList1 in self.partsList for val in partsList1 if val.brand == lineType]
@@ -1035,6 +1606,21 @@ class Manufacture:
     
         
     def equipCost(self, comp, stepNum):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        stepNum : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         # Determine the number of parts produced per year
         partsPerAnnum = self.productionVars['General']['ppa'][0]
         
@@ -1078,6 +1664,23 @@ class Manufacture:
           
             
     def powerCosts(self, comp, equipVal, processTime):
+        """
+        
+
+        Parameters
+        ----------
+        comp : TYPE
+            DESCRIPTION.
+        equipVal : TYPE
+            DESCRIPTION.
+        processTime : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         powerUsage = self.equipmentVars['capital_equipment'][equipVal]['average power usage']
         
@@ -1087,11 +1690,40 @@ class Manufacture:
     
     
     def buildingCosts(self, placeholder):
+        """
+        
+
+        Parameters
+        ----------
+        placeholder : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
         
         placeholder += 1
     
     
     def overheads(self, totalCost, overheadCost):
+        """
+        
+
+        Parameters
+        ----------
+        totalCost : TYPE
+            DESCRIPTION.
+        overheadCost : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        overheadCosts : TYPE
+            DESCRIPTION.
+
+        """
         
         overheadCosts = totalCost * 0.05
         
@@ -1099,6 +1731,14 @@ class Manufacture:
         
     
     def totalCosts(self):
+        """
+        
+
+        Returns
+        -------
+        None.
+
+        """
         
         flatList = [val for partsList1 in self.partsList for val in partsList1]
         
