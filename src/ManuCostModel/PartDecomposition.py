@@ -368,7 +368,6 @@ def ScalingVariables(comp, direct, consInputVars, materialVars):
     """
     
     wingSpan = float(consInputVars['external_geometry']['wingLen'])
-    wingSpan = 32.0
     chordName = consInputVars['external_geometry']['chordDist']
     sparWidthName = consInputVars['internal_structure']['sparLocDist']
     sparThickName = consInputVars['internal_structure']['sparThick']
@@ -457,21 +456,31 @@ def ScalingVariables(comp, direct, consInputVars, materialVars):
         
         # Check for fabric or prepreg for reinforcement in the skins
         skinMatName = skinThickName.split('_SkinThickness.csv')[0]
-        
-        if('Fabric' in skinMatName):
-            matType = 'fabric'
-        else:
+            
+        try:
+            materialVars['prepreg'][skinMatName]
             matType = 'prepreg'
+        except:
+            try:
+                materialVars['fabric'][skinMatName]
+                matType = 'fabric'
+            except:
+                pass
             
         skinPlyThick = float(materialVars[matType][skinMatName]['thickness (cured)'])/1000.0
         
         # Check for fabric or prepreg for reinforcement in the spars
         sparMatName = sparThickName.split('_SparThickness.csv')[0]
-        
-        if('Fabric' in sparMatName):
-            matType = 'fabric'
-        else:
+            
+        try:
+            materialVars['prepreg'][sparMatName]
             matType = 'prepreg'
+        except:
+            try:
+                materialVars['fabric'][sparMatName]
+                matType = 'fabric'
+            except:
+                pass
         
         sparPlyThick = float(materialVars[matType][sparMatName]['thickness (cured)'])/1000.0
         
