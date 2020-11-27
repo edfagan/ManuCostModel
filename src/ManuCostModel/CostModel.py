@@ -581,15 +581,20 @@ class Manufacture:
     prodName : str
         Optional name for identifying the manufacturing analysis. Used for 
         naming data series and data visualisation.
+
+        
+    scaleFile : str
+        Optional name for identifying the scaling variables.
     """
     
-    def __init__(self, directory, inputFile='', prodName=''):
+    def __init__(self, directory, inputFile='', prodName='', scaleFile='scalingVariables.xml'):
         
         self.directory = directory
         self.CSVloc = "CSV Files\\"
         self.dirInputDatabases = "\\Input Databases\\"
         self.dirOutputDatabases = "\\Output Databases\\"
         self.prodName = prodName
+        self.inputFile = inputFile
         
         try:
             os.mkdir(self.directory+self.dirOutputDatabases)
@@ -599,16 +604,17 @@ class Manufacture:
         # Import the various input databases
         if len(inputFile) == 0:
             # Default manufacturing inputs database name
-            inputFile = "manufacturingDatabase"
+            self.inputFile = "manufacturingDatabase"
         
-        manufacturingInputVars = self.dirInputDatabases + inputFile + ".xml"
+        manufacturingInputVars = self.dirInputDatabases + self.inputFile + ".xml"
         consVariables = self.dirInputDatabases + "constructionVariablesDatabase.xml"
         productionVariables = self.dirInputDatabases + "productionVariablesDatabase.xml"
         productionMethods = self.dirInputDatabases + "productionMethodsDatabase.xml"
         materialVariables = self.dirInputDatabases + "materialsDatabase.xml"
         equipmentVariables = self.dirInputDatabases + "equipmentVariablesDatabase.xml"
         
-        self.scalingInputVariables = self.dirInputDatabases + "scalingVariables.xml"
+        self.scalingInputVariables = self.dirInputDatabases + scaleFile
+        
 
         manufacturingInputVars = self.directory + manufacturingInputVars
         consVariables = self.directory + consVariables
@@ -621,30 +627,36 @@ class Manufacture:
         
         self.equipmentList = {}
         
-        # Set the construction variables
-        self.numSpars = int(float(self.manufParams['spar']['# spars']))
-        self.numWebs = int(float(self.manufParams['web']['# webs']))
-        self.numSkins = int(float(self.manufParams['skin']['# skins']))
-        
         # Add the material names to the part thickness csv file names
-        if(self.manufParams['spar']['fabric'] != 'N/A'):
-            sparMatName = self.manufParams['spar']['fabric']
-        else:
-            sparMatName = self.manufParams['spar']['prepreg']
+        try:
+            if(self.manufParams['spar']['fabric'] != 'N/A'):
+                sparMatName = self.manufParams['spar']['fabric']
+            else:
+                sparMatName = self.manufParams['spar']['prepreg']
+                
+            self.consInputVars['internal_structure']['sparThick'] = sparMatName + "_" + self.consInputVars['internal_structure']['sparThick']
+        except:
+            pass
         
-        if(self.manufParams['web']['fabric'] != 'N/A'):
-            webMatName = self.manufParams['web']['fabric']
-        else:
-            webMatName = self.manufParams['web']['prepreg']
+        try:
+            if(self.manufParams['web']['fabric'] != 'N/A'):
+                webMatName = self.manufParams['web']['fabric']
+            else:
+                webMatName = self.manufParams['web']['prepreg']
+                
+            self.consInputVars['internal_structure']['webThick'] = webMatName + "_" + self.consInputVars['internal_structure']['webThick']
+        except:
+            pass
+        
+        try: 
+            if(self.manufParams['skin']['fabric'] != 'N/A'):
+                skinMatName = self.manufParams['skin']['fabric']
+            else:
+                skinMatName = self.manufParams['skin']['prepreg']
             
-        if(self.manufParams['skin']['fabric'] != 'N/A'):
-            skinMatName = self.manufParams['skin']['fabric']
-        else:
-            skinMatName = self.manufParams['skin']['prepreg']
-        
-        self.consInputVars['internal_structure']['sparThick'] = sparMatName + "_" + self.consInputVars['internal_structure']['sparThick']
-        self.consInputVars['internal_structure']['webThick'] = webMatName + "_" + self.consInputVars['internal_structure']['webThick']
-        self.consInputVars['internal_structure']['skinThick'] = skinMatName + "_" + self.consInputVars['internal_structure']['skinThick']
+            self.consInputVars['internal_structure']['skinThick'] = skinMatName + "_" + self.consInputVars['internal_structure']['skinThick']
+        except:
+            pass
         
         """
         New:
@@ -655,26 +667,43 @@ class Manufacture:
         
         self.brandTypes = {'spar': 'preform', 'web': 'preform', 'skin': 'preform', 'wing': 'assembly'}
         
-#        self.spars = [component("spar"+str(i+1), "spar", matDetails=self.materialDetails(self.manufParams, "spar"), activityLevels=self.activityLevels) for i in range(self.numSpars)]
-#        self.webs = [component("web"+str(i+1), "web", matDetails=self.materialDetails(self.manufParams, "web"), activityLevels=self.activityLevels) for i in range(self.numWebs)]
-#        self.skins = [component("skin"+str(i+1), "skin", matDetails=self.materialDetails(self.manufParams, "skin"), activityLevels=self.activityLevels) for i in range(self.numSkins)]
-#        self.wing = [component("wing", "wing", matDetails=self.materialDetails(self.manufParams, "wing"), partBrand='assembly', activityLevels=self.activityLevels)]
-#        
-        self.spars = self.setComponents(self.manufParams, self.activityLevels, 'spar', self.brandTypes['spar'], self.manufParams['spar']['# '+'spar'+'s'])
-        self.webs = self.setComponents(self.manufParams, self.activityLevels, 'web', self.brandTypes['web'], self.manufParams['web']['# '+'web'+'s'])
-        self.skins = self.setComponents(self.manufParams, self.activityLevels, 'skin', self.brandTypes['skin'], self.manufParams['skin']['# '+'skin'+'s'])
-        self.wing = self.setComponents(self.manufParams, self.activityLevels, 'wing', self.brandTypes['wing'], self.manufParams['wing']['# '+'wing'+'s'])
+        self.parts = []
+        self.assemblies = []
         
-        # Leaving it like this until differentiating between them becomes necessary
-        self.skins[0].side = 'Lower'
-        self.skins[1].side = 'Upper'
-        self.webs[0].side = 'Fore'
         try:
-            self.webs[1].side = 'Aft'
+            self.spars = self.setComponents(self.manufParams, self.activityLevels, 'spar', self.brandTypes['spar'], self.manufParams['spar']['# '+'spar'+'s'])
+            self.parts.append(self.spars)
         except:
             pass
         
-        self.partsList = [self.spars, self.webs, self.skins, self.wing]
+        try:
+            self.webs = self.setComponents(self.manufParams, self.activityLevels, 'web', self.brandTypes['web'], self.manufParams['web']['# '+'web'+'s'])
+            self.parts.append(self.webs)
+            # Leaving it like this until differentiating between them becomes necessary
+            self.webs[0].side = 'Fore'
+            try:
+                self.webs[1].side = 'Aft'
+            except:
+                pass
+        except:
+            pass
+        
+        try:
+            self.skins = self.setComponents(self.manufParams, self.activityLevels, 'skin', self.brandTypes['skin'], self.manufParams['skin']['# '+'skin'+'s'])
+            self.parts.append(self.skins)
+            # Leaving it like this until differentiating between them becomes necessary
+            self.skins[0].side = 'Lower'
+            self.skins[1].side = 'Upper'
+        except:
+            pass
+        
+        try:
+            self.wing = self.setComponents(self.manufParams, self.activityLevels, 'wing', self.brandTypes['wing'], self.manufParams['wing']['# '+'wing'+'s'])
+            self.assemblies.append(self.wing)
+        except:
+            pass
+        
+        self.partsList = self.parts + self.assemblies
         
         self.productLines = {}
         self.assemblyLines = {}
@@ -702,14 +731,22 @@ class Manufacture:
         None.
 
         """
-        self.reSetComponents(self.spars, self.manufParams, self.activityLevels)
-        self.reSetComponents(self.webs, self.manufParams, self.activityLevels)
-        self.reSetComponents(self.skins, self.manufParams, self.activityLevels)
-        self.reSetComponents(self.wing, self.manufParams, self.activityLevels)
-
-        self.skins[0].side = 'Lower'
-        self.skins[1].side = 'Upper'
-        self.webs[0].side = 'Fore'
+        reSetCheck = [self.reSetComponents(part, self.manufParams, self.activityLevels) for part in self.partsList]
+        # self.reSetComponents(self.spars, self.manufParams, self.activityLevels)
+        # self.reSetComponents(self.webs, self.manufParams, self.activityLevels)
+        # self.reSetComponents(self.skins, self.manufParams, self.activityLevels)
+        # self.reSetComponents(self.wing, self.manufParams, self.activityLevels)
+        
+        try:
+            self.skins[0].side = 'Lower'
+            self.skins[1].side = 'Upper'
+        except:
+            pass
+        
+        try:
+            self.webs[0].side = 'Fore'
+        except:
+            pass
         
         self.productLines = {}
         self.assemblyLines = {}
@@ -822,7 +859,7 @@ class Manufacture:
         # Default is to calculate scaling variables from structural and 
         # geometric parameters
         if readFile is False:
-            for compList in [self.spars, self.webs, self.skins]:
+            for compList in self.parts:
                 for comp in compList:
                     ScalingVariables(comp, directory, self.consInputVars, self.materialVars)
         
@@ -832,17 +869,19 @@ class Manufacture:
         else:
             scalingInputs = xmlInputs(self.directory + self.scalingInputVariables)
             
-            for compList in [self.spars, self.webs, self.skins]:
+            for compList in self.parts:
                 for comp in compList:
                     try:
-                        comp.scaleVars = scalingInputs['parts'][comp.name]
+                        comp.scaleVars = scalingInputs[self.prodName][comp.name]
                     except:
                         pass
             
-            try:
-                self.wing[0].scaleVars = scalingInputs['assembly'][self.wing[0].name]
-            except:
-                pass
+            for assembly in self.assemblies:
+                for assemble in assembly:
+                    try:
+                        assemble.scaleVars = scalingInputs['assembly'][self.prodName]
+                    except:
+                        pass
     
     
     def depr(self, equipName):
