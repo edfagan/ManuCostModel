@@ -1,4 +1,5 @@
-import xml.etree.ElementTree as ET
+# import xml.etree.ElementTree as ET
+from lxml import etree as ET
 import xml.dom.minidom as md
 import string
 
@@ -56,7 +57,7 @@ def sumMats(dictTotal):
             
     return round(totalVal, 2)
 
-# Write resutls of the analyses to an xml output database
+# Write results of the analyses to an xml output database
 def writeOutputs(outFileName, model):
  
     outFile = ET.Element('outputs')
@@ -217,6 +218,131 @@ def writeOutputs(outFileName, model):
     # Write to the output file
     with open(outFileName,'w') as outf:
         outf.write(xmlstr)
+
+
+# Write results of the analyses to an xml output database
+def manufCostsOut(outFileName, model):
+    
+    productionDetails = model.prodName.split("_")
+    
+    # Set the production method type
+    productionType = productionDetails[0]
+    
+    # Set the part name
+    partType = productionDetails[1]
+    
+    try:
+        addType = productionDetails[2]
+        partType = partType + " " + addType
+    except:
+        pass
+    
+    # Check if an output file already exists
+    try:
+        
+        parser = ET.XMLParser(remove_blank_text=True)
+        tree = ET.parse(outFileName, parser)
+        
+        # tree = ET.parse(outFileName)
+        root = tree.getroot()
+    except:
+        tree = None
+        pass
+    
+    createPart = False
+    
+    if tree:
+        # If the file exsits, check if the value for this part exists in the 
+        # file
+        for elem in root.find('element'):
+            
+            if elem.attrib['name'] == partType:
+                
+                for prop in elem.findall('property'): 
+                    
+                    if(prop.attrib['name'] ==  'value'):
+                        # If the value exists already, update it
+                        prop.text = form(model.manufacturingCosts)
+                        
+         
+        partNames = [part.attrib['name'] for part in root.findall('element')]
+        
+        if partType not in partNames:
+            # If the value does not exist, create a new element
+            element = ET.SubElement(root, 'element')
+            element.set('name', partType)
+            
+            createPart = True
+        
+    else:
+        # If the file does not exist, create one and create a new element
+        outFile = ET.Element('parameters')
+        outFile.set('concept', 'AP3_Upscaled')
+        
+        element = ET.SubElement(outFile, 'element')
+        element.set('name', partType)
+        
+        createPart = True
+        
+    
+    # Populate the rest of the element if needed
+    if createPart is True:
+        
+        parameter = ET.SubElement(element, "parameter")
+        parameter.set('name', 'Cost')
+        
+        property1 = ET.SubElement(parameter, "property")
+        property1.set('name', 'description')
+        property1.text = partType + " " + productionType + " manufacturing cost"
+        
+        property2 = ET.SubElement(parameter, "property")
+        property2.set('name', 'value')
+        property2.text = form(model.manufacturingCosts)
+        
+        property3 = ET.SubElement(parameter, "property")
+        property3.set('name', 'units')
+        property3.text = "Euro"
+        
+        property4 = ET.SubElement(parameter, "property")
+        property4.set('name', 'justification')
+        property4.text = "Results of manufacturing analysis defined in " + model.inputFile
+       
+        property5 = ET.SubElement(parameter, "property")
+        property5.set('name', 'target')
+        property5.text = ""
+        
+        property6 = ET.SubElement(parameter, "property")
+        property6.set('name', 'target_rationale')
+        property6.text = ""
+        
+        property7 = ET.SubElement(parameter, "property")
+        property7.set('name', 'min')
+        property7.text = ""
+        
+        property8 = ET.SubElement(parameter, "property")
+        property8.set('name', 'probability')
+        property8.text = ""
+        
+        property9 = ET.SubElement(parameter, "property")
+        property9.set('name', 'max')
+        property9.text = ""
+    
+    
+    if tree:
+        
+        tree.write(outFileName, encoding='utf-8', pretty_print=True, xml_declaration=True)
+        
+    else:
+        # Build the element tree
+        tree = ET.ElementTree(outFile)
+        root = tree.getroot()
+        
+        # Convert to a formatted string
+        xmlstr = md.parseString(ET.tostring(root)).toprettyxml(indent="   ")
+        
+        # Write to the output file
+        with open(outFileName,'w') as outf:
+            outf.write(xmlstr)
 
 
 if(__name__ == "__main__"):

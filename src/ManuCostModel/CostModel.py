@@ -1219,11 +1219,14 @@ class Manufacture:
         # Determine the scaling variables
         scalingVar = prodStep.materialScaling[0]
         
+        # Creating a list of either: (i) surface area and areal weight, or (ii)
+        # surface area, density and thickness, to calculate the part mass for 
+        # this production step
         scalingList1 = [comp.scaleVars[scalingVar]]
         scalingList2 = [self.matValProcess(matDatabase[val], val) for val in prodStep.materialScaling[1:]]
         scalingList = scalingList1 + scalingList2
         
-        # Determine the mass of materials
+        # Determine the mass of materials by multiplying each value in the list
         mass = 1.0
         for n in scalingList:
             mass *= n
