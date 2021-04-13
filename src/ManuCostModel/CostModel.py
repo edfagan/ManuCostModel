@@ -19,8 +19,7 @@ The cost model is structured around three class types:
 import os
 from numpy import loadtxt, ceil, array
 import copy
-from .MapParametersIn import readInputs, xmlInputs
-from .MapParametersOut import writeOutputs, sumMats, sumTotals
+from .MapParameters import ReadInputs, ReadInputsXML, ConsistencyCheck
 from .PartDecomposition import ScalingVariables, AssemblyScaling
 
 
@@ -176,7 +175,7 @@ class component:
                     getattr(stepInstance, stepVar)
                     
                     # If data exist for the member in the input database add them
-                    if productionDict[label][stepVar] != 'None':
+                    if productionDict[label][stepVar] != 'N/A':
                         setattr(stepInstance, stepVar, productionDict[label][stepVar])
                         
                 except AttributeError:
@@ -498,11 +497,11 @@ class component:
                 activityList = [val.activity for val in iter(productionSteps)]
                 
                 for i, activity in enumerate(activityList):
-                    if fullList[i][0] != 'None':
+                    if fullList[i][0] != 'N/A':
                         self.equipmentList[activity] += fullList[i]
                         
                         for equip in fullList[i]:
-                            if equip != 'None':
+                            if equip != 'N/A':
                                 self.equipmentCosts[equip] = 0.0
                                 self.powerCosts[equip] = 0.0
             
@@ -585,7 +584,7 @@ class Manufacture:
         except FileExistsError:
             pass
         
-        # Import the input databases
+        ## Import the input databases
         if len(inputFile) == 0:
             # Default manufacturing inputs database name
             self.inputFile = "manufacturingDatabase"
@@ -600,7 +599,7 @@ class Manufacture:
         self.scalingInputVariables = self.dirInputDatabases + scaleFile
         
         # Import the data
-        self.manufParams, self.consInputVars, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars = readInputs(manufacturingInputVars, consVariables, productionVariables, productionMethods, materialVariables, equipmentVariables)
+        self.manufacturingDatabase, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars = ReadInputs(manufacturingInputVars, productionVariables, productionMethods, materialVariables, equipmentVariables, consVariables)
         
         # Create component objects for each part defined in the manufacturing input file
         self.activityLevels = ['preform', 'cure', 'assembly', 'finishing']
@@ -610,12 +609,15 @@ class Manufacture:
         self.parts = []
         self.assemblies = []
         
+        # Note: Hack so that only the first assembly in the manufacturing input database is assessed
+        self.manufParams = self.manufacturingDatabase[list(self.manufacturingDatabase.keys())[0]]
+        
         # Create components based on manufacturing input database
         for key in self.manufParams.keys():
                 
             keyname = str(key)
             
-            newPart = self.SetComponents(self.manufParams, self.activityLevels, keyname, self.brandTypes[keyname], self.manufParams[keyname]['# '+keyname+'s'])
+            newPart = self.SetComponents(self.manufParams, self.activityLevels, keyname, self.brandTypes[keyname], self.manufParams[keyname]['# items'])
             
             # Add the new components to either assembly or part lists
             if self.manufParams[key]['assembly'] != 'N/A':
@@ -643,7 +645,10 @@ class Manufacture:
         self.unitCost = 0.0
         self.building = 0.0
         
-        self.csvFileName()
+        self.analysis_report = ConsistencyCheck(self.manufParams, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars)
+        
+        if self.consInputVars:
+            self.csvFileName()
         
         
     def csvFileName(self):
@@ -816,7 +821,7 @@ class Manufacture:
             
         # Otherwise read in predefined values from an input database
         else:
-            scalingInputs = xmlInputs(self.directory + self.scalingInputVariables)
+            scalingInputs = ReadInputsXML(self.directory + self.scalingInputVariables)
             
             if self.productName not in scalingInputs.keys():
                 print("\n*** Error: Scaling Variables database element name incorrect. Does not match productName ***\n")
@@ -1032,7 +1037,7 @@ class Manufacture:
                 self.MaterialsCost(comp, materialVars, i)
             
             # Determine consumables costs
-            if step.consumables[0] != 'None':
+            if step.consumables[0] != 'N/A':
                 
                 self.ConsumablesCost(comp, materialVars, i)
                 
@@ -1094,7 +1099,7 @@ class Manufacture:
         for i, step in enumerate(productSteps):
             
             # Determine the equipment costs
-            if step.capitalEquipment[0] != 'None':
+            if step.capitalEquipment[0] != 'N/A':
                 
                 self.EquipmentCost(comp, i)
                 
@@ -1345,7 +1350,7 @@ class Manufacture:
         # Determine the production step
         prodStep = comp.productionSteps[stepNum]
         
-        if prodStep.labourScaling[0] != 'None':
+        if prodStep.labourScaling is not None:
             
             scalingVar = prodStep.labourScaling[0]
             
@@ -1354,7 +1359,7 @@ class Manufacture:
             
             productionType = comp.productionNames[stepNum]
             
-            rateCoef, rateExp = productionVars[productionType][labScale]
+            rateCoef, rateExp = productionVars[productionType][labScale]['value']
             
             staffNum = prodStep.staff
             
@@ -1362,7 +1367,7 @@ class Manufacture:
             
             processHours = labourHours / staffNum
             
-            cost = labourHours * productionVars['General']['salary'][0]
+            cost = labourHours * productionVars['General']['salary']['value']
         
         elif type(prodStep.labourHours) is float:
             
@@ -1372,10 +1377,9 @@ class Manufacture:
             
             processHours = labourHours / staffNum
             
-            cost = labourHours * productionVars['General']['salary'][0]
+            cost = labourHours * productionVars['General']['salary']['value']
             
         else:
-#            productionType = comp.productionNames[stepNum]
             
             if 'Cure' in prodStep.name:
                 
@@ -1418,7 +1422,7 @@ class Manufacture:
             
             labourHours = processHours * staffNum
             
-            cost = labourHours * productionVars['General']['salary'][0]
+            cost = labourHours * productionVars['General']['salary']['value']
         
         comp.labour.labourHours[stepNum] = labourHours
         comp.labour.processHours[stepNum] = processHours
@@ -1506,7 +1510,7 @@ class Manufacture:
         
         equipVariables = self.equipmentVars['tooling_and_moulds'][mouldType]
         
-        [scalingCoef, scalingConstant] = [float(x) for x in str.split(equipVariables['scaling values'], ',')]
+        [scalingCoef, scalingConstant] = equipVariables['scaling values']
         
         scalingName = equipVariables['scaling variables']
         
@@ -1546,9 +1550,9 @@ class Manufacture:
         productLineTimes = array([val.labour.totalProcessHours for val in flatList])
         
         # The general production variables
-        ppa = productionVars['General']['ppa'][0]
-        productHours = productionVars['General']['productHours'][0]
-        productDays = productionVars['General']['productDays'][0]
+        ppa = productionVars['General']['ppa']['value']
+        productHours = productionVars['General']['productHours']['value']
+        productDays = productionVars['General']['productDays']['value']
         
         # Determine the number of available production hours per year
         annualHours = productHours * productDays
@@ -1581,7 +1585,7 @@ class Manufacture:
 
         """
         # Determine the number of parts produced per year
-        partsPerAnnum = self.productionVars['General']['ppa'][0]
+        partsPerAnnum = self.productionVars['General']['ppa']['value']
         
         equipList = comp.productionSteps[stepNum].capitalEquipment
         
@@ -1643,7 +1647,7 @@ class Manufacture:
         
         powerUsage = self.equipmentVars['capital_equipment'][equipVal]['average power usage']
         
-        energyRate = self.productionVars['General']['energy'][0]
+        energyRate = self.productionVars['General']['energy']['value']
         
         comp.equipment.powerCosts[equipVal] = processTime * powerUsage * energyRate
     
