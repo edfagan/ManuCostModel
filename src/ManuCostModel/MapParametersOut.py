@@ -222,15 +222,29 @@ def writeOutputs(outFileName, model):
 
 # Write results of the analyses to an xml output database
 def manufCostsOut(outFileName, model):
+    """
     
-    productionDetails = model.prodName.split("_")
+
+    Parameters
+    ----------
+    outFileName : STR
+        Path and filename for the output database file.
+    model : OBJECT
+        Manufacturing class object.
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    productionDetails = model.productName.split("_")
     
     # Set the production method type
-    productionType = productionDetails[0]
+    productionType = model.processName
     
     # Set the part name
-    partType = productionDetails[1]
-    
+    partType = model.productName
     try:
         addType = productionDetails[2]
         partType = partType + " " + addType

@@ -3,16 +3,50 @@ Cost Model Data Processing Tools
 
 Author: Edward Fagan
 """
+import pandas as pd
 
+def BOM(manuf_obj):
+    """
+    Determine the bill of materials for manufacturing.
 
-def bom(manuf):
-    # Determine the bill of materials for manufacturing
+    Parameters
+    ----------
+    manuf_obj : obj
+        A manufacturing object.
+
+    Returns
+    -------
+    bom : DataFrame
+        A Pandas dataframe containing the bill of materials.
+
+    """
     
+    matCosts = {}
+    matName = {}
     
-    pass
+    for val in manuf_obj.breakdown_material_mass_struct.keys():
+        
+        for matType in manuf_obj.materialVars.keys():
+            
+            if val in manuf_obj.materialVars[matType].keys():
+                
+                matCosts[val] = manuf_obj.materialVars[matType][val]['cost']
+                matName[val] = manuf_obj.materialVars[matType][val]['material']
+                
+    bom = pd.DataFrame.from_dict(matName, orient='index', columns=['Material'])
+    bom['Unit Cost (€/kg)'] = matCosts.values()
+    
+    bom['Structural Mass (kg)'] = manuf_obj.breakdown_material_mass_struct.values()
+    bom['Structural Cost(€)'] = manuf_obj.breakdown_material_cost_struct.values()
+    bom['Scrap Mass (kg)'] = manuf_obj.breakdown_material_mass_scrap.values()
+    bom['Scrap Cost(€)'] = manuf_obj.breakdown_material_cost_scrap.values()
+    
+    bom['Total Mass (kg)'] = bom['Structural Mass (kg)']  + bom['Scrap Mass (kg)']
+    bom['Total Cost(€)'] = bom['Structural Cost(€)'] + bom['Scrap Cost(€)']
 
+    return bom
 
-def costCentres(manuf, totals=False, stacked=False, legendOn=True):
+def CostCentres(manuf, totals=False, stacked=False, legendOn=True):
     #
     
     if totals is False:
@@ -85,7 +119,7 @@ def costCentres(manuf, totals=False, stacked=False, legendOn=True):
     
     return plotData
 
-def compare(productionList, totals=True, stacked=True, oneLegend=True, centreIndex=None):
+def Compare(productionList, totals=True, stacked=True, oneLegend=True, centreIndex=None):
     """ 
     centreIndex is a integer value referring to a particular Cost Centre 
     Cost Centres are ordered as:
@@ -99,7 +133,7 @@ def compare(productionList, totals=True, stacked=True, oneLegend=True, centreInd
     # Create plot formatted data for each manufacturing analysis
     for prod in productionList:
         
-        plotList.append(costCentres(prod, totals=totals, stacked=stacked, legendOn=legendOn))
+        plotList.append(CostCentres(prod, totals=totals, stacked=stacked, legendOn=legendOn))
         
         if oneLegend is True:
             legendOn = False
