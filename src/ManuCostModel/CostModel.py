@@ -636,14 +636,14 @@ class Manufacture:
         self.productLines = {}
         self.assemblyLines = {}
         self.commonEquipment = {}
-        self.manufacturingCosts = 0.0
-        self.materialCosts = 0.0
-        self.labourCosts = 0.0
-        self.equipmentCosts = 0.0
-        self.overheadCosts = 0.0
-        self.structureMass = 0.0
-        self.unitCost = 0.0
-        self.building = 0.0
+        self.costs_manufacturing = 0.0
+        self.costs_materials = 0.0
+        self.costs_labour = 0.0
+        self.costs_equipment = 0.0
+        self.costs_overheads = 0.0
+        self.cost_building = 0.0
+        self.structure_mass = 0.0
+        self.unit_cost = 0.0
         
         self.analysis_report = ConsistencyCheck(self.manufParams, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars)
         
@@ -708,12 +708,12 @@ class Manufacture:
         self.productLines = {}
         self.assemblyLines = {}
         self.commonEquipment = {}
-        self.manufacturingCosts = 0.0
-        self.materialCosts = 0.0
-        self.labourCosts = 0.0
-        self.equipmentCosts = 0.0
-        self.structureMass = 0.0
-        self.unitCost = 0.0
+        self.costs_manufacturing = 0.0
+        self.costs_materials = 0.0
+        self.costs_labour = 0.0
+        self.costs_equipment = 0.0
+        self.structure_mass = 0.0
+        self.unit_cost = 0.0
         
     
     def SetComponents(self, manufParams, activityLevels, partName, brand, numParts):
@@ -964,7 +964,7 @@ class Manufacture:
                 self.PartAnalysis(comp, self.materialVars, self.productionVars, runMats=False, runLab=False)
         
         # Determine the total costs of manufacturing
-        self.totalCosts()
+        self.TotalCosts()
         
         
     def PartAnalysis(self, comp, materialVars, productionVars, runMats=True, runLab=True, runEquip=True):
@@ -1675,7 +1675,7 @@ class Manufacture:
         return overheadCosts
         
     
-    def totalCosts(self):
+    def TotalCosts(self):
         """
         
 
@@ -1687,111 +1687,139 @@ class Manufacture:
         
         flatList = [val for partsList1 in self.partsList for val in partsList1]
         
-        # Breakdown of the cost centres
-        self.materialMassBreakdown = {}
-        self.materialCostBreakdown = {}
-        self.consumableMassBreakdown = {}
-        self.consumableCostBreakdown = {}
+        ## Breakdown of the cost centres
+        # Structure mass and cost
+        self.breakdown_material_mass_struct = {}
+        self.breakdown_material_cost_struct = {}
         
-        self.labourHoursBreakdown = {}
-        self.labourCostBreakdown = {}
+        # Scrap mass and cost
+        self.breakdown_material_mass_scrap = {}
+        self.breakdown_material_cost_scrap = {}
         
-        self.equipmentCostBreakdown = {}
-        self.equipmentItemCosts = {}
+        # Consumables mass and cost
+        self.breakdown_consumables_mass = {}
+        self.breakdown_consumables_cost = {}
+        
+        # Labour hours and cost 
+        self.breakdown_labour_hours = {}
+        self.breakdown_labour_cost = {}
+        
+        # Equipment costs
+        self.breakdown_equipment_cost = {}
+        self.breakdown_equipment_item_cost = {}
         
         for mat in self.materialVars['consumables'].keys():
-            self.consumableMassBreakdown[mat] = 0.0
-            self.consumableCostBreakdown[mat] = 0.0
+            # Consumables mass and cost values
+            self.breakdown_consumables_mass[mat] = 0.0
+            self.breakdown_consumables_cost[mat] = 0.0
             
         for act in self.activityLevels:
-            self.labourHoursBreakdown[act] = 0.0
-            self.labourCostBreakdown[act] = 0.0
+            # Labour hours and cost values
+            self.breakdown_labour_hours[act] = 0.0
+            self.breakdown_labour_cost[act] = 0.0
             
         for val in flatList:
             for matVal in val.matDetails.values():
-                self.materialMassBreakdown[matVal] = 0.0
-                self.materialCostBreakdown[matVal] = 0.0
+                # Structure mass and cost values
+                self.breakdown_material_mass_struct[matVal] = 0.0
+                self.breakdown_material_cost_struct[matVal] = 0.0
+                
+                # Scrap mass and cost values
+                self.breakdown_material_mass_scrap[matVal] = 0.0
+                self.breakdown_material_cost_scrap[matVal] = 0.0
         
         for val in flatList:
             for mat in val.materials.matCost.keys():
                 matName = val.matDetails[mat]
-                self.materialMassBreakdown[matName] += val.materials.mass[mat] + val.materials.massScrap[mat]
-                self.materialCostBreakdown[matName] += val.materials.matCost[mat] + val.materials.matCostScrap[mat]
+                # Structure mass and cost values
+                self.breakdown_material_mass_struct[matName] += val.materials.mass[mat]
+                self.breakdown_material_cost_struct[matName] += val.materials.matCost[mat]
+                
+                # Scrap mass and cost values
+                self.breakdown_material_mass_scrap[matName] += val.materials.massScrap[mat]
+                self.breakdown_material_cost_scrap[matName] += val.materials.matCostScrap[mat]
+            
             
             for mat in val.consumables.matCost.keys():
-                self.consumableMassBreakdown[mat] += val.consumables.mass[mat] + val.consumables.massScrap[mat]
-                self.consumableCostBreakdown[mat] += val.consumables.matCost[mat] + val.consumables.matCostScrap[mat]
+                # Consumables mass and cost values
+                self.breakdown_consumables_mass[mat] += val.consumables.mass[mat] + val.consumables.massScrap[mat]
+                self.breakdown_consumables_cost[mat] += val.consumables.matCost[mat] + val.consumables.matCostScrap[mat]
         
             for act in self.activityLevels:
-                self.labourCostBreakdown[act] += val.labour.activityCosts[act]
-                self.labourHoursBreakdown[act] += val.labour.activityHours[act]
-                
-            self.equipmentCostBreakdown[val.name] = val.equipment.cost
+                # Labour hours and cost values
+                self.breakdown_labour_cost[act] += val.labour.activityCosts[act]
+                self.breakdown_labour_hours[act] += val.labour.activityHours[act]
+            
+            # Equipment cost values
+            self.breakdown_equipment_cost[val.name] = val.equipment.cost
         
-        self.equipmentCostBreakdown['factory'] = sum(self.commonEquipmentCost.values())
+        # Equipment cost values
+        self.breakdown_equipment_cost['factory'] = sum(self.commonEquipmentCost.values())
         
         for val in flatList:
             for equip in val.equipment.equipmentCosts.keys():
+                # Equipment cost values
                 try:
-                    self.equipmentItemCosts[equip] += val.equipment.equipmentCosts[equip]
+                    self.breakdown_equipment_item_cost[equip] += val.equipment.equipmentCosts[equip]
                 except:
-                    self.equipmentItemCosts[equip] = val.equipment.equipmentCosts[equip]
+                    self.breakdown_equipment_item_cost[equip] = val.equipment.equipmentCosts[equip]
     
         for equip in self.commonEquipmentCost.keys():
+            # Equipment cost values
             try:
-                self.equipmentItemCosts[equip] += self.commonEquipmentCost[equip]
+                self.breakdown_equipment_item_cost[equip] += self.commonEquipmentCost[equip]
             except:
-                self.equipmentItemCosts[equip] = self.commonEquipmentCost[equip]
+                self.breakdown_equipment_item_cost[equip] = self.commonEquipmentCost[equip]
                 
         # Get list of material categories
         materialList = []
-        self.materialCategoryCosts = {}
+        self.breakdown_material_categories = {}
         
         for material in self.materialVars.items():
             for matKey in material[1]:
                 
-                if matKey in self.materialCostBreakdown.keys():
+                if matKey in self.breakdown_material_cost_struct.keys():
                     
                     materialList.append(material[0])
                     
         materialList = list(set(materialList))
         
-        if sum(self.consumableCostBreakdown.values()) > 0.0:
+        if sum(self.breakdown_consumables_cost.values()) > 0.0:
             materialList.append('consumables')
         
         for mat in materialList:
-            self.materialCategoryCosts[mat] = 0.0
+            self.breakdown_material_categories[mat] = 0.0
         
         for matName in materialList:
             for partSet in self.partsList:
                 for part in partSet:
                     try:
-                        self.materialCategoryCosts[matName] += part.materials.matCost[matName] + part.materials.matCostScrap[matName]
+                        self.breakdown_material_categories[matName] += part.materials.matCost[matName] + part.materials.matCostScrap[matName]
                     except:
                         pass
         
         # Total cost of the wing
         totalMaterialsCosts = sum([costVal.materials.cost for costVal in flatList])
         
-        self.consumablesCosts = sum([costVal.consumables.cost for costVal in flatList])
+        self.costs_consumables = sum([costVal.consumables.cost for costVal in flatList])
         
-        self.materialCosts = totalMaterialsCosts + self.consumablesCosts
+        self.costs_materials = totalMaterialsCosts + self.costs_consumables
         
-        self.labourCosts = sum([sum(costVal.labour.labourCosts) for costVal in flatList])
+        self.costs_labour = sum([sum(costVal.labour.labourCosts) for costVal in flatList])
         
         partEquipmentCosts = sum([costVal.equipment.cost for costVal in flatList])
         
         factoryEquipmentCosts = sum(self.commonEquipmentCost.values())
         
-        self.equipmentCosts = partEquipmentCosts + factoryEquipmentCosts
+        self.costs_equipment = partEquipmentCosts + factoryEquipmentCosts
         
-        self.manufacturingCosts = self.materialCosts + self.labourCosts + self.equipmentCosts
+        self.costs_manufacturing = self.costs_materials + self.costs_labour + self.costs_equipment
         
-        self.overheadCosts = self.OverheadCost(self.manufacturingCosts, self.overheadCosts)
+        self.costs_overheads = self.OverheadCost(self.costs_manufacturing, self.costs_overheads)
         
-        self.manufacturingCosts += self.overheadCosts
+        self.costs_manufacturing += self.costs_overheads
         
-        self.structureMass = sum([val.materials.TotalMass(structureMass=True) for val in flatList])
+        self.structure_mass = sum([val.materials.TotalMass(structureMass=True) for val in flatList])
         
-        self.unitCost = self.manufacturingCosts / self.structureMass
+        self.unit_cost = self.costs_manufacturing / self.structure_mass
         

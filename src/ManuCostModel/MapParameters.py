@@ -310,7 +310,7 @@ def ConsistencyCheck(manufParams, productionVars, productionMethods, materialVar
         for prod in product:
             
             # Return all labour scaling values for the component
-            labourVars = [productionMethods[prod][step]['labourScaling'][1] for step in productionMethods[prod] if productionMethods[prod][step]['labourScaling'] != ['N/A']]
+            labourVars = [productionMethods[prod][step]['labourScaling'][1] for step in productionMethods[prod] if productionMethods[prod][step]['labourScaling'] != 'N/A']
             
             # Check all production variables are present in the database
             failCheck = 0
