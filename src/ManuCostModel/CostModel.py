@@ -617,7 +617,15 @@ class Manufacture:
                 
             keyname = str(key)
             
-            newPart = self.SetComponents(self.manufParams, self.activityLevels, keyname, self.brandTypes[keyname], self.manufParams[keyname]['# items'])
+            try:
+                brandName = self.brandTypes[keyname]
+            except KeyError:
+                if 'assembly' in keyname:
+                    brandName = 'assembly'
+                else:
+                    brandName = 'preform'
+            
+            newPart = self.SetComponents(self.manufParams, self.activityLevels, keyname, brandName, self.manufParams[keyname]['# items'])
             
             # Add the new components to either assembly or part lists
             if self.manufParams[key]['assembly'] != 'N/A':

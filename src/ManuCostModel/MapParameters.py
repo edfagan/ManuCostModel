@@ -489,7 +489,7 @@ def WriteOutputs(outFileName, model):
                     
                     if(prop.attrib['name'] ==  'value'):
                         # If the value exists already, update it
-                        prop.text = form(model.manufacturingCosts)
+                        prop.text = form(model.costs_manufacturing)
                         
          
         partNames = [part.attrib['name'] for part in root.findall('element')]
@@ -524,7 +524,7 @@ def WriteOutputs(outFileName, model):
         
         property2 = ET.SubElement(parameter, "property")
         property2.set('name', 'value')
-        property2.text = form(model.manufacturingCosts)
+        property2.text = form(model.costs_manufacturing)
         
         property3 = ET.SubElement(parameter, "property")
         property3.set('name', 'units')
