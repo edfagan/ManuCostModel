@@ -32,4 +32,4 @@ Modules include:
 ManuCostModel is written and maintained by Edward Fagan.
         
 """
-from . import DataVis, LaminateSizing, CostModel, MapParametersIn, MapParametersOut, PartDecomposition, Tools
+from . import DataVis, LaminateSizing, CostModel, MapParameters, MapParametersOut, PartDecomposition, Tools
