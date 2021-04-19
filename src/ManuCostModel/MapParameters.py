@@ -269,16 +269,18 @@ def ConsistencyCheck(manufParams, productionVars, productionMethods, materialVar
     
     for component in manufParams.keys():
         
-        # List all materials assigned to the component
-        mats = [manufParams[component][val] for val in materialCategories if manufParams[component][val] != 'N/A']
+        for subcomponent in manufParams[component].keys():
+            
+            # List all materials assigned to the component
+            mats = [manufParams[component][subcomponent][val] for val in materialCategories if manufParams[component][subcomponent][val] != 'N/A']
+            
+            for mat in mats:
+                if mat not in materialsList:
+                    report = report + '\t*** Error: material "' + mat + '" for the "' + component + '" component \ "' + subcomponent + '" sub-component undefined in database\n'
+                    # pass
+                else:
+                    report = report + '\t"' + mat + '" successfully loaded for the "' + component + '" component \ "' + subcomponent + '" sub-component\n'
         
-        for mat in mats:
-            if mat not in materialsList:
-                report = report + '\t*** Error: material "' + mat + '" for the "' + component + '" component undefined in database\n'
-                # pass
-            else:
-                report = report + '\t"' + mat + '" successfully loaded for the "' + component + '" component\n'
-    
     ## Production methods checks
     # Create lists of the production methods and production variables defined in the input databases
     productionMethodsList = list(productionMethods.keys())
@@ -289,44 +291,48 @@ def ConsistencyCheck(manufParams, productionVars, productionMethods, materialVar
     
     for component in manufParams.keys():
         
-        # List all production methods assigned to the component
-        product = [manufParams[component][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][val] != 'N/A']
-
-        for prod in product:
-            if prod not in productionMethodsList or prod not in productionVariablesList:
-                report = report + '\t*** Error: production method "' + prod + '" for the "' + component + '" component undefined in database\n'
-                # pass
-            else:
-                report = report + '\t"' + prod + '" successfully loaded for the "' + component + '" component\n'
+        for subcomponent in manufParams[component].keys():
+            
+            # List all production methods assigned to the component
+            product = [manufParams[component][subcomponent][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][subcomponent][val] != 'N/A']
     
+            for prod in product:
+                if prod not in productionMethodsList or prod not in productionVariablesList:
+                    report = report + '\t*** Error: production method "' + prod + '" for the "' + component + '" component \ "' + subcomponent + '" sub-component undefined in database\n'
+                    # pass
+                else:
+                    report = report + '\t"' + prod + '" successfully loaded for the "' + component + '" component \ "' + subcomponent + '" sub-component\n'
+        
     # Production variables checks
     report = report + '\n## Production Variable Data Consistency Check\n'
     
     for component in manufParams.keys():
         
-        # List all production methods assigned to the component
-        product = [manufParams[component][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][val] != 'N/A']
-        
-        for prod in product:
+        for subcomponent in manufParams[component].keys():
             
-            # Return all labour scaling values for the component
-            labourVars = [productionMethods[prod][step]['labourScaling'][1] for step in productionMethods[prod] if productionMethods[prod][step]['labourScaling'] != 'N/A']
+            # List all production methods assigned to the component
+            product = [manufParams[component][subcomponent][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][subcomponent][val] != 'N/A']
             
-            # Check all production variables are present in the database
-            failCheck = 0
-        
-            for var in labourVars:
+            for prod in product:
                 
-                if var not in productionVars[prod].keys():
-                    report = report + '\t*** Error: production variable "' + var + '" for the "' + component + '" component undefined in database\n'
-                    failCheck = 1
-                    # pass
+                # Return all labour scaling values for the component
+                labourVars = [productionMethods[prod][step]['labourScaling'][1] for step in productionMethods[prod] if productionMethods[prod][step]['labourScaling'] != 'N/A']
+                
+                # Check all production variables are present in the database
+                failCheck = 0
             
-            if failCheck == 0:
-                report = report + '\tAll production variables for "' + prod + '" successfully loaded for the "' + component + '" component\n'
-            # else:
-            #     report = report + '\t*** Error: production variable "' + var + '" for the "' + component + '" component undefined in database\n'
-    
+                for var in labourVars:
+                    
+                    if var not in productionVars[prod].keys():
+                        report = report + '\t*** Error: production variable "' + var + '" for the "' + component + '" component \ "' + subcomponent + '" sub-component undefined in database\n'
+                        failCheck = 1
+                        # pass
+                
+                if failCheck == 0:
+                    report = report + '\tAll production variables for "' + prod + '" successfully loaded for the "' + component + '" component \ "' + subcomponent + '" sub-component\n'
+                # else:
+                #     report = report + '\t*** Error: production variable "' + var + '" for the "' + component + '" component undefined in database\n'
+        
     # Equipment variables checks
     report = report + '\n## Equipment Data Consistency Check\n'
     
@@ -338,29 +344,31 @@ def ConsistencyCheck(manufParams, productionVars, productionMethods, materialVar
     
     for component in manufParams.keys():
         
-        # List all production methods assigned to the component
-        product = [manufParams[component][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][val] != 'N/A']
+        for subcomponent in manufParams[component].keys():
         
-        for prod in product:
+            # List all production methods assigned to the component
+            product = [manufParams[component][subcomponent][val] for val in ['preforming', 'curing', 'assembly'] if manufParams[component][subcomponent][val] != 'N/A']
             
-            # Return all equipment for the component
-            equipList = [productionMethods[prod][step]['capitalEquipment'] for step in productionMethods[prod] if productionMethods[prod][step]['capitalEquipment'] != ['N/A']]
-            # Flatten to a single list
-            equipList = [val for equip in equipList for val in equip]
-            
-            # Check all equipment variables are present in the database
-            failCheck = 0
-            
-            for equipItem in equipList:
+            for prod in product:
                 
-                if equipItem not in dbEquipmentList:
-                    report = report + '\t*** Error: equipment variable "' + equipItem + '" for the "' + component + '" component undefined in database\n'
-                    failCheck = 1
-                    # pass
-            
-            if failCheck == 0:
-                report = report + '\tAll equipment variables for "' + prod + '" successfully loaded for the "' + component + '" component\n'
-    
+                # Return all equipment for the component
+                equipList = [productionMethods[prod][step]['capitalEquipment'] for step in productionMethods[prod] if productionMethods[prod][step]['capitalEquipment'] != ['N/A']]
+                # Flatten to a single list
+                equipList = [val for equip in equipList for val in equip]
+                
+                # Check all equipment variables are present in the database
+                failCheck = 0
+                
+                for equipItem in equipList:
+                    
+                    if equipItem not in dbEquipmentList:
+                        report = report + '\t*** Error: equipment variable "' + equipItem + '" for the "' + component + '" component \ "' + subcomponent + '" sub-component undefined in database\n'
+                        failCheck = 1
+                        # pass
+                
+                if failCheck == 0:
+                    report = report + '\tAll equipment variables for "' + prod + '" successfully loaded for the "' + component + '" component \ "' + subcomponent + '" sub-component\n'
+        
     # Construction variables checks
     
     # Scaling variables checks

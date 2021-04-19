@@ -68,7 +68,7 @@ class component:
                                          'assembly'])
     """
     
-    def __init__(self, partName, partType, matDetails=None, partBrand='preform', activityLevels=['Manufacturing']):
+    def __init__(self, partName, partType, productName, matDetails=None, partBrand='preform', activityLevels=['Manufacturing']):
         """
         
 
@@ -94,6 +94,7 @@ class component:
         self.name = partName
         self.type = partType
         self.brand = partBrand
+        self.product = productName
         
         self.scaleVars = {}
         self.productionSteps = []
@@ -599,7 +600,7 @@ class Manufacture:
         self.scalingInputVariables = self.dirInputDatabases + scaleFile
         
         # Import the data
-        self.manufacturingDatabase, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars = ReadInputs(manufacturingInputVars, productionVariables, productionMethods, materialVariables, equipmentVariables, consVariables)
+        self.manufacturingDB, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars = ReadInputs(manufacturingInputVars, productionVariables, productionMethods, materialVariables, equipmentVariables, consVariables)
         
         # Create component objects for each part defined in the manufacturing input file
         self.activityLevels = ['preform', 'cure', 'assembly', 'finishing']
@@ -610,31 +611,35 @@ class Manufacture:
         self.assemblies = []
         
         # Note: Hack so that only the first assembly in the manufacturing input database is assessed
-        self.manufParams = self.manufacturingDatabase[list(self.manufacturingDatabase.keys())[0]]
+        # self.manufParams = self.manufacturingDB[list(self.manufacturingDB.keys())[0]]
         
         # Create components based on manufacturing input database
-        for key in self.manufParams.keys():
-                
-            keyname = str(key)
+        for productKey in self.manufacturingDB.keys():
             
-            try:
-                brandName = self.brandTypes[keyname]
-            except KeyError:
-                if 'assembly' in keyname:
-                    brandName = 'assembly'
+            manufParams = self.manufacturingDB[productKey]
+            
+            for key in manufParams.keys():
+                    
+                keyname = str(key)
+                
+                try:
+                    brandName = self.brandTypes[keyname]
+                except KeyError:
+                    if 'assembly' in keyname:
+                        brandName = 'assembly'
+                    else:
+                        brandName = 'preform'
+                
+                newPart = self.SetComponents(manufParams, productKey, self.activityLevels, keyname, brandName, manufParams[keyname]['# items'])
+                
+                # Add the new components to either assembly or part lists
+                if manufParams[key]['assembly'] != 'N/A':
+                    
+                    self.assemblies.append(newPart)
+                    
                 else:
-                    brandName = 'preform'
-            
-            newPart = self.SetComponents(self.manufParams, self.activityLevels, keyname, brandName, self.manufParams[keyname]['# items'])
-            
-            # Add the new components to either assembly or part lists
-            if self.manufParams[key]['assembly'] != 'N/A':
-                
-                self.assemblies.append(newPart)
-                
-            else:
-                
-                self.parts.append(newPart)
+                    
+                    self.parts.append(newPart)
         
         # Create the combined list of all components in the analysis
         self.partsList = self.parts + self.assemblies
@@ -653,10 +658,10 @@ class Manufacture:
         self.structure_mass = 0.0
         self.unit_cost = 0.0
         
-        self.analysis_report = ConsistencyCheck(self.manufParams, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars)
+        self.analysis_report = ConsistencyCheck(self.manufacturingDB, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars)
         
-        if self.consInputVars:
-            self.csvFileName()
+        # if self.consInputVars:
+        #     self.csvFileName()
         
         
     def csvFileName(self):
@@ -710,7 +715,7 @@ class Manufacture:
 
         """
         # Reset all components to their default state
-        reSetCheck = [self.ResetComponents(part, self.manufParams, self.activityLevels) for part in self.partsList]
+        reSetCheck = [self.ResetComponents(part, self.manufacturingDB, self.activityLevels) for part in self.partsList]
         
         # Reset all manufacturing results to zero or empty
         self.productLines = {}
@@ -724,7 +729,7 @@ class Manufacture:
         self.unit_cost = 0.0
         
     
-    def SetComponents(self, manufParams, activityLevels, partName, brand, numParts):
+    def SetComponents(self, manufParams, productKey, activityLevels, partName, brand, numParts):
         """
         Method for creating a list of component objects
 
@@ -747,9 +752,10 @@ class Manufacture:
             DESCRIPTION.
 
         """
-        return [component(partName+str(i+1), partName, matDetails=self.MaterialDictionary(manufParams, partName), partBrand=brand, activityLevels=activityLevels) for i in range(numParts)]
+        return [component(partName+str(i+1), partName, productKey, matDetails=self.MaterialDictionary(manufParams, partName), partBrand=brand, activityLevels=activityLevels) for i in range(numParts)]
     
-    def ResetComponents(self, compList, manufParams, activityLevels):
+    
+    def ResetComponents(self, compList, manufacturingDB, activityLevels):
         """
         
 
@@ -770,6 +776,7 @@ class Manufacture:
         
         for comp in compList:
             scalingVars = copy.deepcopy(comp.scaleVars)
+            manufParams = manufacturingDB[comp.product]
             comp.__init__(comp.name, comp.type, self.MaterialDictionary(manufParams, comp.type), partBrand=self.brandTypes[comp.type], activityLevels=activityLevels)
             comp.scaleVars = copy.deepcopy(scalingVars)
         
@@ -831,22 +838,33 @@ class Manufacture:
         else:
             scalingInputs = ReadInputsXML(self.directory + self.scalingInputVariables)
             
-            if self.productName not in scalingInputs.keys():
-                print("\n*** Error: Scaling Variables database element name incorrect. Does not match productName ***\n")
+            # if self.productName not in scalingInputs.keys():
+            #     print("\n*** Error: Scaling Variables database element name incorrect. Does not match productName ***\n")
             
-            for compList in self.parts:
-                for comp in compList:
-                    try:
-                        comp.scaleVars = scalingInputs[self.productName][comp.name]
-                    except:
-                        pass
+            # for compList in self.parts:
+            #     for comp in compList:
+            #         try:
+            #             comp.scaleVars = scalingInputs[self.productName][comp.name]
+            #         except:
+            #             pass
             
-            for assembly in self.assemblies:
-                for assemble in assembly:
-                    try:
-                        assemble.scaleVars = scalingInputs['assembly'][self.productName]
-                    except:
-                        pass
+            # for assembly in self.assemblies:
+            #     for assemble in assembly:
+            #         try:
+            #             assemble.scaleVars = scalingInputs['assembly'][self.productName]
+            #         except:
+            #             pass
+            
+            for prod in self.manufacturingDB.keys():
+                
+                for compList in self.partsList:
+                    
+                    for comp in compList:
+                        
+                        try:
+                            comp.scaleVars = scalingInputs[prod][comp.name]
+                        except:
+                            pass
     
     
     def DepreciationCost(self, equipName):
@@ -949,8 +967,8 @@ class Manufacture:
         for compList in self.partsList:
             
             for comp in compList:
-                
-                comp.ProductionDefinition(self.manufParams, self.productionMethods)
+                manufParams = self.manufacturingDB[comp.product]
+                comp.ProductionDefinition(manufParams, self.productionMethods)
                 
                 self.PartAnalysis(comp, self.materialVars, self.productionVars, runEquip=False)
         
