@@ -597,7 +597,14 @@ class Manufacture:
         productionMethods = self.directory + self.dirInputDatabases + "productionMethodsDatabase.xml"
         materialVariables = self.directory + self.dirInputDatabases + "materialsDatabase.xml"
         equipmentVariables = self.directory + self.dirInputDatabases + "equipmentVariablesDatabase.xml"
-        self.scalingInputVariables = self.dirInputDatabases + scaleFile
+        
+        # Check if the filename for the scaling variables has been entered
+        if type(scaleFile) is str:
+            self.scalingInputVariables = self.dirInputDatabases + scaleFile
+            
+        # Or a dictionary of the scaling variable data
+        elif type(scaleFile) is dict:
+            self.scalingInputVariables = scaleFile
         
         # Import the data
         self.manufacturingDB, self.productionVars, self.productionMethods, self.materialVars, self.equipmentVars, self.consInputVars = ReadInputs(manufacturingInputVars, productionVariables, productionMethods, materialVariables, equipmentVariables, consVariables)
@@ -662,8 +669,8 @@ class Manufacture:
         
         # if self.consInputVars:
         #     self.csvFileName()
-        
-        
+    
+    
     def csvFileName(self):
         """
         Add the material names to the part thickness csv file names (deprecated)
@@ -836,25 +843,14 @@ class Manufacture:
             
         # Otherwise read in predefined values from an input database
         else:
-            scalingInputs = ReadInputsXML(self.directory + self.scalingInputVariables)
+            # Read from an input database unless the data is already entered as a dict
+            if type(self.scalingInputVariables) is str:
+                scalingInputs = ReadInputsXML(self.directory + self.scalingInputVariables)
+                print(scalingInputs)
+            elif type(self.scalingInputVariables) is dict:
+                scalingInputs = self.scalingInputVariables
             
-            # if self.productName not in scalingInputs.keys():
-            #     print("\n*** Error: Scaling Variables database element name incorrect. Does not match productName ***\n")
-            
-            # for compList in self.parts:
-            #     for comp in compList:
-            #         try:
-            #             comp.scaleVars = scalingInputs[self.productName][comp.name]
-            #         except:
-            #             pass
-            
-            # for assembly in self.assemblies:
-            #     for assemble in assembly:
-            #         try:
-            #             assemble.scaleVars = scalingInputs['assembly'][self.productName]
-            #         except:
-            #             pass
-            
+            # Apply the scaling variables to each part
             for prod in self.manufacturingDB.keys():
                 
                 for compList in self.partsList:
@@ -1194,7 +1190,7 @@ class Manufacture:
             resinType = 'resin'
             resinName = comp.matDetails[resinType]
             resinDatabase = materialVars[resinType][resinName]
-            
+        
         materialName = comp.matDetails[matType]
         matDatabase = materialVars[matType][materialName]
         
