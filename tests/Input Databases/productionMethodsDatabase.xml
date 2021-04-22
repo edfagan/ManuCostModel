@@ -1,0 +1,462 @@
+<parameters concept="wing">
+	<element name="VI">
+		 <parameter name="step 01">
+            <property name="name" type="char">Fabric cutting</property>
+            <property name="description" type="char">Cutting the fabric to shape</property>
+			<property name="labourScaling" type="vars">Ply Length, fabricCutRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Ply cutter</property>
+			<property name="materials" type="char">fabric</property>
+			<property name="materialScaling" type="vars">Ply Surface Area, areal weight</property>
+			<property name="scrapRate" type="double">0.25</property>
+			<property name="scrapVar" type="char">fabric</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 02">
+            <property name="name" type="char">Core cutting</property>
+            <property name="description" type="char">Cutting the core material to shape</property>
+			<property name="labourScaling" type="vars">Core Ply Length, coreCutRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">core</property>
+			<property name="materialScaling" type="vars">Core Ply Surface Area, areal weight</property>
+			<property name="scrapRate" type="double">0.25</property>
+			<property name="scrapVar" type="char">core</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 03">
+            <property name="name" type="char">Mould preparation</property>
+            <property name="description" type="char">Preparing the surface of the mould</property>
+			<property name="labourScaling" type="vars">Surface Area, mouldPrep</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Lifting equipment,mould scenario 1</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">Mould release</property>
+		 </parameter>
+		 <parameter name="step 04">
+            <property name="name" type="char">Gel coat application</property>
+            <property name="description" type="char">Applying the surface gel coat layer to the mould surface</property>
+			<property name="labourScaling" type="vars">Surface Area, gelCoatRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Gel coat equipment</property>
+			<property name="materials" type="char">coating</property>
+			<property name="materialScaling" type="vars">Surface Area, density, thickness (cured)</property>
+			<property name="scrapRate" type="double">0.05</property>
+			<property name="scrapVar" type="char">coating</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 05">
+            <property name="name" type="char">Fabric layup</property>
+            <property name="description" type="char">Transporting and laying up the fabric</property>
+			<property name="labourScaling" type="vars">Ply Surface Area, fabricLayup</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 06">
+            <property name="name" type="char">Core layup</property>
+            <property name="description" type="char">Laying up the core</property>
+			<property name="labourScaling" type="vars">Core Ply Surface Area, coreLayup</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 07">
+            <property name="name" type="char">Spar installation</property>
+            <property name="description" type="char">Installing the spar preform in the mould</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">1.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">preform</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 08">
+            <property name="name" type="char">Consumables layup</property>
+            <property name="description" type="char">Setting up the consumables for infusion</property>
+			<property name="labourScaling" type="vars">Surface Area, consLayup</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">Vacuum film,Peel ply,Flow media,Release film,Sealant tape,VAP membrane,Resin tube</property>
+		 </parameter>
+		 <parameter name="step 09">
+            <property name="name" type="char">Vacuum application</property>
+            <property name="description" type="char">Drawing vacuum on the part</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">0.5</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Vacuum unit</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 10">
+            <property name="name" type="char">Infusion</property>
+            <property name="description" type="char">Injecting resin into the dry preform</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">2.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">resin</property>
+			<property name="materialScaling" type="vars">Ply Surface Area, areal weight</property>
+			<property name="scrapRate" type="double">0.076</property>
+			<property name="scrapVar" type="char">resin</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 11">
+            <property name="name" type="char">Cure</property>
+            <property name="description" type="char">Curing the infused preform</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="char">material definition</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Oven</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 12">
+            <property name="name" type="char">Remove consumables</property>
+            <property name="description" type="char">Removing consumables from the part after curing</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">1.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 13">
+            <property name="name" type="char">Demould</property>
+            <property name="description" type="char">Demoulding the part</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">1.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">cure</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 14">
+            <property name="name" type="char">Surface inspection</property>
+            <property name="description" type="char">NDT inspection of the part</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">5.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">NDT equipment</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+	</element>
+	<element name="Glued_Assembly">
+		 <parameter name="step 01">
+            <property name="name" type="char">Web bond prep</property>
+            <property name="description" type="char">Trimming and preparing the bond lines for the web preforms</property>
+			<property name="labourScaling" type="vars">webs_Bondline, bondPrep</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Trimming equipment</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 02">
+            <property name="name" type="char">Shell bond prep</property>
+            <property name="description" type="char">Trimming and preparing the bond lines for the shells</property>
+			<property name="labourScaling" type="vars">shells_Bondline, bondPrep</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 03">
+            <property name="name" type="char">Web bond glue</property>
+            <property name="description" type="char">Gluing the bond lines for the webs</property>
+			<property name="labourScaling" type="vars">webs_Bondline, glueRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Gluing equipment</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 04">
+            <property name="name" type="char">Shell bond glue</property>
+            <property name="description" type="char">Gluing the bond line for the shells (half of what was trimmed)</property>
+			<property name="labourScaling" type="vars">shell_Bondline, glueRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 05">
+            <property name="name" type="char">Shells assembly</property>
+            <property name="description" type="char">Shells assembly</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">4.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Lifting equipment,Assembly jigs</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 06">
+            <property name="name" type="char">Webs assembly</property>
+            <property name="description" type="char">Assembly of webs in the wing</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">4.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 07">
+            <property name="name" type="char">Web bondline cure</property>
+            <property name="description" type="char">Cure time for glue bonds</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="char">material definition</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">adhesive</property>
+			<property name="materialScaling" type="vars">webs_Bondline, lineal weight</property>
+			<property name="scrapRate" type="double">0.05</property>
+			<property name="scrapVar" type="char">adhesive</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 08">
+            <property name="name" type="char">Shells bondline cure</property>
+            <property name="description" type="char">Cure time for glue bonds</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="char">material definition</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">adhesive</property>
+			<property name="materialScaling" type="vars">shell_Bondline, lineal weight</property>
+			<property name="scrapRate" type="double">0.05</property>
+			<property name="scrapVar" type="char">adhesive</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 09">
+            <property name="name" type="char">Demould</property>
+            <property name="description" type="char">Demoulding the assembled wing</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">2.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 10">
+            <property name="name" type="char">Trim</property>
+            <property name="description" type="char">Trimming flash after demoulding wing</property>
+			<property name="labourScaling" type="vars">shell_Bondline, bondTrimRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 11">
+            <property name="name" type="char">Post-cure</property>
+            <property name="description" type="char">Post-cure cycle</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">1.0</property>
+			<property name="activity" type="char">assembly</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Oven</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 12">
+            <property name="name" type="char">Surface inspection</property>
+            <property name="description" type="char">Inspection of the structure manually</property>
+			<property name="labourScaling" type="vars">Surface Area, visualInspec</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 13">
+            <property name="name" type="char">Surface preparation</property>
+            <property name="description" type="char">Preparation of the surface for inspection and painting</property>
+			<property name="labourScaling" type="vars">Surface Area, surfPrepRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Surface preparation equipment</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 14">
+            <property name="name" type="char">Paint</property>
+            <property name="description" type="char">Painting the wing outer surface</property>
+			<property name="labourScaling" type="vars">Surface Area, paintRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Painting equipment</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">Paint</property>
+		 </parameter>
+		 <parameter name="step 15">
+            <property name="name" type="char">Visual inspection</property>
+            <property name="description" type="char">Quality inspection of the wing surface</property>
+			<property name="labourScaling" type="vars">Surface Area, visualInspec</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 16">
+            <property name="name" type="char">Finishing</property>
+            <property name="description" type="char">Finishing and cleaning the surface</property>
+			<property name="labourScaling" type="vars">Surface Area, finishRate</property>
+			<property name="labourHours" type="double">0.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">None</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 17">
+            <property name="name" type="char">Weight and balance</property>
+            <property name="description" type="char">Weighing and balancing the wing</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">6.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Balancing equipment and scales</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+		 <parameter name="step 18">
+            <property name="name" type="char">Transport and shipping preparation</property>
+            <property name="description" type="char">Packaging and transport for integration into airframe</property>
+			<property name="labourScaling" type="char">None</property>
+			<property name="labourHours" type="double">6.0</property>
+			<property name="staff" type="double">2.0</property>
+			<property name="activity" type="char">finishing</property>
+			<property name="equipmentRates" type="char">None</property>
+			<property name="capitalEquipment" type="list">Shipping container</property>
+			<property name="materials" type="char">None</property>
+			<property name="scrapRate" type="char">None</property>
+			<property name="scrapVar" type="char">None</property>
+			<property name="consumables" type="list">None</property>
+		 </parameter>
+	</element>
+</parameters>
+
+

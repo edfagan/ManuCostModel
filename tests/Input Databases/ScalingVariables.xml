@@ -1,0 +1,53 @@
+<parameters concept="Concept0">
+    <element name="wing">
+         <parameter name="spar1">
+            <property name="Surface Area" type="double">10.0</property>
+            <property name="Ply Surface Area" type="double">500.0</property>
+            <property name="Ply Length" type="double">3000.0</property>
+            <property name="Part Length" type="double">20.0</property>
+         </parameter>
+         <parameter name="spar2">
+            <property name="Surface Area" type="double">10.0</property>
+            <property name="Ply Surface Area" type="double">500.0</property>
+            <property name="Ply Length" type="double">3000.0</property>
+            <property name="Part Length" type="double">20.0</property>
+         </parameter>
+         <parameter name="web1">
+            <property name="Surface Area" type="double">5.0</property>
+            <property name="Ply Surface Area" type="double">200.0</property>
+            <property name="Ply Length" type="double">400.0</property>
+            <property name="Bondline" type="double">100.0</property>
+            <property name="Part Length" type="double">20.0</property>
+            <property name="Core Surface Area" type="double">50.0</property>
+            <property name="Core Ply Length" type="double">300.0</property>
+            <property name="Core Ply Surface Area" type="double">300.0</property>
+         </parameter>
+         <parameter name="skin1">
+            <property name="Surface Area" type="double">40.0</property>
+            <property name="Ply Surface Area" type="double">300.0</property>
+            <property name="Ply Length" type="double">300.0</property>
+            <property name="Bondline" type="double">100.0</property>
+            <property name="Part Length" type="double">20.0</property>
+            <property name="Core Surface Area" type="double">300.0</property>
+            <property name="Core Ply Length" type="double">300.0</property>
+            <property name="Core Ply Surface Area" type="double">600.0</property>
+         </parameter>
+         <parameter name="skin2">
+            <property name="Surface Area" type="double">40.0</property>
+            <property name="Ply Surface Area" type="double">300.0</property>
+            <property name="Ply Length" type="double">300.0</property>
+            <property name="Bondline" type="double">100.0</property>
+            <property name="Part Length" type="double">20.0</property>
+            <property name="Core Surface Area" type="double">300.0</property>
+            <property name="Core Ply Length" type="double">300.0</property>
+            <property name="Core Ply Surface Area" type="double">600.0</property>
+         </parameter>
+		 <parameter name="wing1">
+            <property name="Surface Area" type="double">100.0</property>
+            <property name="Webs Bondline" type="double">50.0</property>
+            <property name="Shells Bondline" type="double">40.0</property>
+            <property name="Shell Bondline" type="double">20.0</property>
+            <property name="Web Nums" type="double">1.0</property>
+         </parameter>
+    </element>
+</parameters>

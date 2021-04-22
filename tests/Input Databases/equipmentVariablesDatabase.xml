@@ -1,0 +1,250 @@
+<parameters concept="wing">
+	<element name="tooling_and_moulds">
+		 <parameter name="mould scenario 1">
+            <property name="description">Low cost vacuum infusion capable mould</property>
+			<property name="scaling variables" type="char">Surface Area</property>
+			<property name="scaling values" type="char">2029.9,-33.663</property>
+			<property name="purchase cost" values="min, max" type="double">N/A</property>
+			<property name="lifetime" units="# parts produced" type="double">400.0</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">N/A</property>
+			<property name="salvage value" units="€" type="char">N/A</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">N/A</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="mound frame" units="% purchase cost" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+			<property name="notes" type="char">Input data processed ...</property>
+		 </parameter>
+	</element>
+	<element name="capital_equipment">
+		 <parameter name="Ply cutter">
+            <property name="description">Automated ply cutting machine</property>
+			<property name="purchase cost" values="min, max" type="double">26700.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Vacuum unit">
+            <property name="description">Vacuum pump, plumbing and metering/mixing equiment</property>
+			<property name="purchase cost" values="min, max" type="double">22400.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Gel coat equipment">
+            <property name="description">Gel coat application equipment</property>
+			<property name="purchase cost" values="min, max" type="double">44800.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Lifting equipment">
+            <property name="description">Gantry crane, chains, straps, lifting eyes and other required equipment</property>
+			<property name="purchase cost" values="min, max" type="double">890000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Assembly jigs">
+            <property name="description">Bespoke jig for supporting parts during the assembly process</property>
+			<property name="purchase cost" values="min, max" type="double">10000.0</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Trimming equipment">
+            <property name="description">Equipment for trimming edges of composite parts</property>
+			<property name="purchase cost" values="min, max" type="double">45000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Finishing equipment">
+            <property name="description">Equipment for sanding, cleaning and finishing the surface of composite parts</property>
+			<property name="purchase cost" values="min, max" type="double">44500.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Surface preparation equipment">
+            <property name="description">Equipment for sanding, cleaning and preparing the surface of a composite part for adhesives</property>
+			<property name="purchase cost" values="min, max" type="double">66750.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Gluing equipment">
+            <property name="description">Equipment for application of adhesives</property>
+			<property name="purchase cost" values="min, max" type="double">67200.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">10.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Oven">
+            <property name="description">Standard thermal convection oven</property>
+			<property name="purchase cost" values="min, max" type="double">1557500.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Painting equipment">
+            <property name="description">Equipment for painting the surface of finished parts</property>
+			<property name="purchase cost" values="min, max" type="double">3115000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="NDT equipment">
+            <property name="description">A-Scan or C-Scan ultrasonic NDT testing equipment</property>
+			<property name="purchase cost" values="min, max" type="double">22250.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Balancing equipment and scales">
+            <property name="description">Equipment for weighing and testing the balance of the finished part</property>
+			<property name="purchase cost" values="min, max" type="double">178000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">20.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Shipping container">
+            <property name="description">Standard 40 ft shipping container</property>
+			<property name="purchase cost" values="min, max" type="double">22250.00</property>
+			<property name="lifetime" units="# parts produced" type="double">N/A</property>
+			<property name="floorspace" units="m" type="char">N/A</property>
+			<property name="machine length" units="m" type="char">N/A</property>
+			<property name="machine width" units="m" type="char">N/A</property>
+			<property name="occupancy factor" units="%" type="char">N/A</property>
+			<property name="power usage" units="kW" type="char">N/A</property>
+			<property name="useful life" units="years" type="char">5</property>
+			<property name="salvage value" units="€" type="char">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="char">N/A</property>
+			<property name="installation cost" units="% purchase cost" type="char">0.0</property>
+			<property name="maintenance factor" units="-" type="char">N/A</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+	</element>
+</parameters>

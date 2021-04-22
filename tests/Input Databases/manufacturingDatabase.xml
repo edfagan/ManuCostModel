@@ -1,0 +1,58 @@
+<parameters concept="Concept0">
+    <element name="wing">
+         <parameter name="spar">
+            <property name="fabric">Saertex Zoltek PX35 Fabric</property>
+            <property name="resin">Araldite LY1564</property>
+            <property name="hardener">Araldite XP3416</property>
+            <property name="prepreg">N/A</property>
+            <property name="core">N/A</property>
+            <property name="adhesive">N/A</property>
+            <property name="coating">N/A</property>
+            <property name="# items" type="int">2.0</property>
+            <property name="preforming">VI</property>
+            <property name="preforming_steps_ignore" type="vars">step 02, step 04, step 06, step 07</property>
+            <property name="curing">N/A</property>
+            <property name="assembly">N/A</property>
+         </parameter>
+         <parameter name="web">
+			<property name="fabric">Optimat MD3 BIAX Fabric</property>
+            <property name="resin">Araldite LY1564</property>
+            <property name="hardener">Araldite XP3416</property>
+            <property name="prepreg">N/A</property>
+            <property name="core">Rohacell 51 RIST</property>
+            <property name="adhesive">DP460</property>
+            <property name="coating">N/A</property>
+            <property name="# items" type="int">1.0</property>
+            <property name="preforming">VI</property>
+            <property name="preforming_steps_ignore" type="vars">step 04, step 07</property>
+            <property name="curing">N/A</property>
+            <property name="assembly">N/A</property>
+         </parameter>
+		 <parameter name="skin">
+			<property name="fabric">Optimat MD3 BIAX Fabric</property>
+            <property name="resin">Araldite LY1564</property>
+            <property name="hardener">Araldite XP3416</property>
+            <property name="prepreg">N/A</property>
+            <property name="core">Rohacell 51 RIST</property>
+            <property name="adhesive">DP460</property>
+            <property name="coating">gel coat</property>
+            <property name="# items" type="int">2.0</property>
+            <property name="preforming">VI</property>
+            <property name="curing">N/A</property>
+            <property name="assembly">N/A</property>
+         </parameter>
+		 <parameter name="wing">
+			<property name="fabric">N/A</property>
+            <property name="resin">N/A</property>
+            <property name="hardener">N/A</property>
+            <property name="prepreg">N/A</property>
+            <property name="core">N/A</property>
+            <property name="adhesive">DP460</property>
+            <property name="coating">N/A</property>
+            <property name="# items" type="int">1.0</property>
+            <property name="preforming">N/A</property>
+            <property name="curing">N/A</property>
+            <property name="assembly">Glued_Assembly</property>
+         </parameter>
+    </element>
+</parameters> 
