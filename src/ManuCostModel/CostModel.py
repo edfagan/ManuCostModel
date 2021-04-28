@@ -846,7 +846,7 @@ class Manufacture:
             # Read from an input database unless the data is already entered as a dict
             if type(self.scalingInputVariables) is str:
                 scalingInputs = ReadInputsXML(self.directory + self.scalingInputVariables)
-                print(scalingInputs)
+                
             elif type(self.scalingInputVariables) is dict:
                 scalingInputs = self.scalingInputVariables
             
@@ -1380,7 +1380,7 @@ class Manufacture:
             labScale = prodStep.labourScaling[1]
             
             productionType = comp.productionNames[stepNum]
-            
+            # print(productionType, labScale, productionVars[productionType], '\n', productionVars)
             rateCoef, rateExp = productionVars[productionType][labScale]['value']
             
             staffNum = prodStep.staff
@@ -1450,6 +1450,8 @@ class Manufacture:
         comp.labour.processHours[stepNum] = processHours
         comp.labour.labourCosts[stepNum] = cost
         
+        return cost, labourHours, processHours
+        
     
     def LabourActivity(self, comp):
         """
@@ -1470,12 +1472,6 @@ class Manufacture:
             activityName = stepName.activity
             comp.labour.activityCosts[activityName] += comp.labour.labourCosts[i]   
             comp.labour.activityHours[activityName] += comp.labour.labourHours[i] 
-            
-                
-#        if('ATL' in labourVars[1] or 'AFP' in labourVars[1]):
-#            productRate = self.productionVars[productionMethod][labourVars[1]][0] * (self.scalingVars[compType][compName][labourVars[0]])**(self.productionVars[productionMethod][labourVars[1]][1])
-#            processHours = productRate * (compDict['Materials']['Mass']['prepreg'] + compDict['Materials']['Mass Scrap']['prepreg'])
-#            labourHours = processHours * staffNum
         
         
     def CommonEquipment(self, partsList):
@@ -1614,7 +1610,7 @@ class Manufacture:
         for equipVal in equipList:
             
             # Check for a mould in the list
-            if("mould" in equipVal):
+            if("mould" in equipVal.lower()):
                 
                 # Determine the cost of the mould per part
                 partMouldCost = self.MouldsCost(comp, equipVal)
@@ -1751,6 +1747,7 @@ class Manufacture:
                 self.breakdown_material_cost_scrap[matVal] = 0.0
         
         for val in flatList:
+            # Material costs
             for mat in val.materials.matCost.keys():
                 matName = val.matDetails[mat]
                 # Structure mass and cost values
@@ -1761,18 +1758,19 @@ class Manufacture:
                 self.breakdown_material_mass_scrap[matName] += val.materials.massScrap[mat]
                 self.breakdown_material_cost_scrap[matName] += val.materials.matCostScrap[mat]
             
-            
+            # Consumables costs
             for mat in val.consumables.matCost.keys():
                 # Consumables mass and cost values
                 self.breakdown_consumables_mass[mat] += val.consumables.mass[mat] + val.consumables.massScrap[mat]
                 self.breakdown_consumables_cost[mat] += val.consumables.matCost[mat] + val.consumables.matCostScrap[mat]
         
+            # Labour costs
             for act in self.activityLevels:
                 # Labour hours and cost values
                 self.breakdown_labour_cost[act] += val.labour.activityCosts[act]
                 self.breakdown_labour_hours[act] += val.labour.activityHours[act]
             
-            # Equipment cost values
+            # Equipment costs
             self.breakdown_equipment_cost[val.name] = val.equipment.cost
         
         # Equipment cost values
@@ -1844,4 +1842,6 @@ class Manufacture:
         self.structure_mass = sum([val.materials.TotalMass(structureMass=True) for val in flatList])
         
         self.unit_cost = self.costs_manufacturing / self.structure_mass
+        
+        return self.costs_manufacturing
         
