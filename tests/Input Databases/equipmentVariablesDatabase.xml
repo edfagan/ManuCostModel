@@ -1,0 +1,387 @@
+<parameters concept="Concept0">
+	<element name="tooling_and_moulds">
+		 <parameter name="Mould 1">
+			<property name="description">Mid-level cost autoclave capable</property>
+			<property name="scaling variables" type="char">Surface Area</property>
+			<property name="scaling values" type="list">13115.50,-217.49</property>
+			<property name="purchase cost" values="min, max" type="double">0.0</property>
+			<property name="lifetime" units="# parts produced" type="double">400.0</property>
+			<property name="floorspace" units="m" type="char">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">15.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">3</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">0.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="mound frame" units="% purchase cost" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+	</element>
+	<element name="capital_equipment">
+		<parameter name="Freezer">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">112000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">calculation</property>
+			<property name="machine length" units="m" type="double">20.0</property>
+			<property name="machine width" units="m" type="double">20.0</property>
+			<property name="occupancy factor" units="%" type="double">1.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Ply cutter">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">26700.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">calculation</property>
+			<property name="machine length" units="m" type="double">5.0</property>
+			<property name="machine width" units="m" type="double">10.0</property>
+			<property name="occupancy factor" units="%" type="double">5.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Vacuum unit">
+			<property name="description">Vacuum pump, plumbing and metering/mixing equiment</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">22400.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Gel coat equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">44800.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Lifting equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">890000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">145.</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Assembly jigs">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">10000.0</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">50.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Trimming equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">45000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Finishing equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">44500.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Surface preparation equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">66750.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Gluing equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">67200.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">N/A</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">0.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">10.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Oven">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">1557500.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">15.0</property>
+			<property name="max power usage" units="kW" type="double">145.0</property>
+			<property name="average power usage" units="kW" type="double">75.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Autoclave">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">6500000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">15.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Painting equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">3115000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="NDT equipment">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">22250.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="ATL machine">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">6000000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="AFP machine">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">6000000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="HDF machine">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">2000000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">___</property>
+			<property name="average power usage" units="kW" type="double">___</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Balancing equipment and scales">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">178000.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">Surface Area</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">20.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+		 <parameter name="Shipping container">
+			<property name="description">___</property>
+			<property name="purchase cost scaling variables" type="vars">scalingVariable, coefficient, exponent</property>
+			<property name="purchase cost scaling values" type="vars">___, ___, ___</property>
+			<property name="purchase cost" values="min, max" type="double">22250.00</property>
+			<property name="lifetime" units="# parts produced" type="double">inf</property>
+			<property name="floorspace" units="m" type="double">wingLen</property>
+			<property name="machine length" units="m" type="double">0.0</property>
+			<property name="machine width" units="m" type="double">0.0</property>
+			<property name="occupancy factor" units="%" type="double">10.0</property>
+			<property name="max power usage" units="kW" type="double">0.0</property>
+			<property name="average power usage" units="kW" type="double">0.0</property>
+			<property name="useful life" units="years" type="double">5</property>
+			<property name="salvage value" units="€" type="double">0.0</property>
+			<property name="auxiliary equipment cost" units="% purchase cost" type="double">0.0</property>
+			<property name="installation cost" units="% purchase cost" type="double">0.0</property>
+			<property name="maintenance factor" units="-" type="double">0.0</property>
+			<property name="reference" type="char">___</property>
+		 </parameter>
+	</element>
+</parameters>
