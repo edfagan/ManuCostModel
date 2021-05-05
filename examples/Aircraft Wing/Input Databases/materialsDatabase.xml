@@ -50,8 +50,8 @@
 			<property name="hardener name" type="char">Araldite XP3416</property>
 			<property name="product code" type="char">Araldite LY1564</property>
 			<property name="density" type="double" units="kg/m^3">1144.0</property>
-			<property name="resin-hardener ratio" type="char">2.333</property>
-			<property name="cost" type="char" units="€/kg">3.35</property>
+			<property name="resin-hardener ratio" type="double">2.333</property>
+			<property name="cost" type="double" units="€/kg">3.35</property>
 			<property name="cure cycle" type="char">LY1564_cureCycle.csv</property>
 			<property name="reference" type="char">http://info.lindberg-lund.no/produktblad/Norge/4-6%20TD/LY1564_XB3403_TDS.pdf</property>
 		 </parameter>
@@ -59,11 +59,11 @@
 			<property name="material" type="char">epoxy</property>
 			<property name="description" type="char">Thermoset epoxy resin</property>
 			<property name="manufacturer" type="char">ACG</property>
-			<property name="hardener name" type="char">None</property>
-			<property name="product code" type="char">None</property>
+			<property name="hardener name" type="char">N/A</property>
+			<property name="product code" type="char">N/A</property>
 			<property name="density" type="double" units="kg/m^3">1180.0</property>
-			<property name="resin-hardener ratio" type="char">None</property>
-			<property name="cost" type="char" units="€/kg">42.00</property>
+			<property name="resin-hardener ratio" type="double">N/A</property>
+			<property name="cost" type="double" units="€/kg">42.00</property>
 			<property name="cure cycle" type="char" alt="oven">MTM44-1 Oven_cureCycle.csv</property>
 			<property name="cure cycle" type="char" alt="autoclave">MTM44-1 Autoclave_cureCycle.csv</property>
 			<property name="post cure cycle" type="char">MTM44-1 Postcure_cureCycle.csv</property>
@@ -74,11 +74,11 @@
 			<property name="material" type="char">epoxy</property>
 			<property name="description" type="char">Thermoset epoxy resin</property>
 			<property name="manufacturer" type="char">Gurit</property>
-			<property name="hardener name" type="char">None</property>
-			<property name="product code" type="char">None</property>
+			<property name="hardener name" type="char">N/A</property>
+			<property name="product code" type="char">N/A</property>
 			<property name="density" type="double" units="kg/m^3">___</property>
-			<property name="resin-hardener ratio" type="char">None</property>
-			<property name="cost" type="char" units="€/kg">___</property>
+			<property name="resin-hardener ratio" type="double">N/A</property>
+			<property name="cost" type="double" units="€/kg">___</property>
 			<property name="cure cycle" type="char">Prime 20_cureCycle.csv</property>
 			<property name="post cure cycle" type="char">Prime 20 Postcure_cureCycle.csv</property>
 			<property name="reference" type="char">Optimat material database</property>
@@ -88,11 +88,11 @@
 			<property name="material" type="char">epoxy</property>
 			<property name="description" type="char">Thermoset epoxy resin</property>
 			<property name="manufacturer" type="char">Hexcel</property>
-			<property name="hardener name" type="char">None</property>
-			<property name="product code" type="char">None</property>
+			<property name="hardener name" type="char">N/A</property>
+			<property name="product code" type="char">N/A</property>
 			<property name="density" type="double" units="kg/m^3">1240.0</property>
-			<property name="resin-hardener ratio" type="char">None</property>
-			<property name="cost" type="char" units="€/kg">42.00</property>
+			<property name="resin-hardener ratio" type="double">N/A</property>
+			<property name="cost" type="double" units="€/kg">42.00</property>
 			<property name="cure cycle" type="char">M21_cureCycle.csv</property>
 			<property name="reference" type="char">https://research-information.bris.ac.uk/ws/portalfiles/portal/34506506/541610.pdf | https://hexcel.com/user_area/content_media/raw/HexPly_M21_global_DataSheet.pdf</property>
 			<property name="production methods" type="char">ATL,AFP</property>
@@ -106,8 +106,8 @@
 			<property name="resin name" type="char">Araldite LY1564</property>
 			<property name="product code" type="char">Araldite XP3416</property>
 			<property name="density" type="double" units="kg/m^3">959.0</property>
-			<property name="resin-hardener ratio" type="char">2.333</property>
-			<property name="cost" type="char" units="€/kg">3.35</property>
+			<property name="resin-hardener ratio" type="double">2.333</property>
+			<property name="cost" type="double" units="€/kg">3.35</property>
 			<property name="reference" type="char">Murray RE, Jenne S, Snowberg D, Berry D, Cousins D. Techno-economic analysis of a megawatt-scale thermoplastic resin wind turbine blade. Renew Energy 2019;131:111–9. https://doi.org/10.1016/J.RENENE.2018.07.032.</property>
 		 </parameter>
 	</element>
@@ -162,8 +162,8 @@
 			<property name="manufacturer" type="char">???</property>
 			<property name="product code" type="char">???</property>
 			<property name="thickness (cured)" type="double" units="mm">0.5</property>
-			<property name="density" type="char" units="kg/m^3">1130.0</property>
-			<property name="cost" type="char" units="€/kg">3.63</property>
+			<property name="density" type="double" units="kg/m^3">1130.0</property>
+			<property name="cost" type="double" units="€/kg">3.63</property>
 			<property name="reference" type="char">Murray paper?</property>
 		 </parameter>
 	</element>
@@ -173,7 +173,7 @@
 			<property name="description" type="char">Epoxy based two-part adhesive</property>
 			<property name="manufacturer" type="char">3M</property>
 			<property name="product code" type="char">3M ID 62369385307</property>
-			<property name="cost" type="char" units="€/kg">50.00</property>
+			<property name="cost" type="double" units="€/kg">50.00</property>
 			<property name="lineal weight" type="double" units="gsm">77.2</property>
 			<property name="cure cycle" type="char">DP460_cureCycle.csv</property>
 			<property name="reference" type="char">"See Input Data"</property>
@@ -258,7 +258,7 @@
 			<property name="areal weight" type="double" units="gsm">0.0</property>
 			<property name="scaling variable" type="char">Surface Area</property>
 			<property name="scrap_rate" type="double">0.2</property>
-			<property name="reference" type="char">None</property>
+			<property name="reference" type="char">N/A</property>
 		 </parameter>
 	</element>
 </parameters>
