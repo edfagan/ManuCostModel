@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>README.rst</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <section id="readme-rst">
+        <h1>README.rst</h1>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>The Manufacturing Cost Model (ManuCostModel) is a python package developed for technical cost modelling of the costs of manufacturing products made primarily from fibre-reinforced composite materials.</p>
+            <p>ManuCostModel was developed for a generic aircraft wing design, consisting of a structural I-beam spar supporting an aerodynamic skin. The design is also applicable to standard wind turbine blade construction.</p>
+            <p>
+                <img alt="cost breakdown for an aircraft wing" src="docs/screengrab.png" />
+            </p>
+        </section>
+        <section id="installation">
+            <h2>Installation</h2>
+            <p>Installation on Windows by cloning the repository:</p>
+            <pre># Install the package
+pip install ManuCostModel</pre>
+        </section>
+        <section id="required-libraries">
+            <h2>Required Libraries</h2>
+            <ul>
+                <li><a href="https://numpy.org/">numpy</a></li>
+                <li><a href="https://www.scipy.org/">scipy</a></li>
+                <li><a href="https://matplotlib.org/">matplotlib</a></li>
+                <li><a href="https://pandas.pydata.org/">pandas</a></li>
+                <li><a href="https://pypi.org/project/webcolors/">webcolors</a></li>
+            </ul>
+        </section>
+        <section id="example-usage">
+            <h2>Example Usage</h2>
+            <p>The following outlines an example analysis case using ManuCostModel:</p>
+            <pre># Import the library
+import ManuCostModel as mcm
+
+# Provide a path to the directory where the input files can be found
+directory = "...your_path_here"
+
+# Provide a name for the manufacturing database (if different from the default)
+inputFileName = "manufacturingDatabase"
+
+# Set up the manufacture class object (this can be considered the "factory")
+wingProduction = mcm.CostModel.Manufacture(directory, inputFile=inputFileName)
+
+# Analyse the production costs
+# scaling is True if the model determines its own geometric scaling variables
+wingProduction.productionRun(scaling=True)
+
+# Use the toolset to create a data object from the analysis results
+plotData = mcm.Tools.costCentres(wingProduction, totals=True, stacked=True)
+
+# Produce a pie chart of the main cost centres for the product
+mcm.DataVis.pieChart(plotData)</pre>
+        </section>
+        <section id="release-history">
+            <h2>Release History</h2>
+            <ul>
+                <li>0.0.1
+                    <ul>
+                        <li>Work in progress</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section id="contact-info-license">
+            <h2>Contact Info &amp; License</h2>
+            <p>Edward Fagan</p>
+            <p>Twitter: @edwardmfagan</p>
+            <p>Email: <a href="mailto:edward_mcm@fastmail.com">edward_mcm@fastmail.com</a></p>
+            <p>This package is distributed under the BSD 3-Clause license. Copyright is held by the National University of Ireland Galway 2020. See LICENSE.txt for more information.</p>
+        </section>
+    </section>
+</body>
+</html>

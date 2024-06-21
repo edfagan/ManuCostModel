@@ -1242,7 +1242,7 @@ class Manufacture:
                         scrapCost = scrapMass*unitCost
                         comp.materials.matCostScrap['hardener'] = scrapCost
                     
-                except ValueError:
+                except:
                     
                     mass = resinMixMass
                 

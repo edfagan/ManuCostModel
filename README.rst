@@ -7,12 +7,12 @@ Introduction
 ============
 
 The Manufacturing Cost Model (ManuCostModel) is a python package developed for
-technical cost modelling of the manufacturing costs for products made from 
+technical cost modelling of the costs of manufacturing products made primarily from 
 fibre-reinforced composite materials. 
 
 ManuCostModel was developed for a generic aircraft wing design, consisting 
 of a structural I-beam spar supporting an aerodynamic skin. The design is also 
-applicable to a standard wind turbine blade construction.
+applicable to standard wind turbine blade construction.
 
 |screengrab|
 
@@ -20,12 +20,24 @@ applicable to a standard wind turbine blade construction.
 Installation
 ============
 
-Installation on Windows: 
+Installation on Windows by cloning the repository::
 
-	
+	# Install the package
+	pip install ManuCostModel
 
+
+==================
+Required Libraries
+==================
+
+* `numpy <https://numpy.org/>`_
+* `scipy <https://www.scipy.org/>`_
+* `matplotlib <https://matplotlib.org/>`_
+* `pandas <https://pandas.pydata.org/>`_
+* `webcolors <https://pypi.org/project/webcolors/>`_
+   
 =============
-Usage Example
+Example Usage
 =============
 
 The following outlines an example analysis case using ManuCostModel::
@@ -53,11 +65,6 @@ The following outlines an example analysis case using ManuCostModel::
 	mcm.DataVis.pieChart(plotData)
 
 
-=================
-Development Setup
-=================
-
-
 ===============
 Release History
 ===============
@@ -65,15 +72,6 @@ Release History
 * 0.0.1
 
 	* Work in progress
-
-
-======================
-Citing
-======================
-
-When publishing work using the ManuCostModel, please cite the following:
-
-
 
 
 ======================
@@ -88,11 +86,6 @@ Email: edward_mcm@fastmail.com
 
 This package is distributed under the BSD 3-Clause license. Copyright is held by 
 the National University of Ireland Galway 2020. See LICENSE.txt for more information.
-
-============
-Contributing
-============
-
 
 
 
