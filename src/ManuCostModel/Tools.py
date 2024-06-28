@@ -54,26 +54,26 @@ def CostCentres(manuf, totals=False, stacked=False, legendOn=True):
                     ['Equipment Cost (€)'],
                     ['Labour Cost (€)']]
         
-        data = [[[val for val in manuf.materialCategoryCosts.values()]],
-                [[val for val in manuf.equipmentItemCosts.values()]],
-                [[val for val in manuf.labourCostBreakdown.values()]]]
+        data = [[[val for val in manuf.breakdown_material_categories.values()]],
+                [[val for val in manuf.breakdown_equipment_item_cost.values()]],
+                [[val for val in manuf.breakdown_labour_cost.values()]]]
         
-        dataLabels = [[[val for val in manuf.materialCategoryCosts.keys()]],
-                      [[val for val in manuf.equipmentItemCosts.keys()]],
-                      [[val for val in manuf.labourCostBreakdown.keys()]]]
+        dataLabels = [[[val for val in manuf.breakdown_material_categories.keys()]],
+                      [[val for val in manuf.breakdown_equipment_item_cost.keys()]],
+                      [[val for val in manuf.breakdown_labour_cost.keys()]]]
         
         colourSet = [[['red']],
                      [['green']],
                      [['blue']]]
         
         if legendOn is True:
-            legendDisplay = [[[1 for val in range(len(manuf.materialCategoryCosts.keys()))]],
-                             [[1 for val in range(len(manuf.materialCategoryCosts.keys()))]],
-                             [[1 for val in range(len(manuf.materialCategoryCosts.keys()))]]]
+            legendDisplay = [[[1 for val in range(len(manuf.breakdown_material_categories.keys()))]],
+                             [[1 for val in range(len(manuf.breakdown_material_categories.keys()))]],
+                             [[1 for val in range(len(manuf.breakdown_material_categories.keys()))]]]
         else:
-            legendDisplay = [[[0 for val in range(len(manuf.materialCategoryCosts.keys()))]],
-                             [[0 for val in range(len(manuf.equipmentItemCosts.keys()))]],
-                             [[0 for val in range(len(manuf.labourCostBreakdown.keys()))]]]
+            legendDisplay = [[[0 for val in range(len(manuf.breakdown_material_categories.keys()))]],
+                             [[0 for val in range(len(manuf.breakdown_equipment_item_cost.keys()))]],
+                             [[0 for val in range(len(manuf.breakdown_labour_cost.keys()))]]]
         
     else:
         if stacked is False:
@@ -81,13 +81,13 @@ def CostCentres(manuf, totals=False, stacked=False, legendOn=True):
                         ['Equipment Cost (€)'],
                         ['Labour Cost (€)']]
             
-            data = [[[sum(manuf.materialCategoryCosts.values())]],
-                    [[sum(manuf.equipmentItemCosts.values())]],
-                    [[sum(manuf.labourCostBreakdown.values())]]]
+            data = [[[sum(manuf.breakdown_material_categories.values())]],
+                    [[sum(manuf.breakdown_equipment_item_cost.values())]],
+                    [[sum(manuf.breakdown_labour_cost.values())]]]
             
-            dataLabels = [[[manuf.prodName + " Materials"]],
-                          [[manuf.prodName + " Equipment"]],
-                          [[manuf.prodName + " Labour"]]]
+            dataLabels = [[[manuf.productName + " Materials"]],
+                          [[manuf.productName + " Equipment"]],
+                          [[manuf.productName + " Labour"]]]
             
             colourSet = [[['red']],
                          [['green']],
@@ -102,9 +102,9 @@ def CostCentres(manuf, totals=False, stacked=False, legendOn=True):
                                  [[0]],
                                  [[0]]]
         else:
-            plotInfo = [[manuf.prodName]]
+            plotInfo = [[manuf.productName]]
             
-            data = [[[sum(manuf.materialCategoryCosts.values()), sum(manuf.equipmentItemCosts.values()), sum(manuf.labourCostBreakdown.values())]]]
+            data = [[[sum(manuf.breakdown_material_categories.values()), sum(manuf.breakdown_equipment_item_cost.values()), sum(manuf.breakdown_labour_cost.values())]]]
             
             dataLabels = [[["Materials", "Equipment", "Labour"]]]
             
