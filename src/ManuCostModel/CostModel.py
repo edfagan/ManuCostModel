@@ -724,6 +724,18 @@ class Manufacture:
         # Reset all components to their default state
         reSetCheck = [self.ResetComponents(part, self.manufacturingDB, self.activityLevels) for part in self.partsList]
         
+        # for part in self.partsList:
+        #     print(part[0].name)
+        #     self.ResetComponents(part, self.manufacturingDB, self.activityLevels)
+            
+            # if(len(part) > 1):
+            #     # for part2 in part:
+            #     #     print('1', part2.name)
+            #     self.ResetComponents(part2, self.manufacturingDB, self.activityLevels)
+            # else:
+            #     print('2', part[0].name)
+            #     self.ResetComponents(part[0], self.manufacturingDB, self.activityLevels)
+        
         # Reset all manufacturing results to zero or empty
         self.productLines = {}
         self.assemblyLines = {}
@@ -963,6 +975,8 @@ class Manufacture:
         for compList in self.partsList:
             
             for comp in compList:
+                # print(comp.name, comp.product)
+                # print(self.manufacturingDB[comp.product])
                 manufParams = self.manufacturingDB[comp.product]
                 comp.ProductionDefinition(manufParams, self.productionMethods)
                 
