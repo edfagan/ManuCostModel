@@ -3,7 +3,7 @@
    <element name="wing">
       <parameter name="Cost">
          <property name="description">wing VI manufacturing cost</property>
-         <property name="value">190607.0</property>
+         <property name="value">89884.43</property>
          <property name="units">Euro</property>
          <property name="justification">Results of manufacturing analysis defined in manufacturingDatabase</property>
          <property name="target"/>
